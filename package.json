@@ -1,0 +1,22 @@
+{
+  "name": "screammachine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JRJR-HackReactor/ScreamMachine.git"
+  },
+  "author": "JRJR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JRJR-HackReactor/ScreamMachine/issues"
+  },
+  "homepage": "https://github.com/JRJR-HackReactor/ScreamMachine#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
