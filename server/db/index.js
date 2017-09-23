@@ -11,10 +11,6 @@ const pool = new Pool(config)
 
 module.exports = {
   query: function (text, params, callback) {
-    // console.log('db.query, text: ', text);
-    // console.log('db.query, params: ', params);
-
-
     return pool.query("select * from users")
       .then(function(result) {
         return result.rows;

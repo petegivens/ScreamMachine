@@ -10,14 +10,6 @@ app.use(logger('dev'));
 app.use(express.static('client'));
 app.use('/addons', express.static('client/models/p5/'));
 
-app.get('/login', function(req, res) {
-  res.send('Welcome to the login endpoint');
-});
-
-app.get('/profile', function(req, res) {
-  res.send('Welcome to the profile endpoint');
-});
-
 app.get('/db', db.loggerTest, function(req, res) {
   db.query()
     .then(function(result) {
@@ -25,6 +17,12 @@ app.get('/db', db.loggerTest, function(req, res) {
     });
 });
 
+app.get('/login', function(req, res) {
+  res.send('Welcome to the login endpoint');
+});
 
+app.get('/profile', function(req, res) {
+  res.send('Welcome to the profile endpoint');
+});
 
 module.exports = app;
