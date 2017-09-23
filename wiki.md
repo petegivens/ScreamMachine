@@ -1,0 +1,1 @@
+Welcome to the ScreamMachine wiki! To join this project, fork this repo to your own repo. Then git clone your fork. git add remote upstream . Once you make changes commit make a pull request on github.com in the repo. Once I approve it, it will be in the code base. Also once you start working do a git pull --rebase upstream master to get latest code.
