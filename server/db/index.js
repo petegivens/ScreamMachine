@@ -3,7 +3,7 @@ const { Pool } = require('pg')
 var config = {
   host: 'localhost',
   user: 'screamer',
-  password: '',
+  // password: '',
   database: 'scream'
 };
 

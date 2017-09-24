@@ -22,7 +22,10 @@ app.get('/db', db.loggerTest, function(req, res) {
   db.query()
     .then(function(result) {
       res.send(result);
-    });
+    })
+    .catch((err) => {
+      console.log('Query Error\n',err);
+    })
 });
 
 
