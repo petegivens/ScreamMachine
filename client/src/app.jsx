@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import graph from '../models/micGraph';
+import graph, {getMic} from '../models/micGraph';
 
 class App extends React.Component {
   constructor() {
     super();
-    console.log('mic level',graph.mic.getLevel())
   }
 
   render() {
@@ -18,3 +17,5 @@ class App extends React.Component {
 }
 
 export default App;
+
+// console.log('mic level', getMic())
