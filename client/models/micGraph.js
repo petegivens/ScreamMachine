@@ -1,6 +1,6 @@
+var mic; 
 
-var s = function(p) {
-  var mic; 
+var s = function(p) { 
   var fft;
 
   p.setup = function() {
@@ -35,7 +35,11 @@ var s = function(p) {
     }
     p.endShape();
   }
-}
+};
+
+export var getMic = function() {
+  return mic; 
+};
 
 export default new p5(s,'ScreamMeter');
-
+ 
