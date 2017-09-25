@@ -8,7 +8,6 @@ var s = function(p) {
     p.noStroke();
     p.fill(0,255,255);
     mic = new p5.AudioIn();
-    mic.start();
     fft = new p5.FFT();
     fft.setInput(mic);
   }
@@ -42,4 +41,4 @@ export var getMic = function() {
 };
 
 export default new p5(s,'ScreamMeter');
- 
+// ScreamMeter is the id that the graph is placed on  
