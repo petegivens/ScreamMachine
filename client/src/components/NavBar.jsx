@@ -9,11 +9,11 @@ var NavBar = (props) => (
       </Navbar.Brand>
     </Navbar.Header>
     <Nav>
-      <NavItem onClick={props.profile} href='#'> Your Profile</NavItem>
+      <NavItem href='#'> Your Profile</NavItem>
     </Nav>
     <Nav pullRight>
-      <NavItem onClick={props.login} href="#">Login</NavItem>
-      <NavItem onClick={props.logout} href="#"> Logout </NavItem>
+      <NavItem  href="#">Login</NavItem>
+      <NavItem  href="#"> Logout </NavItem>
     </Nav>
   </Navbar>
 )

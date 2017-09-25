@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import graph, {getMic} from '../models/micGraph';
 import Button from './components/Button.jsx'; 
 import NavBar from './components/NavBar.jsx';
-
+import {Row,Grid} from 'react-bootstrap'; 
 class App extends React.Component {
   constructor() {
     super();
@@ -62,15 +62,19 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-	<div> supBitches </div>
-	<NavBar login={this.login} logout={this.logout} profile={this.profile} />
-	<div className="gif"> 
+      <Grid>
+	<Row> supBitches </Row>
+	<Row>
+	  <NavBar login={this.login} logout={this.logout} profile={this.profile} />
+	</Row>	
+      <Row className="gif"> 
 	{ this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
-	</div>
-	<Button func={this.toggleClick} state={this.state.text}/>
-	<div id='ScreamMeter'> </div>
-    </div> );
+	</Row>
+	<Row>
+	  <Button func={this.toggleClick} state={this.state.text}/>
+	</Row>	
+      <Row id='ScreamMeter'> </Row>
+    </Grid> );
   }
 }
 
