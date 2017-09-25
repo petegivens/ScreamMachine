@@ -22,7 +22,17 @@ app.get('/getUsers', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
-  res.send('Welcome to the login endpoint');
+  db.isUser('noidea')
+    .then(function(result) {
+      if(result.length > 0) {
+        res.send(result);
+      } else {
+        res.send('User not found');
+      }
+    })
+    .catch(function(err) {
+      res.send('Error in isUser');
+    });
 });
 
 app.get('/profile', function(req, res) {

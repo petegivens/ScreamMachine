@@ -33,8 +33,14 @@ module.exports = {
   },
 
   isUser: function(username) {
-    let userList = this.getUsers();
-    console.log('myUserList')
+    return pool.query("SELECT username FROM users WHERE username = '" + username + "'")
+      .then(function(result) {
+        return result.rows;
+      })
+      .catch(function(err) {
+        return err;
+      });
+
   },
 
   signup: function(person) {
