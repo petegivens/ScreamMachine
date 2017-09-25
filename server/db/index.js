@@ -2,32 +2,39 @@ const { Pool } = require('pg');
 
 
 /******************** pick your config ***********************/
-// var config = {
-//   host: 'localhost',
-//   user: 'postgres',
-//   password: 'admin',
-//   database: 'scream'
-// };
-
+// Changed to toggle by object properties; toggle in row 21 new Pool(config[xxx])
 var config = {
-  host: 'localhost',
-  user: 'screamer',
-  //password: '',
-  database: 'scream'
+  aws: {
+    host: 'localhost',
+    user: 'screamer',
+    password: '',
+    database: 'scream'
+  },
+  jc_offline: {
+    host: 'localhost',
+    user: 'postgres',
+    password: 'admin',
+    database: 'scream'
+  }
 };
-  
-  
 
-
-
-const pool = new Pool(config);
+const pool = new Pool(config['jc_offline']);
 
 module.exports = {
   getUsers: function () {
     return pool.query("select * from users")
       .then(function(result) {
         return result.rows;
+      })
+      .catch(function(err) {
+        console.log('query fail');
+        return err;
       });
+  },
+
+  isUser: function(username) {
+    let userList = this.getUsers();
+    console.log('myUserList')
   },
 
   signup: function(person) {
