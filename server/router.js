@@ -77,6 +77,8 @@ app.get('/addUser', function(req, res) {
       } else {
         db.addUser(user)
           .then(function(result) {
+            res.cookie('username', user.username);
+            res.cookie('isLoggedIn', true);
             res.send('User added');
           })
           .catch(function (error) {
