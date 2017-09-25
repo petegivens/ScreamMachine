@@ -88,7 +88,7 @@ app.get('/addUser', function(req, res) {
     })
     .catch(function(error) {
       res.send('findUser catch: ' + error);
-    })
+    });
 });
 
 app.get('/addScream', function(req, res) {
@@ -98,7 +98,8 @@ app.get('/addScream', function(req, res) {
     volume: 1.375,
     frequency: 1.0,
     duration: 3.532
-  }
+  };
+
   db.addScream(screamData)
     .then(function(result) {
       console.log('addScream method success');
@@ -107,7 +108,7 @@ app.get('/addScream', function(req, res) {
     .catch(function(error) {
       console.log('addScream method failure');
       res.send('Failed to add scream');
-    })
+    });
 });
 
 app.get('/profile', function(req, res) {
