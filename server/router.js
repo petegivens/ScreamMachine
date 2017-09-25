@@ -9,8 +9,6 @@ var app = express();
 app.use(logger('dev'));
 
 app.use('/', express.static('client'));
-app.use('/addons', express.static('client/models/p5/'));
-
 
 app.get('/getUsers', function(req, res) {
 	db.getUsers()
