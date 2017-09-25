@@ -22,7 +22,12 @@ app.get('/getUsers', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
-  db.isUser('noidea')
+  body = {
+    username: 'robhunt',
+    password: 'password'
+  };
+
+  db.findUser(body)
     .then(function(result) {
       if(result.length > 0) {
         res.send(result);
@@ -31,7 +36,7 @@ app.get('/login', function(req, res) {
       }
     })
     .catch(function(err) {
-      res.send('Error in isUser');
+      res.send(err);
     });
 });
 

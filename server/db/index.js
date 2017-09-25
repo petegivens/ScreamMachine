@@ -32,15 +32,15 @@ module.exports = {
       });
   },
 
-  isUser: function(username) {
-    return pool.query("SELECT username FROM users WHERE username = '" + username + "'")
+  findUser: function(user) {
+    console.log('db.isuser, user: ', user.username);
+    return pool.query("SELECT username FROM users WHERE username = '" + user.username + "'")
       .then(function(result) {
         return result.rows;
       })
       .catch(function(err) {
         return err;
       });
-
   },
 
   signup: function(person) {
