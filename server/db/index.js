@@ -57,7 +57,7 @@ module.exports = {
     bcrypt.hash(user.password, saltRounds, function(err, hash) {
       user.password = hash;
 
-      rayedUser = [ user.username, user.password, user.first_name, user.last_name ];
+      let rayedUser = [ user.username, user.password, user.first_name, user.last_name ];
 
       const query = {
         text: 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)',
