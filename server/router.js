@@ -48,7 +48,15 @@ app.get('/addUser', function(req, res) {
     last_name: 'beat OU'
   };
 
-  res.send(db.addUser(user));
+  db.findUser(user)
+    .then(function(result) {
+      if(result.length > 0) {
+        res.send('User already exists in db');
+      } else {
+        db.addUser(user);
+        res.send('User added');
+      }
+    })
 });
 
 app.get('/profile', function(req, res) {

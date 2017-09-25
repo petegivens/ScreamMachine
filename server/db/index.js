@@ -35,7 +35,6 @@ module.exports = {
   },
 
   findUser: function(user) {
-    console.log('db.isuser, user: ', user.username);
     return pool.query("SELECT username FROM users WHERE username = '" + user.username + "'")
       .then(function(result) {
         return result.rows;
@@ -67,11 +66,12 @@ module.exports = {
       }
 
       return pool.query(query)
-        .then(function() {
-          return '1 record successfully added.';
+        .then(function(result) {
+          console.log('succcess: ', result);
+          return result;
         })
-        .catch(function() {
-          return 'Failed to add record.';
+        .catch(function(err) {
+          return err;
         });
     });
 
