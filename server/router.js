@@ -7,7 +7,8 @@ var db = require(__dirname + '/db/index');
 var app = express();
 
 app.use(logger('dev'));
-app.use(express.static('client'));
+
+app.use('/', express.static('client'));
 app.use('/addons', express.static('client/models/p5/'));
 
 
@@ -23,20 +24,32 @@ app.get('/getUsers', function(req, res) {
 
 app.get('/login', function(req, res) {
   body = {
-    username: 'robhunt',
-    password: 'password'
+    username: 'longhorns',
+    password: 'hashme'
   };
 
   db.findUser(body)
     .then(function(result) {
       if(result.length > 0) {
-        res.send(result);
+        return result[0]; // if multiple entries exist for username, use the first. this can only happen by manual entries
       } else {
         res.send('User not found');
       }
     })
     .catch(function(err) {
       res.send(err);
+    })
+    .then(function(user) {
+      // call a function from db that checks password
+      db.isCorrectPassword(body)
+        .then(function(isMatch) {
+          console.log('router.js, isMatch: ', isMatch);
+          if(isMatch) {
+            res.send('password is correct');
+          } else {
+            res.send('password is incorrect');
+          }
+        });
     });
 });
 
@@ -61,16 +74,6 @@ app.get('/addUser', function(req, res) {
 
 app.get('/profile', function(req, res) {
   res.send('Welcome to the profile endpoint');
-});
-
-app.get('/db', db.loggerTest, function(req, res) {
-  db.query()
-    .then(function(result) {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log('Query Error\n',err);
-    })
 });
 
 module.exports = app;

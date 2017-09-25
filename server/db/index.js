@@ -24,7 +24,7 @@ const pool = new Pool(config['jc_offline']);
 
 module.exports = {
   getUsers: function () {
-    return pool.query("select * from users")
+    return pool.query("select username, first_name, last_name from users")
       .then(function(result) {
         return result.rows;
       })
@@ -55,7 +55,6 @@ module.exports = {
      */
 
     bcrypt.hash(user.password, saltRounds, function(err, hash) {
-      // Store hash in your password DB.
       user.password = hash;
 
       rayedUser = [ user.username, user.password, user.first_name, user.last_name ];
@@ -78,9 +77,22 @@ module.exports = {
     
   },
 
+  isCorrectPassword: function(user) {
+    // Assumes that you first check if user exists before running this function
+    
+    return pool.query("SELECT password FROM users WHERE username = '" + user.username + "'")
+      .then(function(result) {
+        console.log('query result: ', result.rows[0].password);
+        return bcrypt.compare(user.password, result.rows[0].password)
+          .then(function(isMatch) {
+            console.log('isCorrectPassword, isMatch: ', isMatch);
+            return isMatch;
+          });
+      });
+  },
+
   loggerTest: function(req, res, next) {
     console.log('hello world from my db indexjs loggerTest middleware!');
     next();
   }
 }
-
