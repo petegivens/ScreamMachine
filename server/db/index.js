@@ -1,11 +1,24 @@
 const { Pool } = require('pg');
 
+
+/******************** pick your config ***********************/
+// var config = {
+//   host: 'localhost',
+//   user: 'postgres',
+//   password: 'admin',
+//   database: 'scream'
+// };
+
 var config = {
   host: 'localhost',
-  user: 'postgres',
-  password: 'admin',
+  user: 'screamer',
+  //password: '',
   database: 'scream'
 };
+  
+  
+
+
 
 const pool = new Pool(config);
 
