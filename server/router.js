@@ -24,8 +24,8 @@ app.get('/getUsers', function(req, res) {
 
 app.get('/login', function(req, res) {
   body = {
-    username: 'longhorns',
-    password: 'hashme'
+    username: 'luig0',
+    password: 'pass1234'
   };
 
   db.findUser(body)
@@ -43,7 +43,6 @@ app.get('/login', function(req, res) {
       // call a function from db that checks password
       db.isCorrectPassword(body)
         .then(function(isMatch) {
-          console.log('router.js, isMatch: ', isMatch);
           if(isMatch) {
             res.send('password is correct');
           } else {
@@ -54,11 +53,18 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/addUser', function(req, res) {
+  // var user = {
+  //   username: 'longhorns',
+  //   password: 'hashme',
+  //   first_name: 'go horns',
+  //   last_name: 'beat OU'
+  // };
+
   var user = {
-    username: 'longhorns',
-    password: 'hashme',
-    first_name: 'go horns',
-    last_name: 'beat OU'
+    username: 'luig0',
+    password: 'pass1234',
+    first_name: 'luig0_first',
+    last_name: 'luig0_last'
   };
 
   db.findUser(user)

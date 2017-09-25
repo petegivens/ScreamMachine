@@ -82,10 +82,8 @@ module.exports = {
     
     return pool.query("SELECT password FROM users WHERE username = '" + user.username + "'")
       .then(function(result) {
-        console.log('query result: ', result.rows[0].password);
         return bcrypt.compare(user.password, result.rows[0].password)
           .then(function(isMatch) {
-            console.log('isCorrectPassword, isMatch: ', isMatch);
             return isMatch;
           });
       });
