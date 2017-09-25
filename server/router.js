@@ -14,11 +14,9 @@ app.use('/addons', express.static('client/models/p5/'));
 app.get('/getUsers', function(req, res) {
 	db.getUsers()
 		.then(function(result) {
-      console.log('promise success');
 			res.send(result);
 		})
 		.catch(function(error) {
-      console.log('promise fail');
 			res.send('Error getting users.');
 		});
 });
