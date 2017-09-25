@@ -72,13 +72,11 @@ app.get('/addUser', function(req, res) {
 
   db.findUser(user)
     .then(function(result) {
-      console.log('router.js, findUser result: ', result.length);
       if(result.length > 0) {
         res.send('User already exists in db');
       } else {
         db.addUser(user)
           .then(function(result) {
-            console.log('returned to router.js db.addUser; result: ', result);
             res.send('User added');
           })
           .catch(function (error) {
