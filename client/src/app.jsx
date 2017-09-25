@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import graph, {getMic} from '../models/micGraph';
 import Button from './components/Button.jsx'; 
+import NavBar from './components/NavBar.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -12,6 +13,9 @@ class App extends React.Component {
     };
     this.toggleClick = this.toggleClick.bind(this);
     this.micHandler = this.micHandler.bind(this);
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.profile = this.profile.bind(this);
     setInterval(this.micHandler, 250); 
   }
 
@@ -44,10 +48,23 @@ class App extends React.Component {
     }
   }
 
+  logout() {
+  // should logout somehow 
+  }
+
+  login() {
+  //should login or signup user
+  }
+
+  profile() {
+  //should show profile of user
+  }
+
   render() {
     return (
       <div>
 	<div> supBitches </div>
+	<NavBar login={this.login} logout={this.logout} profile={this.profile} />
 	<div className="gif"> 
 	{ this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
 	</div>
