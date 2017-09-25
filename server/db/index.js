@@ -1,28 +1,56 @@
-const { Pool } = require('pg')
+const { Pool } = require('pg');
+
+
+/******************** pick your config ***********************/
+// var config = {
+//   host: 'localhost',
+//   user: 'postgres',
+//   password: 'admin',
+//   database: 'scream'
+// };
 
 var config = {
   host: 'localhost',
   user: 'screamer',
-  // password: '',
+  //password: '',
   database: 'scream'
 };
+  
+  
 
-const pool = new Pool(config)
+
+
+const pool = new Pool(config);
 
 module.exports = {
-  query: function (text, params, callback) {
-    // console.log('db.query, text: ', text);
-    // console.log('db.query, params: ', params);
-
-
+  getUsers: function () {
     return pool.query("select * from users")
       .then(function(result) {
         return result.rows;
       });
   },
 
-  qTest: function() {
-    return 'text from db file';
+  signup: function(person) {
+    /* person should be an array of the following structure:
+     *  [
+     *    'username',
+     *    'password',
+     *    'first_name',
+     *    'last_name'
+     *  ]
+     */
+    const query = {
+      text: 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)',
+      values: person,
+    }
+
+    return pool.query(query)
+      .then(function() {
+        return '1 record successfully added.';
+      })
+      .catch(function() {
+        return 'Failed to add record.';
+      });
   },
 
   loggerTest: function(req, res, next) {
