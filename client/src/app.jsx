@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import graph, {getMic} from '../models/micGraph';
 import Button from './components/Button.jsx'; 
 import NavBar from './components/NavBar.jsx';
+import Login from './components/Login.jsx';
 import {Row,Grid} from 'react-bootstrap'; 
+
 class App extends React.Component {
   constructor() {
     super();
@@ -48,7 +50,7 @@ class App extends React.Component {
   }
 
   logout() {
-  // should logout somehow 
+  // should logout somehow (MAGIC, obviously)
   }
 
   login() {
