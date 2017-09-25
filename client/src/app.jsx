@@ -22,13 +22,12 @@ class App extends React.Component {
   micHandler() {
     this.setState({mic:getMic()});
     var micLevel = this.state.mic.getLevel(); 
-   //console.log(micLevel); // for debugging 
-    if	(this.state.scream) {
+    //console.log(micLevel); // for debugging 
+    if (this.state.scream) {
       if (micLevel < 0.15) {
-	this.setState({scream: false});
+	      this.setState({scream: false});
       } 
-    }  
-    else if (micLevel > 0.15) {
+    } else if (micLevel > 0.15) {
       this.setState({scream: true})
     }
   }
@@ -63,18 +62,19 @@ class App extends React.Component {
   render() {
     return (
       <Grid>
-	<Row> supBitches </Row>
-	<Row>
-	  <NavBar login={this.login} logout={this.logout} profile={this.profile} />
-	</Row>	
-      <Row className="gif"> 
-	{ this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
-	</Row>
-	<Row>
-	  <Button func={this.toggleClick} state={this.state.text}/>
-	</Row>	
-      <Row id='ScreamMeter'> </Row>
-    </Grid> );
+	      <Row> supBitches </Row>
+	      <Row>
+	        <NavBar login={this.login} logout={this.logout} profile={this.profile} />
+	      </Row>	
+        <Row className="gif"> 
+	        { this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
+	      </Row>
+	      <Row>
+	      <Button func={this.toggleClick} state={this.state.text}/>
+	      </Row>	
+        <Row id='ScreamMeter'> </Row>
+      </Grid> 
+    );
   }
 }
 
