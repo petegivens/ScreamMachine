@@ -40,6 +40,17 @@ app.get('/login', function(req, res) {
     });
 });
 
+app.get('/addUser', function(req, res) {
+  var user = {
+    username: 'longhorns',
+    password: 'hashme',
+    first_name: 'go horns',
+    last_name: 'beat OU'
+  };
+
+  res.send(db.addUser(user));
+});
+
 app.get('/profile', function(req, res) {
   res.send('Welcome to the profile endpoint');
 });

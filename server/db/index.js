@@ -1,5 +1,7 @@
-const { Pool } = require('pg');
+var bcrypt = require('bcrypt');
+const saltRounds = 5;
 
+const { Pool } = require('pg');
 
 /******************** pick your config ***********************/
 // Changed to toggle by object properties; toggle in row 21 new Pool(config[xxx])
@@ -43,27 +45,37 @@ module.exports = {
       });
   },
 
-  signup: function(person) {
-    /* person should be an array of the following structure:
-     *  [
-     *    'username',
-     *    'password',
-     *    'first_name',
-     *    'last_name'
-     *  ]
+  addUser: function(user) {
+    /* user should be an object of the following structure:
+     *  { 
+     *    username: 'username',
+     *    password: 'password',
+     *    first_name: 'first_name',
+     *    last_name: 'last_name'
+     *  }
      */
-    const query = {
-      text: 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)',
-      values: person,
-    }
 
-    return pool.query(query)
-      .then(function() {
-        return '1 record successfully added.';
-      })
-      .catch(function() {
-        return 'Failed to add record.';
-      });
+    bcrypt.hash(user.password, saltRounds, function(err, hash) {
+      // Store hash in your password DB.
+      user.password = hash;
+
+      rayedUser = [ user.username, user.password, user.first_name, user.last_name ];
+
+      const query = {
+        text: 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)',
+        values: rayedUser,
+      }
+
+      return pool.query(query)
+        .then(function() {
+          return '1 record successfully added.';
+        })
+        .catch(function() {
+          return 'Failed to add record.';
+        });
+    });
+
+    
   },
 
   loggerTest: function(req, res, next) {
@@ -71,3 +83,4 @@ module.exports = {
     next();
   }
 }
+
