@@ -71,7 +71,7 @@ module.exports = {
           user.last_name
         ];
 
-        const query = {
+        let query = {
           text: 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)',
           values: rayedUser
         };
@@ -104,7 +104,37 @@ module.exports = {
       });
   },
 
-  addScream: function() {
+  addScream: function(data) {
     // add a scream to database
+    /* data should be an object of the following structure:
+     *  { 
+     *    username: 'username',
+     *    volume: 1.0000,
+     *    frequency: 1.0000,
+     *    duration: 1.0000
+     *  }
+     */
+    let query = {
+      text: `INSERT INTO screams (user_id, volume, frequency, duration)
+              VALUES (
+                (SELECT id FROM users WHERE username='${data.username}'),
+                ${data.volume},
+                ${data.frequency},
+                ${data.duration}
+              );`
+    };
+    return pool.query(query)
+      .then(function(result) {
+        console.log('addScream query success');
+        return result;
+      })
+      .catch(function(error) {
+        console.log('addScream query fail');
+        return error;
+      });
   }
 }
+
+/*
+
+*/

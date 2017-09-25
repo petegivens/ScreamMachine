@@ -12,7 +12,7 @@ CREATE TABLE screams (
   user_id int REFERENCES users(id),
   volume numeric (5, 4),
   frequency numeric (5, 4),
-  duration double precision,
+  duration numeric (5, 4),
   timestamp timestamp default current_timestamp,
   PRIMARY KEY (ID)
 );
