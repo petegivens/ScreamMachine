@@ -24,6 +24,7 @@ app.get('/login', function(req, res) {
   body = {
     username: 'luig0',
     password: 'pass1234'
+    // password: 'wrongpass'
   };
 
   db.findUser(body)
@@ -42,8 +43,12 @@ app.get('/login', function(req, res) {
       db.isCorrectPassword(body)
         .then(function(isMatch) {
           if(isMatch) {
+            res.cookie('username', body.username);
+            res.cookie('isLoggedIn', true);
             res.send('password is correct');
           } else {
+            res.cookie('username', null);
+            res.cookie('isLoggedIn', false);
             res.send('password is incorrect');
           }
         });
@@ -67,12 +72,22 @@ app.get('/addUser', function(req, res) {
 
   db.findUser(user)
     .then(function(result) {
+      console.log('router.js, findUser result: ', result.length);
       if(result.length > 0) {
         res.send('User already exists in db');
       } else {
-        db.addUser(user);
-        res.send('User added');
+        db.addUser(user)
+          .then(function(result) {
+            console.log('returned to router.js db.addUser; result: ', result);
+            res.send('User added');
+          })
+          .catch(function (error) {
+            res.send('addUser catch: ', error);
+          });
       }
+    })
+    .catch(function(error) {
+      res.send('findUser catch: ' + error);
     })
 });
 

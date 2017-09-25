@@ -22,6 +22,13 @@ var config = {
 
 const pool = new Pool(config['jc_offline']);
 
+// the pool with emit an error on behalf of any idle clients
+// it contains if a backend error or network partition happens
+pool.on('error', (err, client) => {
+  console.error('Unexpected error on idle client', err)
+  process.exit(-1)
+});
+
 module.exports = {
   getUsers: function () {
     return pool.query("select username, first_name, last_name from users")
@@ -54,27 +61,35 @@ module.exports = {
      *  }
      */
 
-    bcrypt.hash(user.password, saltRounds, function(err, hash) {
-      user.password = hash;
+     return bcrypt.hash(user.password, saltRounds)
+      .then(function(hash) {
+        user.password = hash;
+        let rayedUser = [ 
+          user.username,
+          user.password,
+          user.first_name,
+          user.last_name
+        ];
 
-      let rayedUser = [ user.username, user.password, user.first_name, user.last_name ];
+        const query = {
+          text: 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)',
+          values: rayedUser
+        };
 
-      const query = {
-        text: 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)',
-        values: rayedUser,
-      }
-
-      return pool.query(query)
-        .then(function(result) {
-          console.log('succcess: ', result);
-          return result;
-        })
-        .catch(function(err) {
-          return err;
-        });
-    });
-
-    
+        return pool.query(query)
+          .then(function(result) {
+            console.log('db.index.js, succcess: ', result.rows);
+            return result.rows;
+          })
+          .catch(function(err) {
+            console.log('db error: ', err);
+            return err;
+          });
+      })
+      .catch(function(err) {
+        console.log('db error: ', err);
+        return err;
+      });
   },
 
   isCorrectPassword: function(user) {
@@ -89,8 +104,7 @@ module.exports = {
       });
   },
 
-  loggerTest: function(req, res, next) {
-    console.log('hello world from my db indexjs loggerTest middleware!');
-    next();
+  addScream: function() {
+    // add a scream to database
   }
 }
