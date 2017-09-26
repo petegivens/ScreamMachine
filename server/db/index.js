@@ -66,7 +66,7 @@ module.exports = {
       .catch(function(error) {
         return error;
       })
-  }
+  },
 
   findUser: function(user) {
     return pool.query("SELECT username FROM users WHERE username = '" + user.username + "'")
