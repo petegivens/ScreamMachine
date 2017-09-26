@@ -7,6 +7,7 @@ import Signup from './components/Signup.jsx';
 import Profile from './components/Profile.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
+import * as UserModel from '../models/users.js';
         
 class App extends React.Component {        
 
@@ -19,14 +20,36 @@ class App extends React.Component {
       page: 'scream',
       freqArray: [0,0,0],
       displayScore: false,
-      showLogin: false,
-      showSignup: false
+      showSignup: false,
+      showModal: false,
+      buttonText: 'Login',
+      screamLevel: 0,
+      user: 'luig0',
+      micRounds: 0
     };
     this.toggleClick = this.toggleClick.bind(this);
     this.micHandler = this.micHandler.bind(this);
     this.navClickHandler = this.navClickHandler.bind(this);
     this.saveScream = this.saveScream.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.login = this.login.bind(this);
+  //  this.signup = this.signup.bind(this);
     setTimeout(this.micHandler,250);
+  }
+
+  closeModal() {
+    this.setState({showModal: false})
+  }
+
+  login() {
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    console.log(this);
+    UserModel.userLogin('/login', username, password).then(function(err, result) {
+      console.log(this);
+      this.setState({buttonText: 'Logout'});
+      this.closeModal();
+    });
   }
 
   micHandler() {
@@ -35,6 +58,7 @@ class App extends React.Component {
     this.state.freqArray[0] += freq[0]; 
     this.state.freqArray[1] += freq[1]; 
     this.state.freqArray[2] += freq[2]; 
+    this.state.micRounds++; 
     var micLevel = this.state.mic.getLevel();
     if(micLevel > this.state.screamLevel) {
       this.setState({screamLevel: micLevel});
@@ -55,18 +79,18 @@ class App extends React.Component {
 
   saveScream() {
     var context = this;
-    console.log('init saveScream, context: ', context);
     axios.post('/addScream', {
       params: {
 	      volume: context.state.screamLevel,
 	      username: 'luig0',
-	      lowFreq: context.state.freqArray[0],
-	      midFreq: context.state.freqArray[1],
-	      highFreq: context.state.freqArray[2]
+	      lowFreq: context.state.freqArray[0]/context.state.micRounds,
+	      midFreq: context.state.freqArray[1]/context.state.micRounds,
+	      highFreq: context.state.freqArray[2]/context.state.micRounds
         }
       })
       .then((res) => {
         context.setState({freqArary: [0,0,0]});
+	context.setState({micRounds: 0});
       })
       .catch(function(error) {
         console.log('App.jsx, Failed to save: ', error);
@@ -80,6 +104,7 @@ class App extends React.Component {
       //set button text to 'Stop'
       this.setState({text: 'Stop'});
       this.setState({displayScore: false});
+      this.setState({screamLevel: 0});
       this.state.mic.start();
       setTimeout(this.micHandler,100);
       //else if button text is 'Stop'
@@ -88,7 +113,7 @@ class App extends React.Component {
       this.setState({text: 'Scream Again'});
       //display highest volume
       this.setState({displayScore: true})
-      this.state.mic.stop(); 
+      this.state.mic.stop();
     }
   }
   navClickHandler(eventKey) {
@@ -96,7 +121,7 @@ class App extends React.Component {
     if (eventKey === 'logout') {
       // should logout somehow (MAGIC, obviously)
     } else if (eventKey === 'login') {
-      //this.setState({showLogin: true});
+      this.setState({showModal: true});
     } else if (eventKey === 'signup') {
       //should add user
     } else if (eventKey === 'profile') {
@@ -108,7 +133,8 @@ class App extends React.Component {
     return (
       <Grid>
 	<Row> supBitches </Row>
-	<Row><Login show={this.state.showLogin}/><Signup /></Row>
+	<Row><Login buttonText={this.state.buttonText} closeModal={this.closeModal} showModal={this.state.showModal} login={this.login} /></Row>
+	<Row> <Signup /> </Row>
 	<Row>
 	  <NavBar func={this.navClickHandler} />
 	</Row>
@@ -135,7 +161,7 @@ class App extends React.Component {
 	    <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
 	  </Row>
 	</div> :
-	<Profile />}
+	<Profile user={this.state.user} />}
       </Grid> );
     }
 }
