@@ -1,7 +1,7 @@
 var mic; 
+var fft;
 
 var s = function(p) { 
-  var fft;
 
   p.setup = function() {
     p.createCanvas(700,300);
@@ -35,6 +35,16 @@ var s = function(p) {
     p.endShape();
   }
 };
+
+export var getFreq = function() {
+  var ret = [];
+  ret.push(fft.getEnergy('bass'))
+  ret.push(fft.getEnergy('lowMid'));
+  ret.push(fft.getEnergy('mid'));
+  ret.push(fft.getEnergy('highMid'));
+  ret.push(fft.getEnergy('treble'));
+  return ret; 
+}
 
 export var getMic = function() {
   return mic; 

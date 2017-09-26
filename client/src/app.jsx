@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import graph, {getMic} from '../models/micGraph';
-import ourButton from './components/Button.jsx'; 
+import graph, {getMic, getFreq} from '../models/micGraph';
+import OurButton from './components/Button.jsx'; 
 import NavBar from './components/NavBar.jsx';
 import Login from './components/Login.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
@@ -14,18 +14,19 @@ class App extends React.Component {
       mic: null,
       page: 'scream',
       screamLevel: 0,
+      freqArray: [],
       displayScore: false
     };
     this.toggleClick = this.toggleClick.bind(this);
     this.micHandler = this.micHandler.bind(this);
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.profile = this.profile.bind(this);
+    this.navClickHandler = this.navClickHandler.bind(this);
     setInterval(this.micHandler, 250); 
   }
 
   micHandler() {
     this.setState({mic:getMic()});
+    var freq = getFreq(); 
+    console.log(freq);
     var micLevel = this.state.mic.getLevel();
     if(micLevel > this.state.screamLevel) {
       this.setState({screamLevel: micLevel});
@@ -68,45 +69,50 @@ class App extends React.Component {
     }
   }
 
-  logout() {
-  // should logout somehow (MAGIC, obviously)
-  }
-
-  login() {
-  //should login or signup user
-  }
-
-  profile() {
-    this.setState({page: 'profile'});
-  }
+  navClickHandler(eventKey) {
+    console.log('test',eventKey);
+    if (eventKey === 'logout') {
+    // should logout somehow (MAGIC, obviously)
+    } else if (eventKey === 'login') {
+    //should login or signup user
+    } else if (eventKey === 'profile') {
+      this.setState({page: 'profile'});
+    }
+  }    
 
   render() {
     return (
       <Grid>
 	<Row> supBitches </Row>
 	<Row>
-	  <NavBar login={this.login} logout={this.logout} profile={this.profile} />
-	</Row>	
-	<Row style={{height: 375}} className="gif" >
-	<Col md={3}>
-	  {this.state.displayScore ? 
-	    <div>Score: {Math.floor(this.state.screamLevel * 1000)} </div> 
-	    <Button onClick={this.saveScream} > Save Scream? </Button> : <div> </div> } 
-	</Col>
-	<Col md={6}>	
-	  { this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
-	</Col>	
+	  <NavBar func={this.navClickHandler} />
 	</Row>
-	<Row>
-	  <Col md={2} mdOffset={5}> 
-	    <OurButton func={this.toggleClick} state={this.state.text}/>
+	{this.state.page === 'scream' ? 
+	<div>
+	  <Row className="gif" >
+	  <Col md={3}>
+	    {this.state.displayScore ?
+	      <div>
+		<Row>Score: {Math.floor(this.state.screamLevel * 1000)} </Row>  
+		<Row><Button onClick={this.saveScream} > Save Scream? </Button> </Row> 
+	      </div> : <div> </div> } 
 	  </Col>
-	</Row> 
-	<Row>
-	  <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
-	</Row>	
+	  <Col md={6}>	
+	    { this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
+	  </Col>	
+	  </Row>
+	  <Row>
+	    <Col md={2} mdOffset={5}> 
+	      <OurButton func={this.toggleClick} state={this.state.text}/>
+	    </Col>
+	  </Row> 
+	  <Row>
+	    <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
+	  </Row>
+	</div> :
+	<div> hi </div> }
       </Grid> );
   }
-
+}
 export default App;
 

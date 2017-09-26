@@ -8,3 +8,7 @@ button {
   border-radius: 5px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+.gif {
+  height: 375px; 
+}
