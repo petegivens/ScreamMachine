@@ -1,13 +1,13 @@
 import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
-import * as LoginModel from '../../models/login.js';
+import * as UserModel from '../../models/users.js';
 
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showModal: false
-      text: 'Please log in with your username and password.'
+			showModal: props.show,
+      buttonText: 'Login'
 		};
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
@@ -25,27 +25,25 @@ class Login extends React.Component {
   login() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    LoginModel.userLogin('/login', username, password).then(function(err, result) {
-      if (err) {
-        this.setState({text: 'We were unable to locate your account. Please try again or sign up for an account.'});
-      } else {
+    console.log(this);
+    UserModel.userLogin('/login', username, password).then(function(err, result) {
+      console.log(this);
+      this.setState({buttonText: 'Logout'});
       this.closeModal();
-      }
-    }).then(function() {this.closeModal()});
+    });
   }
 
   render() {
   	return (
   		<div className="static-modal">
-  			<Button onClick={this.openModal}>Login</Button>
+  			<Button onClick={this.openModal}>{this.state.buttonText}</Button>
     		<Modal show={this.state.showModal}>
       		<Modal.Header>
         		<Modal.Title>Login</Modal.Title>
       		</Modal.Header>
       		<Modal.Body>
-            {this.state.text}
             <label>Username:</label>
-            <input placeholder='username' id='username'></input>
+            <input placeholder='username' id='username'></input><br/>
             <label>Password:</label>
             <input placeholder='password' id='password'></input>
       		</Modal.Body>
