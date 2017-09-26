@@ -3,10 +3,24 @@ import {LineChart} from 'react-d3-basic';
 
 class Profile extends React.Component  {
 
-  getScreams() {
-
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      screams: []
+    }
   }
+
+  getScreams() {
+    axios.get('/Screams', {
+      params: {
+	user: props.user
+      }
+    })
+    .then( (screams) => {
+      this.state.set({screams: screams});
+    })
+  }
+
 
   render() {
 

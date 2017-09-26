@@ -6,9 +6,10 @@ import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import Profile from './components/Profile.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
-var axios = require('axios');
+import axios from 'axios';
         
 class App extends React.Component {        
+
   constructor() {
     super();
     this.state ={
@@ -42,7 +43,7 @@ class App extends React.Component {
     if	(this.state.scream) {
       //console.log(micLevel); // for debugging 
       if (micLevel < 0.15) {
-	      this.setState({scream: false});
+	this.setState({scream: false});
       } 
     } else if (micLevel > 0.15) {
       this.setState({scream: true})
@@ -90,53 +91,53 @@ class App extends React.Component {
       this.state.mic.stop(); 
     }
   }
-	navClickHandler(eventKey) {
-		//console.log('test', eventKey);
-		if (eventKey === 'logout') {
-		  // should logout somehow (MAGIC, obviously)
-		} else if (eventKey === 'login') {
-		  //this.setState({showLogin: true});
-		} else if (eventKey === 'signup') {
-			//should add user
-		} else if (eventKey === 'profile') {
-			this.setState({page: 'profile'});
-		}
-	}    
+  navClickHandler(eventKey) {
+    //console.log('test', eventKey);
+    if (eventKey === 'logout') {
+      // should logout somehow (MAGIC, obviously)
+    } else if (eventKey === 'login') {
+      //this.setState({showLogin: true});
+    } else if (eventKey === 'signup') {
+      //should add user
+    } else if (eventKey === 'profile') {
+      this.setState({page: 'profile'});
+    }
+  }    
 
-	render() {
-		return (
-			<Grid>
-				<Row> supBitches </Row>
-				<Row><Login show={this.state.showLogin}/><Signup /></Row>
-				<Row>
-					<NavBar func={this.navClickHandler} />
-				</Row>
-					{this.state.page === 'scream' ? 
-					<div>
-						<Row className="gif" >
-							<Col md={3}>
-								{this.state.displayScore ?
-								<div>
-									<Row>Score: {Math.floor(this.state.screamLevel * 1000)} </Row>  
-									<Row><Button onClick={this.saveScream} > Save Scream? </Button> </Row> 
-								</div> : <div> </div> } 
-							</Col>
-							<Col md={6}>	
-								{this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div>}
-							</Col>	
-				</Row>
-				<Row>
-					<Col md={2} mdOffset={5}> 
-						<OurButton func={this.toggleClick} state={this.state.text}/>
-					</Col>
-				</Row> 
-				<Row>
-					<Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
-				</Row>
-				</div> :
-				<Profile />}
-			</Grid> );
-	}
+  render() {
+    return (
+      <Grid>
+	<Row> supBitches </Row>
+	<Row><Login show={this.state.showLogin}/><Signup /></Row>
+	<Row>
+	  <NavBar func={this.navClickHandler} />
+	</Row>
+	  {this.state.page === 'scream' ? 
+	  <div>
+	    <Row className="gif" >
+	    <Col md={3}>
+	    {this.state.displayScore ?
+	      <div>
+		<Row>Score: {Math.floor(this.state.screamLevel * 1000)} </Row>  
+		<Row><Button onClick={this.saveScream} > Save Scream? </Button> </Row> 
+	      </div> : <div> </div> } 
+	    </Col>
+	    <Col md={6}>	
+	      {this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div>}
+	    </Col>	
+	  </Row>
+	  <Row>
+	    <Col md={2} mdOffset={5}> 
+	      <OurButton func={this.toggleClick} state={this.state.text}/>
+	    </Col>
+	  </Row> 
+	  <Row>
+	    <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
+	  </Row>
+	</div> :
+	<Profile />}
+      </Grid> );
+    }
 }
 export default App;
 
