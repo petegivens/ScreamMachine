@@ -17,17 +17,24 @@ var config = {
     user: 'postgres',
     password: 'admin',
     database: 'scream'
+  },
+  jc_aws: {
+    // host: '34.202.231.255',
+    host: 'ec2-34-202-231-255.compute-1.amazonaws.com',
+    user: 'postgres',
+    password: 'admin',
+    database: 'scream'
   }
 };
 
-const pool = new Pool(config['jc_offline']);
+const pool = new Pool(config['jc_aws']);
 
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
-pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err)
-  process.exit(-1)
-});
+// pool.on('error', (err, client) => {
+//   console.error('Unexpected error on idle client', err)
+//   process.exit(-1)
+// });
 
 module.exports = {
   getUsers: function () {

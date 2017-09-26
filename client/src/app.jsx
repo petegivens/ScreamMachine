@@ -6,9 +6,10 @@ import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import Profile from './components/Profile.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
+var axios = require('axios');
         
-class App extends React.Component {	
-	constructor() {
+class App extends React.Component {        
+  constructor() {
     super();
     this.state ={
       scream: false,
