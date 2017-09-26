@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var logger = require('morgan');
 var db = require(__dirname + '/db/index');
 
@@ -7,6 +8,7 @@ var db = require(__dirname + '/db/index');
 var app = express();
 
 app.use(logger('dev'));
+app.use(bodyParser());
 
 app.use('/', express.static('client'));
 
@@ -20,14 +22,8 @@ app.get('/getUsers', function(req, res) {
 		});
 });
 
-app.get('/login', function(req, res) {
-  body = {
-    username: 'luig0',
-    password: 'pass1234'
-    // password: 'wrongpass'
-  };
-
-  db.findUser(body)
+app.post('/login', function(req, res) {
+  db.findUser(req.body)
     .then(function(result) {
       if(result.length > 0) {
         return result[0]; // if multiple entries exist for username, use the first. this can only happen by manual entries
@@ -40,12 +36,12 @@ app.get('/login', function(req, res) {
     })
     .then(function(user) {
       // call a function from db that checks password
-      db.isCorrectPassword(body)
+      db.isCorrectPassword(req.body)
         .then(function(isMatch) {
           if(isMatch) {
-            res.cookie('username', body.username);
+            res.cookie('username', req.body.username);
             res.cookie('isLoggedIn', true);
-            res.send('password is correct');
+            res.send('Password is correct; cookie established');
           } else {
             res.cookie('username', null);
             res.cookie('isLoggedIn', false);
@@ -55,20 +51,14 @@ app.get('/login', function(req, res) {
     });
 });
 
-app.get('/addUser', function(req, res) {
-  var user = {
-    username: 'longhorns',
-    password: 'hashme',
-    first_name: 'go horns',
-    last_name: 'beat OU'
-  };
+app.post('/addUser', function(req, res) {
+  // JRJR pass = 'jrpass'
+  // luig0 pass = 'pass1234'
+  // longhorns pass = 'hashme'
 
-  // var user = {
-  //   username: 'luig0',
-  //   password: 'pass1234',
-  //   first_name: 'luig0_first',
-  //   last_name: 'luig0_last'
-  // };
+  console.log('/addUser, req.body: ', req.body);
+
+  var user = req.body;
 
   db.findUser(user)
     .then(function(result) {
@@ -91,14 +81,16 @@ app.get('/addUser', function(req, res) {
     });
 });
 
-app.get('/addScream', function(req, res) {
+app.post('/addScream', function(req, res) {
   // need to require logged in cookie
-  var screamData = {
-    username: 'luig0',
-    volume: 1.375,
-    frequency: 1.0,
-    duration: 3.532
-  };
+  // var screamData = {
+  //   username: 'luig0',
+  //   volume: 1.375,
+  //   frequency: 1.0,
+  //   duration: 3.532
+  // };
+
+  var screamData = req.body;
 
   db.addScream(screamData)
     .then(function(result) {
