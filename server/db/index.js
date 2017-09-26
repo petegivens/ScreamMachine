@@ -58,6 +58,16 @@ module.exports = {
       })
   },
 
+  clearScreams: function() {
+    return pool.query("delete from screams where id > 0")
+      .then(function(result) {
+        return result.rows;
+      })
+      .catch(function(error) {
+        return error;
+      })
+  },
+
   findUser: function(user) {
     return pool.query("SELECT username FROM users WHERE username = '" + user.username + "'")
       .then(function(result) {
