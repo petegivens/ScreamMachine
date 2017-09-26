@@ -24,6 +24,7 @@ class App extends React.Component {
     this.toggleClick = this.toggleClick.bind(this);
     this.micHandler = this.micHandler.bind(this);
     this.navClickHandler = this.navClickHandler.bind(this);
+    this.saveScream = this.saveScream.bind(this);
     setTimeout(this.micHandler,250);
   }
 
@@ -52,16 +53,22 @@ class App extends React.Component {
   }
 
   saveScream() {
+    var context = this;
+    console.log('init saveScream, context: ', context);
     axios.post('/addScream', {
       params: {
-	      volume: this.state.screamLevel,
-	      user: this.state.user,
-	      lowFreq: this.state.freqArray[0],
-	      midFreq: this.state.freqArray[1],
-	      highFreq: this.state.freqArray[2]
+	      volume: context.state.screamLevel,
+	      username: 'luig0',
+	      lowFreq: context.state.freqArray[0],
+	      midFreq: context.state.freqArray[1],
+	      highFreq: context.state.freqArray[2]
         }
-      }).then((res) => {
-        this.setState({freqArary: [0,0,0]});
+      })
+      .then((res) => {
+        context.setState({freqArary: [0,0,0]});
+      })
+      .catch(function(error) {
+        console.log('App.jsx, Failed to save: ', error);
       })
     }
 
