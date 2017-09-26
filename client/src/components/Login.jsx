@@ -7,6 +7,7 @@ class Login extends React.Component {
 		super(props);
 		this.state = {
 			showModal: false
+      text: 'Please log in with your username and password.'
 		};
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
@@ -18,14 +19,19 @@ class Login extends React.Component {
   }
 
 	closeModal() {
-    this.setState({showModal: false});
+    this.setState({showModal: false})
   }
 
   login() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    LoginModel.userLogin('/login', username, password);
-    this.closeModal();
+    LoginModel.userLogin('/login', username, password).then(function(err, result) {
+      if (err) {
+        this.setState({text: 'We were unable to locate your account. Please try again or sign up for an account.'});
+      } else {
+      this.closeModal();
+      }
+    }).then(function() {this.closeModal()});
   }
 
   render() {
@@ -37,6 +43,7 @@ class Login extends React.Component {
         		<Modal.Title>Login</Modal.Title>
       		</Modal.Header>
       		<Modal.Body>
+            {this.state.text}
             <label>Username:</label>
             <input placeholder='username' id='username'></input>
             <label>Password:</label>
