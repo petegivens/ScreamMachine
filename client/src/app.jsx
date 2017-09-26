@@ -65,6 +65,9 @@ class App extends React.Component {
     return (
       <Grid>
 	      <Row> supBitches </Row>
+        <Row>
+        <Login />
+        </Row>
 	      <Row>
 	        <NavBar login={this.login} logout={this.logout} profile={this.profile} />
 	      </Row>	

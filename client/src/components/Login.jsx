@@ -2,35 +2,39 @@ import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
 
 class Login extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			showModal: true
+			showModal: false
 		};
+		this.openModal = this.openModal.bind(this);
+		this.closeModal = this.closeModal.bind(this);
 	}
 
-	close() {
-    this.setState({ showModal: false });
+	openModal() {
+    this.setState({showModal: true});
   }
 
-  open() {
-    this.setState({ showModal: true });
+	closeModal() {
+    this.setState({showModal: false});
   }
 
   render() {
   	return (
-  		<div>
-  			<Modal>
-  				<Button
-	          bsStyle="primary"
-	          bsSize="large"
-	          onClick={this.open}>
-          	Login
-        	</Button>
-  				<Modal.Body>
-  					<p>Hi, I'm the login modal. When Julie gets her shit together, I'll do some cool stuff.</p>
-  				</Modal.Body>
-  			</Modal>
+  		<div className="static-modal">
+  			<Button onClick={this.openModal}>Login</Button>
+    		<Modal show={this.state.showModal}>
+      		<Modal.Header>
+        		<Modal.Title>Login</Modal.Title>
+      		</Modal.Header>
+      		<Modal.Body>
+        		To save your scream data to your profile, please log in first. 
+      		</Modal.Body>
+      		<Modal.Footer>
+        		<Button onClick={this.closeModal}>Close</Button>
+        		<Button bsStyle="primary">Sign In</Button>
+      		</Modal.Footer>
+      	</Modal>
   		</div>
   	);
   }
