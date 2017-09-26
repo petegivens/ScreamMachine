@@ -27,6 +27,13 @@ app.get('/getScreams', function(req, res) {
     .then(function(result) {
       res.send(result);
     });
+});
+
+app.get('/clearScreams', function(req, res) {
+  db.clearScreams()
+    .then(function(result) {
+      res.send(result);
+    })
 })
 
 app.post('/login', function(req, res) {
