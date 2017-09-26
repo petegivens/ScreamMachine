@@ -20,7 +20,7 @@ var config = {
   }
 };
 
-const pool = new Pool(config['aws']);
+const pool = new Pool(config['jc_offline']);
 
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
