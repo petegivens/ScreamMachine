@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import graph, {getMic} from '../models/micGraph';
 import Button from './components/Button.jsx'; 
 import NavBar from './components/NavBar.jsx';
+import Login from './components/Login.jsx';
 import {Row,Grid,Col} from 'react-bootstrap';
 
 class App extends React.Component {
@@ -60,7 +61,7 @@ class App extends React.Component {
   }
 
   logout() {
-  // should logout somehow 
+  // should logout somehow (MAGIC, obviously)
   }
 
   login() {
@@ -75,6 +76,9 @@ class App extends React.Component {
     return (
       <Grid>
 	      <Row> supBitches </Row>
+        <Row>
+        <Login />
+        </Row>
 	      <Row>
 	        <NavBar login={this.login} logout={this.logout} profile={this.profile} />
 	      </Row>	
