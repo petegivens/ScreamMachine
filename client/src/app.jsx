@@ -5,8 +5,11 @@ import NavBar from './components/NavBar.jsx';
 import Login from './components/Login.jsx';
 import Profile from './components/Profile.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
+
+var axios = require('axios');
         
-constructor() {
+class App extends React.Component {        
+  constructor() {
     super();
     this.state ={
       scream: false,
