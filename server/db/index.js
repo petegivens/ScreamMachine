@@ -48,6 +48,16 @@ module.exports = {
       });
   },
 
+  getScreams: function() {
+    return pool.query("select * from screams")
+      .then(function(result) {
+        return result.rows;
+      })
+      .catch(function(error) {
+        return err;
+      })
+  },
+
   findUser: function(user) {
     return pool.query("SELECT username FROM users WHERE username = '" + user.username + "'")
       .then(function(result) {

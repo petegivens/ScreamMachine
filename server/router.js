@@ -22,6 +22,13 @@ app.get('/getUsers', function(req, res) {
 		});
 });
 
+app.get('/getScreams', function(req, res) {
+  db.getScreams()
+    .then(function(result) {
+      res.send(result);
+    });
+})
+
 app.post('/login', function(req, res) {
   db.findUser(req.body)
     .then(function(result) {
