@@ -17,6 +17,11 @@ var config = {
     user: 'postgres',
     password: 'admin',
     database: 'scream'
+  },
+  jc_aws: {
+    host: '34.202.231.255:5432',
+    user: 'screamer',
+    database: 'scream'
   }
 };
 
