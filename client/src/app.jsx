@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import graph, {getMic} from '../models/micGraph';
-import Button from './components/Button.jsx'; 
+import ourButton from './components/Button.jsx'; 
 import NavBar from './components/NavBar.jsx';
 import Login from './components/Login.jsx';
-import {Row,Grid,Col} from 'react-bootstrap';
+import {Row,Grid,Col,Button} from 'react-bootstrap';
 
 class App extends React.Component {
   constructor() {
@@ -40,6 +40,14 @@ class App extends React.Component {
       this.setState({scream: true})
     }
   }
+  saveScream() {
+    var screamObj = {
+      volume: this.state.screamLevel,
+      user: this.state.user
+    }
+    // make post request 
+  }
+
 
   toggleClick(e) {
     e.preventDefault();
@@ -69,37 +77,35 @@ class App extends React.Component {
   }
 
   profile() {
-  //should show profile of user
+    this.setState({page: 'profile'});
   }
 
   render() {
     return (
       <Grid>
-	      <Row> supBitches </Row>
-        <Row>
-        <Login />
-        </Row>
-	      <Row>
-	        <NavBar login={this.login} logout={this.logout} profile={this.profile} />
-	      </Row>	
-	      <Row style={{height: 375}} className="gif" >
-	      <Col md={3}>
-	      {this.state.displayScore ? <div>Score: {Math.floor(this.state.screamLevel * 1000)}</div> : <div> </div>} 
-	      </Col>
-	      <Col md={6}>	
-	        { this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
-	      </Col>	
-	    </Row>
-	    <Row>
-	      <Col md={2} mdOffset={5}> 
-	        <Button func={this.toggleClick} state={this.state.text}/>
-	      </Col>
-	    </Row> 
-	    <Row>
-	      <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
-	    </Row>	
-     </Grid> );
-    }
+	<Row> supBitches </Row>
+	<Row>
+	  <NavBar login={this.login} logout={this.logout} profile={this.profile} />
+	</Row>	
+	<Row style={{height: 375}} className="gif" >
+	<Col md={3}>
+	  {this.state.displayScore ? 
+	    <div>Score: {Math.floor(this.state.screamLevel * 1000)} </div> 
+	    <Button onClick={this.saveScream} > Save Scream? </Button> : <div> </div> } 
+	</Col>
+	<Col md={6}>	
+	  { this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
+	</Col>	
+	</Row>
+	<Row>
+	  <Col md={2} mdOffset={5}> 
+	    <OurButton func={this.toggleClick} state={this.state.text}/>
+	  </Col>
+	</Row> 
+	<Row>
+	  <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
+	</Row>	
+      </Grid> );
   }
 
 export default App;
