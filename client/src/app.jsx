@@ -5,9 +5,8 @@ import NavBar from './components/NavBar.jsx';
 import Login from './components/Login.jsx';
 import Profile from './components/Profile.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
-
-class App extends React.Component {
-  constructor() {
+        
+constructor() {
     super();
     this.state ={
       scream: false,
@@ -38,7 +37,7 @@ class App extends React.Component {
     if	(this.state.scream) {
       //console.log(micLevel); // for debugging 
       if (micLevel < 0.15) {
-	this.setState({scream: false});
+	      this.setState({scream: false});
       } 
     } else if (micLevel > 0.15) {
       this.setState({scream: true})
@@ -51,17 +50,16 @@ class App extends React.Component {
   saveScream() {
     axios.post('/addScream', {
       params: {
-	volume: this.state.screamLevel,
-	user: this.state.user,
-	lowFreq: this.state.freqArray[0],
-	midFreq: this.state.freqArray[1],
-	highFreq: this.state.freqArray[2]
-      }
-    }).then((res) => {
-      this.setState({freqArary: [0,0,0]});
-    })
-  }
-
+	      volume: this.state.screamLevel,
+	      user: this.state.user,
+	      lowFreq: this.state.freqArray[0],
+	      midFreq: this.state.freqArray[1],
+	      highFreq: this.state.freqArray[2]
+        }
+      }).then((res) => {
+        this.setState({freqArary: [0,0,0]});
+      })
+    }
 
   toggleClick(e) {
     e.preventDefault();
@@ -76,56 +74,56 @@ class App extends React.Component {
     } else if (this.state.text === 'Stop') {
       //set button text to 'Scream Again'
       this.setState({text: 'Scream Again'});
-      //store scream in database
       //display highest volume
       this.setState({displayScore: true})
       this.state.mic.stop(); 
     }
   }
+	navClickHandler(eventKey) {
+		//console.log('test', eventKey);
+		if (eventKey === 'logout') {
+		// should logout somehow (MAGIC, obviously)
+		} else if (eventKey === 'login') {
+		//should login or signup user
+		} else if (eventKey === 'profile') {
+			this.setState({page: 'profile'});
+		}
+	}    
 
-  navClickHandler(eventKey) {
-    if (eventKey === 'logout') {
-    // should logout somehow (MAGIC, obviously)
-    } else if (eventKey === 'login') {
-    //should login or signup user
-    } else if (eventKey === 'profile') {
-      this.setState({page: 'profile'});
-    }
-  }    
-
-  render() {
-    return (
-      <Grid>
-	<Row> supBitches </Row>
-	<Row>
-	  <NavBar func={this.navClickHandler} />
-	</Row>
-	{this.state.page === 'scream' ? 
-	<div>
-	  <Row className="gif" >
-	  <Col md={3}>
-	    {this.state.displayScore ?
-	      <div>
-		<Row>Score: {Math.floor(this.state.screamLevel * 1000)} </Row>  
-		<Row><Button onClick={this.saveScream} > Save Scream? </Button> </Row> 
-	      </div> : <div> </div> } 
-	  </Col>
-	  <Col md={6}>	
-	    { this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
-	  </Col>	
-	  </Row>
-	  <Row>
-	    <Col md={2} mdOffset={5}> 
-	      <OurButton func={this.toggleClick} state={this.state.text}/>
-	    </Col>
-	  </Row> 
-	  <Row>
-	    <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
-	  </Row>
-	</div> :
-	<Profile /> }
-      </Grid> );
-  }
+	render() {
+		return (
+			<Grid>
+				<Row> supBitches </Row>
+				<Row><Login /></Row>
+				<Row>
+					<NavBar func={this.navClickHandler} />
+				</Row>
+					{this.state.page === 'scream' ? 
+					<div>
+						<Row className="gif" >
+							<Col md={3}>
+								{this.state.displayScore ?
+								<div>
+									<Row>Score: {Math.floor(this.state.screamLevel * 1000)} </Row>  
+									<Row><Button onClick={this.saveScream} > Save Scream? </Button> </Row> 
+								</div> : <div> </div> } 
+							</Col>
+							<Col md={6}>	
+								{this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div>}
+							</Col>	
+				</Row>
+				<Row>
+					<Col md={2} mdOffset={5}> 
+						<OurButton func={this.toggleClick} state={this.state.text}/>
+					</Col>
+				</Row> 
+				<Row>
+					<Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
+				</Row>
+				</div> :
+				<Profile />}
+			</Grid> );
+	}
 }
 export default App;
 

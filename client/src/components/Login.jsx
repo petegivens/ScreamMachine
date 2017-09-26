@@ -1,5 +1,6 @@
 import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
+import * as LoginModel from '../../models/login.js';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -9,6 +10,7 @@ class Login extends React.Component {
 		};
 		this.openModal = this.openModal.bind(this);
 		this.closeModal = this.closeModal.bind(this);
+    this.login = this.login.bind(this);
 	}
 
 	openModal() {
@@ -17,6 +19,13 @@ class Login extends React.Component {
 
 	closeModal() {
     this.setState({showModal: false});
+  }
+
+  login() {
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    LoginModel.userLogin('/login', username, password);
+    this.closeModal();
   }
 
   render() {
@@ -28,11 +37,14 @@ class Login extends React.Component {
         		<Modal.Title>Login</Modal.Title>
       		</Modal.Header>
       		<Modal.Body>
-        		To save your scream data to your profile, please log in first. 
+            <label>Username:</label>
+            <input placeholder='username' id='username'></input>
+            <label>Password:</label>
+            <input placeholder='password' id='password'></input>
       		</Modal.Body>
       		<Modal.Footer>
         		<Button onClick={this.closeModal}>Close</Button>
-        		<Button bsStyle="primary">Sign In</Button>
+        		<Button bsStyle="primary" onClick={this.login}>Sign In</Button>
       		</Modal.Footer>
       	</Modal>
   		</div>
