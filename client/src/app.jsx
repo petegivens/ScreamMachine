@@ -3,6 +3,7 @@ import graph, {getMic, getFreq} from '../models/micGraph';
 import OurButton from './components/Button.jsx'; 
 import NavBar from './components/NavBar.jsx';
 import Login from './components/Login.jsx';
+import Profile from './components/Profile.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 
 class App extends React.Component {
@@ -14,39 +15,51 @@ class App extends React.Component {
       mic: null,
       page: 'scream',
       screamLevel: 0,
-      freqArray: [],
+      freqArray: [0,0,0],
       displayScore: false
     };
     this.toggleClick = this.toggleClick.bind(this);
     this.micHandler = this.micHandler.bind(this);
     this.navClickHandler = this.navClickHandler.bind(this);
-    setInterval(this.micHandler, 250); 
+    setTimeout(this.micHandler,250);
   }
 
   micHandler() {
     this.setState({mic:getMic()});
-    var freq = getFreq(); 
-    console.log(freq);
+    var freq = getFreq();
+    this.state.freqArray[0] += freq[0]; 
+    this.state.freqArray[1] += freq[1]; 
+    this.state.freqArray[2] += freq[2]; 
     var micLevel = this.state.mic.getLevel();
     if(micLevel > this.state.screamLevel) {
       this.setState({screamLevel: micLevel});
     }
     //console.log(micLevel); // for debugging 
     if	(this.state.scream) {
-    //console.log(micLevel); // for debugging 
+      //console.log(micLevel); // for debugging 
       if (micLevel < 0.15) {
-	      this.setState({scream: false});
+	this.setState({scream: false});
       } 
     } else if (micLevel > 0.15) {
       this.setState({scream: true})
     }
-  }
-  saveScream() {
-    var screamObj = {
-      volume: this.state.screamLevel,
-      user: this.state.user
+    if(this.state.text === 'Stop') {
+      setTimeout(this.micHandler, 250);
     }
-    // make post request 
+  }
+
+  saveScream() {
+    axios.post('/addScream', {
+      params: {
+	volume: this.state.screamLevel,
+	user: this.state.user,
+	lowFreq: this.state.freqArray[0],
+	midFreq: this.state.freqArray[1],
+	highFreq: this.state.freqArray[2]
+      }
+    }).then((res) => {
+      this.setState({freqArary: [0,0,0]});
+    })
   }
 
 
@@ -57,7 +70,8 @@ class App extends React.Component {
       //set button text to 'Stop'
       this.setState({text: 'Stop'});
       this.setState({displayScore: false});
-      this.state.mic.start(); 
+      this.state.mic.start();
+      setTimeout(this.micHandler,100);
       //else if button text is 'Stop'
     } else if (this.state.text === 'Stop') {
       //set button text to 'Scream Again'
@@ -70,7 +84,6 @@ class App extends React.Component {
   }
 
   navClickHandler(eventKey) {
-    console.log('test',eventKey);
     if (eventKey === 'logout') {
     // should logout somehow (MAGIC, obviously)
     } else if (eventKey === 'login') {
@@ -110,7 +123,7 @@ class App extends React.Component {
 	    <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
 	  </Row>
 	</div> :
-	<div> hi </div> }
+	<Profile /> }
       </Grid> );
   }
 }
