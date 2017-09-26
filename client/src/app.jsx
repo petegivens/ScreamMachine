@@ -3,7 +3,7 @@ import graph, {getMic} from '../models/micGraph';
 import Button from './components/Button.jsx'; 
 import NavBar from './components/NavBar.jsx';
 import Login from './components/Login.jsx';
-import {Row,Grid} from 'react-bootstrap'; 
+import {Row,Grid,Col} from 'react-bootstrap';
 
 class App extends React.Component {
   constructor() {
@@ -11,7 +11,10 @@ class App extends React.Component {
     this.state ={
       scream: false,
       text: 'Start',
-      mic: null
+      mic: null,
+      page: 'scream',
+      screamLevel: 0,
+      displayScore: false
     };
     this.toggleClick = this.toggleClick.bind(this);
     this.micHandler = this.micHandler.bind(this);
@@ -23,9 +26,13 @@ class App extends React.Component {
 
   micHandler() {
     this.setState({mic:getMic()});
-    var micLevel = this.state.mic.getLevel(); 
+    var micLevel = this.state.mic.getLevel();
+    if(micLevel > this.state.screamLevel) {
+      this.setState({screamLevel: micLevel});
+    }
     //console.log(micLevel); // for debugging 
-    if (this.state.scream) {
+    if	(this.state.scream) {
+    //console.log(micLevel); // for debugging 
       if (micLevel < 0.15) {
 	      this.setState({scream: false});
       } 
@@ -40,11 +47,15 @@ class App extends React.Component {
     if (this.state.text === 'Start' || this.state.text === 'Scream Again') {
       //set button text to 'Stop'
       this.setState({text: 'Stop'});
+      this.setState({displayScore: false});
       this.state.mic.start(); 
       //else if button text is 'Stop'
     } else if (this.state.text === 'Stop') {
       //set button text to 'Scream Again'
       this.setState({text: 'Scream Again'});
+      //store scream in database
+      //display highest volume
+      this.setState({displayScore: true})
       this.state.mic.stop(); 
     }
   }
@@ -71,17 +82,25 @@ class App extends React.Component {
 	      <Row>
 	        <NavBar login={this.login} logout={this.logout} profile={this.profile} />
 	      </Row>	
-        <Row className="gif"> 
+	      <Row style={{height: 375}} className="gif" >
+	      <Col md={3}>
+	      {this.state.displayScore ? <div>Score: {Math.floor(this.state.screamLevel * 1000)}</div> : <div> </div>} 
+	      </Col>
+	      <Col md={6}>	
 	        { this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div> }
-	      </Row>
-	      <Row>
-	      <Button func={this.toggleClick} state={this.state.text}/>
-	      </Row>	
-        <Row id='ScreamMeter'> </Row>
-      </Grid> 
-    );
+	      </Col>	
+	    </Row>
+	    <Row>
+	      <Col md={2} mdOffset={5}> 
+	        <Button func={this.toggleClick} state={this.state.text}/>
+	      </Col>
+	    </Row> 
+	    <Row>
+	      <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
+	    </Row>	
+     </Grid> );
+    }
   }
-}
 
 export default App;
 
