@@ -3,9 +3,9 @@ import graph, {getMic, getFreq} from '../models/micGraph';
 import OurButton from './components/Button.jsx'; 
 import NavBar from './components/NavBar.jsx';
 import Login from './components/Login.jsx';
+import Signup from './components/Signup.jsx';
 import Profile from './components/Profile.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
-
 var axios = require('axios');
         
 class App extends React.Component {        
@@ -16,9 +16,10 @@ class App extends React.Component {
       text: 'Start',
       mic: null,
       page: 'scream',
-      screamLevel: 0,
       freqArray: [0,0,0],
-      displayScore: false
+      displayScore: false,
+      showLogin: false,
+      showSignup: false
     };
     this.toggleClick = this.toggleClick.bind(this);
     this.micHandler = this.micHandler.bind(this);
@@ -85,9 +86,11 @@ class App extends React.Component {
 	navClickHandler(eventKey) {
 		//console.log('test', eventKey);
 		if (eventKey === 'logout') {
-		// should logout somehow (MAGIC, obviously)
+		  // should logout somehow (MAGIC, obviously)
 		} else if (eventKey === 'login') {
-		//should login or signup user
+		  //this.setState({showLogin: true});
+		} else if (eventKey === 'signup') {
+			//should add user
 		} else if (eventKey === 'profile') {
 			this.setState({page: 'profile'});
 		}
@@ -97,7 +100,7 @@ class App extends React.Component {
 		return (
 			<Grid>
 				<Row> supBitches </Row>
-				<Row><Login /></Row>
+				<Row><Login show={this.state.showLogin}/><Signup /></Row>
 				<Row>
 					<NavBar func={this.navClickHandler} />
 				</Row>
