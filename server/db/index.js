@@ -118,19 +118,22 @@ module.exports = {
      *  { 
      *    username: 'username',
      *    volume: 1.0000,
-     *    frequency: 1.0000,
-     *    duration: 1.0000
+     *    lowFreq: 1.0000,
+     *    midFreq: 1.0000,
+     *    highFreq: 1.0000
      *  }
      */
     let query = {
-      text: `INSERT INTO screams (user_id, volume, frequency, duration)
+      text: `INSERT INTO screams (user_id, volume, lowFreq, midFreq, highFreq)
               VALUES (
                 (SELECT id FROM users WHERE username='${data.username}'),
                 ${data.volume},
-                ${data.frequency},
-                ${data.duration}
+                ${data.lowFreq},
+                ${data.midFreq},
+                ${data.highFreq}
               );`
     };
+    console.log('query.text: ', query.text);
     return pool.query(query)
       .then(function(result) {
         console.log('addScream query success');

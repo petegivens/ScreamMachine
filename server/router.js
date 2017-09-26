@@ -83,14 +83,9 @@ app.post('/addUser', function(req, res) {
 
 app.post('/addScream', function(req, res) {
   // need to require logged in cookie
-  // var screamData = {
-  //   username: 'luig0',
-  //   volume: 1.375,
-  //   frequency: 1.0,
-  //   duration: 3.532
-  // };
 
-  var screamData = req.body;
+  var screamData = req.body.params;
+  console.log('router.js, req.body: ', req.body.params);
 
   db.addScream(screamData)
     .then(function(result) {

@@ -10,9 +10,10 @@ CREATE TABLE users (
 CREATE TABLE screams (
   id serial,
   user_id int REFERENCES users(id),
-  volume numeric (5, 4),
-  frequency numeric (5, 4),
-  duration numeric (5, 4),
+  volume double precision,
+  lowFreq double precision,
+  midFreq double precision,
+  highFreq double precision,
   timestamp timestamp default current_timestamp,
   PRIMARY KEY (ID)
 );
