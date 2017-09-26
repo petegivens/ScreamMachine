@@ -38,11 +38,9 @@ var s = function(p) {
 
 export var getFreq = function() {
   var ret = [];
-  ret.push(fft.getEnergy('bass'))
   ret.push(fft.getEnergy('lowMid'));
   ret.push(fft.getEnergy('mid'));
   ret.push(fft.getEnergy('highMid'));
-  ret.push(fft.getEnergy('treble'));
   return ret; 
 }
 
