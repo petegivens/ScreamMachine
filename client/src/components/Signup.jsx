@@ -41,16 +41,15 @@ class Signup extends React.Component {
           <Modal.Header>
             <Modal.Title>Sign Up</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <label>Username:</label>
-            <input placeholder='username' id='username'></input><br/>
-            <label>Password:</label>
-            <input placeholder='password' id='password'></input><br/>
+          <Modal.Body> 
             <label>First Name:</label>
-            <input placeholder='First' id='firstname'></input><br/>
+            <input placeholder='FirstName' id='firstname'></input><br/>
             <label>Last Name:</label>
-            <input placeholder='Last' id='lastname'></input>
-          </Modal.Body>
+            <input placeholder='LastName' id='lastname'></input><br/>
+	          <label>Username:</label>
+	          <input placeholder='username' id='username'></input><br/>
+	          <label>Password:</label>
+	          <input placeholder='password' id='password'></input></Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModal}>Close</Button>
             <Button bsStyle="primary" onClick={this.signup}>Sign Up</Button>
