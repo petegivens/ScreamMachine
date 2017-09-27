@@ -12,3 +12,13 @@ button {
 .gif {
   height: 375px; 
 }
+
+#screambutton {
+	width: 250px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#screambutton:hover {
+	background-color: aliceblue;
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 
-var OurButton = (props) => (
+var ScreamButton = (props) => (
 	<div>	
-		<button type="button" onClick={props.func}>{props.state}</button>
+		<button id='screambutton' type="button" onClick={props.func}>{props.state}</button>
 	</div>
 )
 
-export default OurButton;
+export default ScreamButton;
