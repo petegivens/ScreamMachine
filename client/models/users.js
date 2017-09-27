@@ -11,7 +11,7 @@ export const userLogin = function(url, username, password) {
 	});
 };
 
-export const addUser = function(username, password, firstname, lastname) {
+export const addUser = function(url, username, password, firstname, lastname) {
 	return axios({
 		method: 'post',
 		url: url,

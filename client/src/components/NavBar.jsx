@@ -12,7 +12,8 @@ var NavBar = (props) => (
       <NavItem eventKey={'profile'} href='#'> Your Profile</NavItem>
     </Nav>
     <Nav pullRight>
-      <NavItem  eventKey={'login'} href="#">Login</NavItem>
+      <NavItem  eventKey={'login'} href="#">{props.buttonText}</NavItem>
+      <NavItem  eventKey={'signup'} href="#">Sign Up</NavItem>
     </Nav>
   </Navbar>
 )
