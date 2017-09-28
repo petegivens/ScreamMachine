@@ -8,8 +8,8 @@ const { Pool } = require('pg');
 var config = {
   aws: {
     host: 'localhost',
-    user: 'screamer',
-    password: '',
+    user: 'postgres',
+    password: 'admin',
     database: 'scream'
   },
   jc_offline: {
@@ -27,7 +27,7 @@ var config = {
   }
 };
 
-const pool = new Pool(config['jc_aws']);
+const pool = new Pool(config['aws']);
 
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
@@ -80,7 +80,7 @@ module.exports = {
 
   addUser: function(user) {
     /* user should be an object of the following structure:
-     *  { 
+     *  {
      *    username: 'username',
      *    password: 'password',
      *    first_name: 'first_name',
@@ -92,7 +92,7 @@ module.exports = {
       .then(function(hash) {
         user.password = hash;
 
-        let rayedUser = [ 
+        let rayedUser = [
           user.username,
           user.password,
           user.first_name,
@@ -122,7 +122,7 @@ module.exports = {
 
   isCorrectPassword: function(user) {
     // Assumes that you first check if user exists before running this function
-    
+
     return pool.query("SELECT password FROM users WHERE username = '" + user.username + "'")
       .then(function(result) {
         return bcrypt.compare(user.password, result.rows[0].password)
@@ -135,7 +135,7 @@ module.exports = {
   addScream: function(data) {
     // add a scream to database
     /* data should be an object of the following structure:
-     *  { 
+     *  {
      *    username: 'username',
      *    volume: 1.0000,
      *    lowFreq: 1.0000,
