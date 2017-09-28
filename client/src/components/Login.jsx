@@ -11,7 +11,7 @@ const Login = (props) => (
 		    <label>Username:</label>
 		    <input placeholder='username' id='username'></input><br/>
 		    <label>Password:</label>
-		    <input placeholder='password' id='password'></input>
+		    <input placeholder='password' id='password' type='password'></input>
 	  	</Modal.Body>
 	  	<Modal.Footer>
 		    <Button onClick={props.closeModal}>Close</Button>
