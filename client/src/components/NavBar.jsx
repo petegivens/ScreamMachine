@@ -11,10 +11,14 @@ var NavBar = (props) => (
     <Nav>
       <NavItem eventKey={'profile'} href='#'> Your Profile</NavItem>
     </Nav>
+    {props.isLoggedIn === false ?
     <Nav pullRight>
-      <NavItem  eventKey={'login'} href="#">{props.buttonText}</NavItem>
-      <NavItem  eventKey={'signup'} href="#">Sign Up</NavItem>
-    </Nav>
+      <NavItem  eventKey={'login'} href="#">Login</NavItem> 
+      <NavItem  eventKey={'signup'} href="#">Sign Up</NavItem> 
+    </Nav> :
+    <Nav pullRight>
+      <NavItem  eventKey={'logout'} href="#">Logout</NavItem>
+    </Nav>}
   </Navbar>
 )
 

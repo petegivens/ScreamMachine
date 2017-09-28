@@ -17,14 +17,13 @@ class App extends React.Component {
       showSignup: false,
       showLogin: false,
       showSignup: false,
-      buttonText: 'Login',
-      user: 'luig0',
+      isLoggedIn: false,
+      user: 'null',
     };
     this.navClickHandler = this.navClickHandler.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
-    
   }
 
   closeModal() {
@@ -37,14 +36,22 @@ class App extends React.Component {
   login() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    console.log(this);
-    UserModel.userLogin('/login', username, password).then(function(err, result) {
-      console.log(this);
-      this.setState({
-      	buttonText: 'Logout',
-      	user: username
-      });
-      this.closeModal();
+    const notFound = 'We were unable to locate an account with that username. Please try again or go back to the home page and create a new account.'
+    const incorrectPW = 'The username and password do not match. Please try again.'
+    let context = this;
+    UserModel.userLogin('/login', username, password).then(function(result) {
+      console.log(result);
+      if (result.data === "User not found") {
+        alert(notFound);
+      } else if (result.data === "password is incorrect") {
+        alert(incorrectPW);
+      } else {
+        context.setState({
+        	isLoggedIn: true,
+        	user: username
+        });
+        context.closeModal();
+      }
     });
   }
 
@@ -53,10 +60,19 @@ class App extends React.Component {
     let password = document.getElementById('password').value;
     let firstname = document.getElementById('firstname').value;
     let lastname = document.getElementById('lastname').value;
-    console.log(this);
-    UserModel.addUser('/addUser', username, password, firstname, lastname).then(function(err, result) {
-      console.log(this);
-      this.closeModal();
+    const userTaken = 'That username is already taken. Please choose a different username.'
+    let context = this;
+    UserModel.addUser('/addUser', username, password, firstname, lastname).then(function(result) {
+      console.log(result);
+      if (result.data === "User already exists in db") {
+        alert(userTaken);
+      } else {
+        context.setState({
+          isLoggedIn: true,  
+          user: username
+        });
+        context.closeModal();
+      }
     });
   }
 
@@ -72,6 +88,12 @@ class App extends React.Component {
     } else if (eventKey === 'profile') {
       //renders profile page instead of scream page
       this.setState({page: 'profile'});
+    } else if (eventKey === 'logout') {
+      //logs out user
+      this.setState({
+        user: 'null',
+        isLoggedIn: false
+      });
     }
   }    
 
@@ -82,7 +104,7 @@ class App extends React.Component {
 				<Row><Login closeModal={this.closeModal} showLogin={this.state.showLogin} login={this.login} /></Row>
 				<Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
 				<Row>
-				  <NavBar buttonText={this.state.buttonText} func={this.navClickHandler} />
+				  <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} />
 				</Row>
 				<Row>
 				  {this.state.page === 'scream' ? 
