@@ -98,22 +98,24 @@ class App extends React.Component {
   }    
 
   render() {
+    var page = this.state.page === 'scream' ? <Scream user={this.state.user}/> : <Profile user={this.state.user} />; 
     return (
       <Grid>
-				<Row> supBitches </Row>
-				<Row><Login closeModal={this.closeModal} showLogin={this.state.showLogin} login={this.login} /></Row>
-				<Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
-				<Row>
-				  <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} />
-				</Row>
-				<Row>
-				  {this.state.page === 'scream' ? 
-				  <div>
-				  	<Scream user={this.state.user}/>
-					</div> :
-					<Profile user={this.state.user} />}
-				</Row>
-      </Grid> );
+	<Row> supBitches </Row>
+	<Row><Login closeModal={this.closeModal} showLogin={this.state.showLogin} login={this.login} /></Row>
+	<Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
+	<Row>
+	  <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} />
+	</Row>
+	<Row>
+	  {this.state.page === 'scream' ? 
+	      <div>
+		<Scream user={this.state.user}/>
+	      </div> :
+	      <Profile user={this.state.user} />}
+	    </Row>
+
+	  </Grid> );
   }
 }
 export default App;
