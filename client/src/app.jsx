@@ -38,13 +38,13 @@ class App extends React.Component {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
     console.log(this);
-    UserModel.userLogin('/login', username, password).then(function(err, result) {
-      console.log(this);
-      this.setState({
+    let context = this;
+    UserModel.userLogin('/login', username, password).then(function(result) {
+      context.setState({
       	buttonText: 'Logout',
       	user: username
       });
-      this.closeModal();
+      context.closeModal();
     });
   }
 
@@ -53,10 +53,10 @@ class App extends React.Component {
     let password = document.getElementById('password').value;
     let firstname = document.getElementById('firstname').value;
     let lastname = document.getElementById('lastname').value;
-    console.log(this);
+    let context = this;
     UserModel.addUser('/addUser', username, password, firstname, lastname).then(function(err, result) {
-      console.log(this);
-      this.closeModal();
+      context.setState({user: username});
+      context.closeModal();
     });
   }
 
