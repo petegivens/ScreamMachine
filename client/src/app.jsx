@@ -4,6 +4,7 @@ import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import Scream from './components/Scream.jsx';
 import Profile from './components/Profile.jsx';
+import StressForm from './components/StressForm.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
 import * as UserModel from '../models/users.js';
@@ -78,6 +79,10 @@ class App extends React.Component {
 
   navClickHandler(eventKey) {
     if (eventKey === 'logout') {
+      this.setState({
+        user: 'null',
+        isLoggedIn: false
+      });
       //should logout somehow (MAGIC, obviously)
     } else if (eventKey === 'login') {
       //displays login modal
@@ -85,37 +90,38 @@ class App extends React.Component {
     } else if (eventKey === 'signup') {
       //displays signup modal
       this.setState({showSignup: true});
-    } else if (eventKey === 'profile') {
+    } else if (eventKey === 'Profile') {
       //renders profile page instead of scream page
-      this.setState({page: 'profile'});
-    } else if (eventKey === 'logout') {
-      //logs out user
-      this.setState({
-        user: 'null',
-        isLoggedIn: false
-      });
+      this.setState({page: 'Profile'});
+    } else if (eventKey === 'StressForm')  {
+      //goes to daily stress form
+      this.setState({page: 'StressForm'});
     }
   }    
 
   render() {
-    var page = this.state.page === 'scream' ? <Scream user={this.state.user}/> : <Profile user={this.state.user} />; 
+    var page;
+    if (this.state.page === 'scream') {
+      page = <Scream user={this.state.user}/>;
+    } else if (this.state.page === 'Profile') {
+      page = <Profile user={this.state.user} />; 
+    } else if (this.state.page === 'StressForm') {
+      page = <StressForm />;
+    } else {
+      page = <div> Page did not load </div>
+    }
     return (
       <Grid>
-	<Row> supBitches </Row>
-	<Row><Login closeModal={this.closeModal} showLogin={this.state.showLogin} login={this.login} /></Row>
-	<Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
-	<Row>
-	  <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} />
-	</Row>
-	<Row>
-	  {this.state.page === 'scream' ? 
-	      <div>
-		<Scream user={this.state.user}/>
-	      </div> :
-	      <Profile user={this.state.user} />}
-	    </Row>
-
-	  </Grid> );
+        <Row> supBitches </Row>
+        <Row><Login closeModal={this.closeModal} showLogin={this.state.showLogin} login={this.login} /></Row>
+        <Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
+        <Row>
+          <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} />
+        </Row>
+        <Row>
+          {page}
+        </Row>
+      </Grid> );
   }
 }
 export default App;

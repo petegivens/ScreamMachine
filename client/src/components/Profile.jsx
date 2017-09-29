@@ -2,7 +2,6 @@ import React, {Componenet} from 'react';
 import {LineChart} from 'react-d3-basic';
 import axios from 'axios';
 import {Grid, Row, Col} from 'react-bootstrap';
-import StressForm from './StressForm.jsx';
 class Profile extends React.Component {
 
   constructor(props) {
@@ -72,9 +71,6 @@ class Profile extends React.Component {
 	  <Col md={8} mdOffset={2}>
 	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Frequency'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries2} x={x} />
 	  </Col>
-	</Row>
-	<Row>
-	  <StressForm />
 	</Row>
       </Grid> );
   }
