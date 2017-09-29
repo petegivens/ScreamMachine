@@ -3,12 +3,17 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var db = require(__dirname + '/db/index');
 
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 
 var app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser());
+
+app.use(cookieParser());
+app.use(session({secret: 'screaming'}));
 
 app.use('/', express.static('client'));
 
@@ -70,9 +75,15 @@ app.post('/login', function(req, res) {
             res.cookie('username', req.body.username);
             res.cookie('isLoggedIn', true);
             res.send('Password is correct; cookie established');
+						//Adding session info below to test
+						req.session.isLoggedIn = true;
+						req.session.username = req.body.username;
           } else {
             res.cookie('username', null);
             res.cookie('isLoggedIn', false);
+						//adding session info below to test
+						//will check user state with presence of a session ID instead of checking username;
+						req.session.destroy();
             res.send('password is incorrect');
           }
         });
@@ -97,6 +108,9 @@ app.post('/addUser', function(req, res) {
           .then(function(result) {
             res.cookie('username', user.username);
             res.cookie('isLoggedIn', true);
+						//Adding session method for testing
+						req.session.username = user.username;
+						req.session.isLoggedIn = true;
             res.send('User added');
           })
           .catch(function (error) {
