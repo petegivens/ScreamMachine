@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, Nav, NavItem} from 'react-bootstrap'
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
 
 var NavBar = (props) => (
   <Navbar className='NavBar' onSelect={props.func} >
@@ -9,7 +9,10 @@ var NavBar = (props) => (
       </Navbar.Brand>
     </Navbar.Header>
     <Nav>
-      <NavItem eventKey={'profile'} href='#'> Your Profile</NavItem>
+      <NavDropdown title="Profile" id="basic-nav-dropdown">
+        <MenuItem eventKey={'Profile'}>Your Graphs</MenuItem>
+        <MenuItem eventKey={'StressForm'}>Daily Stress Form</MenuItem>
+      </NavDropdown> 
     </Nav>
     {props.isLoggedIn === false ?
     <Nav pullRight>

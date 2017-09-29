@@ -2,26 +2,79 @@ import React, {Component} from 'react';
 import {Checkbox, Button, FormGroup, Radio, inline} from 'react-bootstrap';
 
 var people = ['close family', 'extended family', 'friends', 'co-workers', 'ex-SO'];
+var place = ['work', 'school', 'gym', 'outside for more than an hour','bar'];
 
 class StressForm extends React.Component {
 	constructor(props) {
 		super(props);
+		var checkPeople = [];
+		var checkPlace = []; 
+
+		people.forEach((el)=> {
+			checkPeople.push(null);
+		})
+		place.forEach((el)=> {
+			checkPlace.push(null);
+		})	
+		
 		this.state = {
 			stressLevel: 0, 
-			checkedPeople: [null,null,null,null,null]
+			checkedPeople: checkPeople,
+			checkedPlace: checkPlace
 		}
-		this.change = this.change.bind(this);
+
+		this.changePeople = this.changePeople.bind(this);
+		this.changePlace = this.changePlace.bind(this);
 		this.submit = this.submit.bind(this);
 		this.stressLevel = this.stressLevel.bind(this);
 	}
 
 	submit(e) {
 		e.preventDefault();
-		console.log(this.state.checkedPeople);
-		console.log(this.state.stressLevel);
+		// make request to get data from database
+		// if no data create empty one
+		 var fakedata = '{"people": [2,0,0,0,0], "place": [0,0,2,0,0]}';
+		 var oldData = JSON.parse(fakedata);
+		 var peopleArr = oldData.people;
+		 var placeArr = oldData.place;
+		 var people = [];
+		var place = [];
+		console.log(peopleArr,placeArr);
+		// add current values and take average
+		peopleArr.forEach( (el,i) => {
+			if (this.state.checkedPeople[i] !== null) {
+				var num;
+				if (el === 0) {
+					num = this.state.stressLevel; 
+				} else  {
+					num = (el + this.state.stressLevel)/2;
+				}
+			} else {
+				num = el;
+			}
+			people.push(num);
+		});
+		placeArr.forEach( (el,i) => {
+			if (this.state.checkedPlace[i] !== null) {
+				var num;
+				if (el === 0) {
+					num = this.state.stressLevel; 
+				} else  {
+					num = (el + this.state.stressLevel)/2;
+				}
+			} else {
+				num = el;
+			}
+			place.push(num);
+		});
+		var data = {
+			people: people,
+			place: place
+		}
+		console.log(JSON.stringify(data));
 	}
 
-	change(e) {
+	changePeople(e) {
 		var arr = this.state.checkedPeople.slice();
 		if (arr[e.target.value] === null) {
 			arr[e.target.value] = people[e.target.value];
@@ -30,19 +83,34 @@ class StressForm extends React.Component {
 		}
 		this.setState({checkedPeople: arr});
 	}
-	
+
+	changePlace(e) {
+		var arr = this.state.checkedPlace.slice();
+		if (arr[e.target.value] === null) {
+			arr[e.target.value] = place[e.target.value];
+		} else {
+			arr[e.target.value] = null; 
+		}
+		this.setState({checkedPlace: arr});
+	}
+
 	stressLevel(e) {
 		this.setState({stressLevel: parseInt(e.target.value)});
 	}
 
 	render(props) {
-		var checkboxes = people.map( (el,i) => {
-			return <Checkbox onChange={this.change} value={i} key={i}>{el} </Checkbox>	
+		var peopleCheckbox = people.map( (el,i) => {
+			return <Checkbox onChange={this.changePeople} value={i} key={i}>{el} </Checkbox>	
+		})
+		var placeCheckbox = place.map( (el, i) => {
+			return <Checkbox onChange={this.changePlace} value={i} key={i}>{el} </Checkbox>
 		})
 		return (
 			<form onSubmit={this.submit}>
 				<div> Who did you hangout with today? </div>
-				{checkboxes}
+				{peopleCheckbox}
+				<div> Where where you today? </div>
+				{placeCheckbox}
 				<div> How stressed were you today? </div>
 				<FormGroup onChange={this.stressLevel}> 
 					<Radio name='stressLevel' value='0' inline> 0 </Radio> 
