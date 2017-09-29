@@ -26,7 +26,7 @@ var config = {
   }
 };
 
-const pool = new Pool(config['jc_aws']);
+const pool = new Pool(config['aws']);
 
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
