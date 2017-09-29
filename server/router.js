@@ -149,6 +149,10 @@ app.post('/addForm', function(req, res) {
 
 app.post('/addAverages', function(req, res) {
   // post averages
+  db.addAverages(req.body.params)
+    .then(function(result) {
+      res.send(result);
+    })
 })
 
 app.get('/profile', function(req, res) {
