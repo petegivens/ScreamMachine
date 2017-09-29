@@ -29,12 +29,26 @@ app.get('/getScreams', function(req, res) {
     });
 });
 
+app.get('/getForm', function(req, res) {
+  db.getForm()
+    .then(function(result) {
+      res.send(result);
+    })
+});
+
+app.get('/getAverages', function(req, res) {
+  db.getAverages()
+    .then(function(result) {
+      res.send(result);
+    })
+})
+
 app.get('/clearScreams', function(req, res) {
   db.clearScreams()
     .then(function(result) {
       res.send(result);
     })
-})
+});
 
 app.post('/login', function(req, res) {
   db.findUser(req.body)
@@ -111,6 +125,17 @@ app.post('/addScream', function(req, res) {
       res.send('Failed to add scream');
     });
 });
+
+app.post('/addForm', function(req, res) {
+  db.addForm(req.body.params)
+    .then(function(result) {
+      res.send(result);
+    });
+});
+
+app.post('/addAverages', function(req, res) {
+  // post averages
+})
 
 app.get('/profile', function(req, res) {
   res.send('Welcome to the profile endpoint');
