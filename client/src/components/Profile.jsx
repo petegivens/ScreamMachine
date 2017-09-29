@@ -2,12 +2,13 @@ import React, {Componenet} from 'react';
 import {LineChart} from 'react-d3-basic';
 import axios from 'axios';
 import {Grid, Row, Col} from 'react-bootstrap';
+import StressForm from './StressForm.jsx';
 class Profile extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      screams: []
+      screams: [],
     }
     this.getScreams = this.getScreams.bind(this);
     this.getScreams();
@@ -23,8 +24,7 @@ class Profile extends React.Component {
       this.setState({screams: screams.data});
     })
   }
-
-
+  
   render() {
     // chart series,
     // field: is what field your data want to be selected
@@ -72,6 +72,9 @@ class Profile extends React.Component {
 	  <Col md={8} mdOffset={2}>
 	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Frequency'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries2} x={x} />
 	  </Col>
+	</Row>
+	<Row>
+	  <StressForm />
 	</Row>
       </Grid> );
   }
