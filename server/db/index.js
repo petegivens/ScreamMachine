@@ -19,15 +19,14 @@ var config = {
     database: 'scream'
   },
   jc_aws: {
-    // host: '34.202.231.255',
-    host: 'ec2-34-202-231-255.compute-1.amazonaws.com',
+    host: 'ec2-34-229-151-217.compute-1.amazonaws.com',
     user: 'postgres',
     password: 'admin',
     database: 'scream'
   }
 };
 
-const pool = new Pool(config['aws']);
+const pool = new Pool(config['jc_aws']);
 
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
@@ -55,6 +54,26 @@ module.exports = {
       })
       .catch(function(error) {
         return err;
+      })
+  },
+
+  getForm: function() {
+    return pool.query("select * from form")
+      .then(function(result) {
+        return result.rows;
+      })
+      .catch(function(error) {
+        return error;
+      })
+  },
+
+  getAverages: function() {
+    return pool.query("select * from averages")
+      .then(function(result) {
+        return result.rows;
+      })
+      .catch(function(error) {
+        return error;
       })
   },
 
@@ -163,9 +182,72 @@ module.exports = {
         console.log('addScream query fail');
         return error;
       });
+  },
+
+  addForm: function(data) {
+    /*  
+     *  data should be object of following structure: 
+     *  {
+     *    username: 'username',
+     *    stress_level: 0,
+     *    stressors: 'stressors'
+     *  }
+     *
+     */
+     let query = {
+        text: `INSERT INTO form (user_id, stress_level, stressors)
+                VALUES (
+                  (SELECT id FROM users WHERE username='${data.username}'),
+                  ${data.stress_level},
+                  ${data.stressors}
+                );`
+     }
+
+     return pool.query(query)
+      .then(function(result) {
+        return result;
+      })
+      .catch(function(error) {
+        return error;
+      });
+  },
+
+  addAverages: function(data) {
+    /*  
+     *  data should be object of following structure: 
+     *  {
+     *    username: 'username',
+     *    stress_level: 0,
+     *    form_data: 'form_data'
+     *  }
+     *
+     */
+     let query = {
+        text: `INSERT INTO form (user_id, stress_level, stressors)
+                VALUES (
+                  (SELECT id FROM users WHERE username='${data.username}'),
+                  ${data.stress_level},
+                  ${data.form_data}
+                );`
+     }
+
+     return pool.query(query)
+      .then(function(result) {
+        return result;
+      })
+      .catch(function(error) {
+        return error;
+      });
   }
 }
 
 /*
+CREATE TABLE averages (
+ id serial,
+ user_id int REFERENCES users(id),
+ stress_level int,
+ form_data varchar(255),
+ PRIMARY KEY (ID)
+);
 
 */
