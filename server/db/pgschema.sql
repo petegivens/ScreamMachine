@@ -18,14 +18,22 @@ CREATE TABLE screams (
   PRIMARY KEY (ID)
 );
 
-INSERT INTO users (id, username, password, first_name, last_name)
-  VALUES (1, 'jhcao', 'password', 'Johnathan', 'Cao');
+CREATE TABLE form (
+  id serial,
+  user_id int REFERENCES users(id),
+  stress_level int,
+  timestamp timestamp default current_timestamp,
+  stressors varchar(255),
+  PRIMARY KEY (ID)
+);
 
-INSERT INTO users (id, username, password, first_name, last_name)
-  VALUES (2, 'robhunt', 'rhpw', 'Robert', 'Hunter');
 
-INSERT INTO users (id, username, password, first_name, last_name)
-  VALUES (3, 'jjgator', 'jjpw', 'Julie', 'Johnson');
+CREATE TABLE averages (
+ id serial,
+ user_id int REFERENCES users(id),
+ stress_level int,
+ form_data varchar(255),
+ PRIMARY KEY (ID)
+);
 
-INSERT INTO users (id, username, password, first_name, last_name)
-  VALUES (4, 'reversmann', 'repass', 'Rachel', 'Eversmann');
+
