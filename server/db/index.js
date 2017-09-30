@@ -57,14 +57,36 @@ module.exports = {
       })
   },
 
-  getForm: function() {
-    return pool.query("select * from form")
+  getScream: function(username){
+    var query = 'SELECT * FROM screams WHERE user_id LIKE (SELECT id FROM users WHERE username=$1)';
+    return pool.query(query,[username])
+      .then(function(result) {
+        return result.rows;
+      })
+      .catch(function(error) {
+        return error; 
+      })
+  },
+
+  getForms: function() {
+    return pool.query("SELECT * from form")
       .then(function(result) {
         return result.rows;
       })
       .catch(function(error) {
         return error;
       })
+  },
+
+  getForm: function(username) {
+    var query = 'SELECT * FROM forms WHERE user_id LIKE (SELECT id FROM users WHERE username=$1)';
+    return pool.query(query,[username])
+      .then(function(result) {
+        return result.rows;
+      })
+      .catch(function(error) {
+        return error; 
+      })  
   },
 
   getAverages: function() {
@@ -75,6 +97,20 @@ module.exports = {
       .catch(function(error) {
         return error;
       })
+  },
+
+  getAverage: function(username) {
+    var query = 'SELECT * FROM averages WHERE user_id LIKE (SELECT id FROM users WHERE username=$1)';
+    return pool.query(query,[username])
+      .then(function(result) {
+        if(result.rows.length === 0) {
+          return 'First';
+        }
+        return result.rows;
+      })
+      .catch(function(error) {
+        return 'error'; 
+      })  
   },
 
   clearScreams: function() {

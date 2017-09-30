@@ -18,13 +18,13 @@ app.use(session({secret: 'screaming'}));
 app.use('/', express.static('client'));
 
 app.get('/getUsers', function(req, res) {
-	db.getUsers()
-		.then(function(result) {
-			res.send(result);
-		})
-		.catch(function(error) {
-			res.send('Error getting users.');
-		});
+  db.getUsers()
+    .then(function(result) {
+      res.send(result);
+    })
+    .catch(function(error) {
+      res.send('Error getting users.');
+    });
 });
 
 app.get('/getScreams', function(req, res) {
@@ -34,8 +34,22 @@ app.get('/getScreams', function(req, res) {
     });
 });
 
-app.get('/getForm', function(req, res) {
+app.get('/getScream', function(req, res) {
+  db.getScream(req.session.username)
+    .then(function(result) {
+      res.send(result);
+    })
+}); 
+
+app.get('/getForms', function(req, res) {
   db.getForm()
+    .then(function(result) {
+      res.send(result);
+    })
+});
+
+app.get('/getForm', function(req, res) {
+  db.getForm(req.session.username)
     .then(function(result) {
       res.send(result);
     })
@@ -47,6 +61,13 @@ app.get('/getAverages', function(req, res) {
       res.send(result);
     })
 })
+
+app.get('/getAverage', function(req, res) {
+  db.getAverage(req.session.username)
+    .then(function(result) {
+      res.send(result);
+    })
+});
 
 app.get('/clearScreams', function(req, res) {
   db.clearScreams()
@@ -75,15 +96,15 @@ app.post('/login', function(req, res) {
             res.cookie('username', req.body.username);
             res.cookie('isLoggedIn', true);
             res.send('Password is correct; cookie established');
-						//Adding session info below to test
-						req.session.isLoggedIn = true;
-						req.session.username = req.body.username;
+            //Adding session info below to test
+            req.session.isLoggedIn = true;
+            req.session.username = req.body.username;
           } else {
             res.cookie('username', null);
             res.cookie('isLoggedIn', false);
-						//adding session info below to test
-						//will check user state with presence of a session ID instead of checking username;
-						req.session.destroy();
+            //adding session info below to test
+            //will check user state with presence of a session ID instead of checking username;
+            req.session.destroy();
             res.send('password is incorrect');
           }
         });
@@ -141,9 +162,15 @@ app.post('/addScream', function(req, res) {
 });
 
 app.post('/addForm', function(req, res) {
-  db.addForm(req.body.params)
+
+  var formData = req.body.params;
+  db.addForm(formData)
     .then(function(result) {
-      res.send(result);
+      res.send('Successfully add form data');
+    })
+    .catch(function(error) {
+      console.log('add Form method failed');
+      res.send('failed to add form');
     });
 });
 

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Checkbox, Button, FormGroup, Radio, inline} from 'react-bootstrap';
+import axios from 'axios';
 
 var people = ['close family', 'extended family', 'friends', 'co-workers', 'ex-SO'];
 var place = ['work', 'school', 'gym', 'outside for more than an hour','bar'];
@@ -16,7 +17,7 @@ class StressForm extends React.Component {
 		place.forEach((el)=> {
 			checkPlace.push(null);
 		})	
-		
+
 		this.state = {
 			stressLevel: 0, 
 			checkedPeople: checkPeople,
@@ -31,47 +32,81 @@ class StressForm extends React.Component {
 
 	submit(e) {
 		e.preventDefault();
+		var obj = {
+			people: this.state.checkedPeople,
+			place: this.state.checkedPlace
+		}
 		// make request to get data from database
 		// if no data create empty one
-		 var fakedata = '{"people": [2,0,0,0,0], "place": [0,0,2,0,0]}';
-		 var oldData = JSON.parse(fakedata);
-		 var peopleArr = oldData.people;
-		 var placeArr = oldData.place;
-		 var people = [];
-		var place = [];
-		console.log(peopleArr,placeArr);
-		// add current values and take average
-		peopleArr.forEach( (el,i) => {
-			if (this.state.checkedPeople[i] !== null) {
-				var num;
-				if (el === 0) {
-					num = this.state.stressLevel; 
-				} else  {
-					num = (el + this.state.stressLevel)/2;
-				}
-			} else {
-				num = el;
+		var context = this;
+		var stressors = JSON.stringify(obj);
+		axios.post('/addForm', { 
+			params: {
+				username: context.props.user,
+				stress_level: context.state.stressLevel,
+				stressors: stressors
 			}
-			people.push(num);
-		});
-		placeArr.forEach( (el,i) => {
-			if (this.state.checkedPlace[i] !== null) {
-				var num;
-				if (el === 0) {
-					num = this.state.stressLevel; 
-				} else  {
-					num = (el + this.state.stressLevel)/2;
-				}
-			} else {
-				num = el;
-			}
-			place.push(num);
-		});
-		var data = {
-			people: people,
-			place: place
-		}
-		console.log(JSON.stringify(data));
+		}).then( (error) => {
+			axios.get('/getAverage')
+				.then( (result) => {
+					console.log('get average',result);
+					if (result.data.length === 0) {
+						console.log('first average');
+						var avgStress = 0;
+						 var oldData = {
+							people: 0,
+							place: 0
+						 }
+					} else {
+						var avgStress = result.stress_level;
+						var oldData = JSON.parse(result.form_data);
+					}
+					var peopleArr = oldData.people;
+					var placeArr = oldData.place;
+					var people = [];
+					var place = [];
+					// add current values and take average
+					peopleArr.forEach( (el,i) => {
+						if (this.state.checkedPeople[i] !== null) {
+							var num;
+							if (el === 0) {
+								num = this.state.stressLevel; 
+							} else  {
+								num = (el + this.state.stressLevel)/2;
+							}
+						} else {
+							num = el;
+						}
+						people.push(num);
+					});
+					placeArr.forEach( (el,i) => {
+						if (this.state.checkedPlace[i] !== null) {
+							var num;
+							if (el === 0) {
+								num = this.state.stressLevel; 
+							} else  {
+								num = (el + this.state.stressLevel)/2;
+							}
+						} else {
+							num = el;
+						}
+						place.push(num);
+					});
+					var data = {
+						people: people,
+						place: place
+					}
+					var newStress = (this.stressLevel + avgStress)/2
+					console.log('new average', JSON.stringify(data));	
+					axios.post('/addAverages', {
+						params: {
+							username: props.usersname,
+							stress_level: newStress,
+							form_data: JSON.stringify(data) 
+						}
+					})
+				})				
+		})
 	}
 
 	changePeople(e) {

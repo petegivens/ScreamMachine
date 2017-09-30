@@ -106,7 +106,7 @@ class App extends React.Component {
     } else if (this.state.page === 'Profile') {
       page = <Profile user={this.state.user} />; 
     } else if (this.state.page === 'StressForm') {
-      page = <StressForm />;
+      page = <StressForm user={this.state.user}/>;
     } else {
       page = <div> Page did not load </div>
     }
