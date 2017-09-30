@@ -5,24 +5,24 @@ import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
 
 class Scream extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			scream: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      scream: false,
       text: 'Start',
       mic: null,
       freqArray: [0,0,0],
       displayScore: false,
       screamLevel: 0,
       micRounds: 0
-		};
-		this.toggleClick = this.toggleClick.bind(this);
+    };
+    this.toggleClick = this.toggleClick.bind(this);
     this.micHandler = this.micHandler.bind(this);
     this.saveScream = this.saveScream.bind(this);
     setTimeout(this.micHandler,250);
-	}
+  }
 
-	micHandler() {
+  micHandler() {
     this.setState({mic:getMic()});
     var freq = getFreq();
     this.state.freqArray[0] += freq[0]; 
@@ -52,13 +52,13 @@ class Scream extends React.Component {
     axios.post('/addScream', {
       params: {
 	      volume: context.state.screamLevel,
-	      username: this.props.user,
+	      username: context.props.user,
 	      lowFreq: context.state.freqArray[0]/context.state.micRounds,
 	      midFreq: context.state.freqArray[1]/context.state.micRounds,
 	      highFreq: context.state.freqArray[2]/context.state.micRounds
         }
      })
-    .then((res) => {
+      .then((res) => {
       context.setState({freqArary: [0,0,0]});
 			context.setState({micRounds: 0});
     })
