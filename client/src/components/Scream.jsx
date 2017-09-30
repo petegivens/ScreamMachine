@@ -99,11 +99,11 @@ class Scream extends React.Component {
 		      	</div> : <div> </div> } 
 		    	</Col>
 		    	<Col md={6}>	
-		      {this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div> Scream </div>}
+		      {this.state.scream ? <img src="../models/cat.gif" alt="dancing cat" /> : <div></div>}
 		   	  </Col>	
 		  	</Row>
 		  	<Row>
-		    	<Col md={2} mdOffset={5}> 
+		    	<Col md={2} mdOffset={4}> 
 		      	<ScreamButton func={this.toggleClick} state={this.state.text}/>
 		    	</Col>
 		  	</Row> 

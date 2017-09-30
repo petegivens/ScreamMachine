@@ -112,7 +112,6 @@ class App extends React.Component {
     }
     return (
       <Grid>
-        <Row> supBitches </Row>
         <Row><Login closeModal={this.closeModal} showLogin={this.state.showLogin} login={this.login} /></Row>
         <Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
         <Row>
