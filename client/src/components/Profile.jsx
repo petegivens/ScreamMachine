@@ -36,25 +36,32 @@ class Profile extends React.Component {
     axios.get('/getAverage')
       .then ( (result) => {
 	this.setState({stressLevel: result.data.stress_level});
-	var averageData = JSON.parse(result.data.form_data);
-	var highest = 0;
-	var people = 'none';
-	var place = 'none'; 
-	averageData.people.forEach((el,i) => {
-	  if(el > highest) {
-	    people = peopleOptions[i];
-	  }
-	})
-	highest = 0; 
-	averageData.place.forEach((el,i) => {
-	  if(el > highest) {
-	    place = placeOptions[i];
-	  }
-	})
-	this.setState({
-	  topPeople: people,
-	  topPlace: place
-	})
+	if (result.data.length !== 0) {
+	  var averageData = JSON.parse(result.data.form_data);
+	  var highest = 0;
+	  var people = 'none';
+	  var place = 'none'; 
+	  averageData.people.forEach((el,i) => {
+	    if(el > highest) {
+	      people = peopleOptions[i];
+	    }
+	  })
+	  highest = 0; 
+	  averageData.place.forEach((el,i) => {
+	    if(el > highest) {
+	      place = placeOptions[i];
+	    }
+	  })
+	  this.setState({
+	    topPeople: people,
+	    topPlace: place
+	  })
+	} else {
+	  this.setState({
+	    topPeople: 'None',
+	    topPlace: 'None'
+	  })
+	}
       })
   }
 
