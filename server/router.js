@@ -64,7 +64,8 @@ app.get('/getAverages', function(req, res) {
 
 app.get('/getAverage', function(req, res) {
   // need to changed to use sessions
-  db.getAverage('Bob')
+ 
+  db.getAverage(req.session.username)
     .then(function(result) {
       res.send(result);
     })
@@ -96,10 +97,10 @@ app.post('/login', function(req, res) {
           if(isMatch) {
             res.cookie('username', req.body.username);
             res.cookie('isLoggedIn', true);
-            res.send('Password is correct; cookie established');
-            //Adding session info below to test
             req.session.isLoggedIn = true;
             req.session.username = req.body.username;
+            res.send('Password is correct; cookie established');
+            //Adding session info below to test
           } else {
             res.cookie('username', null);
             res.cookie('isLoggedIn', false);
