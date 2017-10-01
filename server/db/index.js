@@ -100,16 +100,13 @@ module.exports = {
   },
 
   getAverage: function(username) {
-    var query = 'SELECT * FROM averages WHERE user_id LIKE (SELECT id FROM users WHERE username=$1)';
+    var query = 'SELECT * FROM averages WHERE user_id = (SELECT id FROM users WHERE username=$1)';
     return pool.query(query,[username])
       .then(function(result) {
-        if(result.rows.length === 0) {
-          return 'First';
-        }
-        return result.rows;
+        return result.rows[0];
       })
       .catch(function(error) {
-        return 'error'; 
+        return error; 
       })  
   },
 
@@ -199,17 +196,10 @@ module.exports = {
      *  }
      */
     let query = {
-      text: `INSERT INTO screams (user_id, volume, lowFreq, midFreq, highFreq)
-              VALUES (
-                (SELECT id FROM users WHERE username='${data.username}'),
-                ${data.volume},
-                ${data.lowFreq},
-                ${data.midFreq},
-                ${data.highFreq}
-              );`
+      text: 'INSERT INTO screams (user_id, volume, lowFreq, midFreq, highFreq) VALUES ( (SELECT id FROM users WHERE username=$1), $2, $3, $4, $5);'
     };
     console.log('query.text: ', query.text);
-    return pool.query(query)
+    return pool.query(query,[data.username, data.volume, data.lowFreq, data.midFreq, data.highFreq])
       .then(function(result) {
         console.log('addScream query success');
         return result;
@@ -231,19 +221,14 @@ module.exports = {
      *
      */
      let query = {
-        text: `INSERT INTO form (user_id, stress_level, stressors)
-                VALUES (
-                  (SELECT id FROM users WHERE username='${data.username}'),
-                  ${data.stress_level},
-                  ${data.stressors}
-                );`
+        text: 'INSERT INTO form (user_id, stress_level, stressors) VALUES ( (SELECT id FROM users WHERE username=$1), $2, $3);' 
      }
-
-     return pool.query(query)
+     return pool.query(query,[data.username, data.stress_level, data.stressors])
       .then(function(result) {
         return result;
       })
       .catch(function(error) {
+        console.log(error);
         return error;
       });
   },
@@ -258,22 +243,17 @@ module.exports = {
      *  }
      *
      */
-     let query = {
-        text: `INSERT INTO form (user_id, stress_level, stressors)
-                VALUES (
-                  (SELECT id FROM users WHERE username='${data.username}'),
-                  ${data.stress_level},
-                  ${data.form_data}
-                );`
+    console.log(data);
+    if (data.isFirst) {
+      var query = {
+        text: 'INSERT INTO averages (user_id, stress_level, form_data) VALUES ( (SELECT id from users WHERE username=$3), $1, $2)'
+      }
+    } else {
+      var query = {
+        text: 'UPDATE averages SET stress_level = $1, form_data = $2 WHERE user_id = (SELECT id FROM users WHERE username=$3);'
      }
-
-     return pool.query(query)
-      .then(function(result) {
-        return result;
-      })
-      .catch(function(error) {
-        return error;
-      });
+    }
+     return pool.query(query,[data.stress_level, data.form_data, data.username]);
   }
 }
 

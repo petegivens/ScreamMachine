@@ -63,7 +63,8 @@ app.get('/getAverages', function(req, res) {
 })
 
 app.get('/getAverage', function(req, res) {
-  db.getAverage(req.session.username)
+  // need to changed to use sessions
+  db.getAverage('Bob')
     .then(function(result) {
       res.send(result);
     })
@@ -129,9 +130,9 @@ app.post('/addUser', function(req, res) {
           .then(function(result) {
             res.cookie('username', user.username);
             res.cookie('isLoggedIn', true);
-						//Adding session method for testing
-						req.session.username = user.username;
-						req.session.isLoggedIn = true;
+            //Adding session method for testing
+            req.session.username = user.username;
+            req.session.isLoggedIn = true;
             res.send('User added');
           })
           .catch(function (error) {
@@ -164,6 +165,7 @@ app.post('/addScream', function(req, res) {
 app.post('/addForm', function(req, res) {
 
   var formData = req.body.params;
+  console.log(formData);
   db.addForm(formData)
     .then(function(result) {
       res.send('Successfully add form data');

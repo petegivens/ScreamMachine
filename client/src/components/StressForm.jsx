@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Checkbox, Button, FormGroup, Radio, inline} from 'react-bootstrap';
 import axios from 'axios';
 
-var people = ['close family', 'extended family', 'friends', 'co-workers', 'ex-SO'];
-var place = ['work', 'school', 'gym', 'outside for more than an hour','bar'];
+var peopleOptions = ['close family', 'extended family', 'friends', 'co-workers', 'ex-SO'];
+var placeOptions = ['work', 'school', 'gym', 'outside for more than an hour','bar'];
 
 class StressForm extends React.Component {
 	constructor(props) {
@@ -11,10 +11,10 @@ class StressForm extends React.Component {
 		var checkPeople = [];
 		var checkPlace = []; 
 
-		people.forEach((el)=> {
+		peopleOptions.forEach((el)=> {
 			checkPeople.push(null);
 		})
-		place.forEach((el)=> {
+		placeOptions.forEach((el)=> {
 			checkPlace.push(null);
 		})	
 
@@ -32,39 +32,39 @@ class StressForm extends React.Component {
 
 	submit(e) {
 		e.preventDefault();
+		var isFirst = false; 
 		var obj = {
 			people: this.state.checkedPeople,
 			place: this.state.checkedPlace
 		}
 		// make request to get data from database
 		// if no data create empty one
-		var context = this;
 		var stressors = JSON.stringify(obj);
 		axios.post('/addForm', { 
 			params: {
-				username: context.props.user,
-				stress_level: context.state.stressLevel,
+				username: this.props.user,
+				stress_level: this.state.stressLevel,
 				stressors: stressors
 			}
 		}).then( (error) => {
 			axios.get('/getAverage')
 				.then( (result) => {
-					console.log('get average',result);
+					// if first form data
 					if (result.data.length === 0) {
-						console.log('first average');
-						var avgStress = 0;
-						 var oldData = {
-							people: 0,
-							place: 0
-						 }
+						isFirst = true;
+						var avgStress = this.state.stressLevel;
+						var oldData = {
+							people: peopleOptions.map( (el) => {return 0} ),
+							place: placeOptions.map( (el) => {return 0;} )
+						}
 					} else {
-						var avgStress = result.stress_level;
-						var oldData = JSON.parse(result.form_data);
+						var avgStress = result.data.stress_level;
+						var oldData = JSON.parse(result.data.form_data);
 					}
 					var peopleArr = oldData.people;
 					var placeArr = oldData.place;
-					var people = [];
-					var place = [];
+					var newPeople = [];
+					var newPlace = [];
 					// add current values and take average
 					peopleArr.forEach( (el,i) => {
 						if (this.state.checkedPeople[i] !== null) {
@@ -77,7 +77,7 @@ class StressForm extends React.Component {
 						} else {
 							num = el;
 						}
-						people.push(num);
+						newPeople.push(num);
 					});
 					placeArr.forEach( (el,i) => {
 						if (this.state.checkedPlace[i] !== null) {
@@ -90,19 +90,20 @@ class StressForm extends React.Component {
 						} else {
 							num = el;
 						}
-						place.push(num);
+						newPlace.push(num);
 					});
-					var data = {
-						people: people,
-						place: place
+					/// end of average
+					var newAverage = {
+						people: newPeople,
+						place: newPlace
 					}
-					var newStress = (this.stressLevel + avgStress)/2
-					console.log('new average', JSON.stringify(data));	
+					var newStress = (this.state.stressLevel + avgStress)/2;
 					axios.post('/addAverages', {
 						params: {
-							username: props.usersname,
+							username: this.props.user,
 							stress_level: newStress,
-							form_data: JSON.stringify(data) 
+							form_data: JSON.stringify(newAverage),
+							isFirst: isFirst
 						}
 					})
 				})				
@@ -112,7 +113,7 @@ class StressForm extends React.Component {
 	changePeople(e) {
 		var arr = this.state.checkedPeople.slice();
 		if (arr[e.target.value] === null) {
-			arr[e.target.value] = people[e.target.value];
+			arr[e.target.value] = peopleOptions[e.target.value];
 		} else {
 			arr[e.target.value] = null; 
 		}
@@ -122,7 +123,7 @@ class StressForm extends React.Component {
 	changePlace(e) {
 		var arr = this.state.checkedPlace.slice();
 		if (arr[e.target.value] === null) {
-			arr[e.target.value] = place[e.target.value];
+			arr[e.target.value] = placeOptions[e.target.value];
 		} else {
 			arr[e.target.value] = null; 
 		}
@@ -134,10 +135,10 @@ class StressForm extends React.Component {
 	}
 
 	render(props) {
-		var peopleCheckbox = people.map( (el,i) => {
+		var peopleCheckbox = peopleOptions.map( (el,i) => {
 			return <Checkbox onChange={this.changePeople} value={i} key={i}>{el} </Checkbox>	
 		})
-		var placeCheckbox = place.map( (el, i) => {
+		var placeCheckbox = placeOptions.map( (el, i) => {
 			return <Checkbox onChange={this.changePlace} value={i} key={i}>{el} </Checkbox>
 		})
 		return (
