@@ -22,7 +22,7 @@ class Profile extends React.Component {
   }
 
   getScreams() {
-    axios.get('/getScreams', {
+    axios.get('/getScream', {
       params: {
 	user: this.props.user
       }
