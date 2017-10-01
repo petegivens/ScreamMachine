@@ -88,12 +88,15 @@ class App extends React.Component {
     } else if (eventKey === 'signup') {
       //displays signup modal
       this.setState({showSignup: true});
-    } else if (eventKey === 'Profile') {
-      //renders profile page instead of scream page
-      this.setState({page: 'Profile'});
-    } else if (eventKey === 'StressForm')  {
-      //goes to daily stress form
-      this.setState({page: 'StressForm'});
+    } else if (this.state.user !== null) {
+      console.log('here');
+      if (eventKey === 'Profile') {
+        //renders profile page instead of scream page
+        this.setState({page: 'Profile'});
+      } else if (eventKey === 'StressForm')  {
+        //goes to daily stress form
+        this.setState({page: 'StressForm'});
+      }
     }
   }    
 
