@@ -42,7 +42,7 @@ app.get('/getScream', function(req, res) {
 }); 
 
 app.get('/getForms', function(req, res) {
-  db.getForm()
+  db.getForms()
     .then(function(result) {
       res.send(result);
     })
