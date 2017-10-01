@@ -19,7 +19,7 @@ class App extends React.Component {
       showLogin: false,
       showSignup: false,
       isLoggedIn: false,
-      user: 'null',
+      user: null,
     };
     this.navClickHandler = this.navClickHandler.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -80,7 +80,7 @@ class App extends React.Component {
   navClickHandler(eventKey) {
     if (eventKey === 'logout') {
       this.setState({
-        user: 'null',
+        user: null,
         isLoggedIn: false
       });
       //should logout somehow (MAGIC, obviously)
@@ -90,12 +90,15 @@ class App extends React.Component {
     } else if (eventKey === 'signup') {
       //displays signup modal
       this.setState({showSignup: true});
-    } else if (eventKey === 'Profile') {
-      //renders profile page instead of scream page
-      this.setState({page: 'Profile'});
-    } else if (eventKey === 'StressForm')  {
-      //goes to daily stress form
-      this.setState({page: 'StressForm'});
+    } else if (this.state.user !== null) {
+      console.log('here');
+      if (eventKey === 'Profile') {
+        //renders profile page instead of scream page
+        this.setState({page: 'Profile'});
+      } else if (eventKey === 'StressForm')  {
+        //goes to daily stress form
+        this.setState({page: 'StressForm'});
+      }
     }
   }    
 

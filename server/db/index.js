@@ -58,7 +58,7 @@ module.exports = {
   },
 
   getScream: function(username){
-    var query = 'SELECT * FROM screams WHERE user_id LIKE (SELECT id FROM users WHERE username=$1)';
+    var query = 'SELECT * FROM screams WHERE user_id = (SELECT id FROM users WHERE username=$1)';
     return pool.query(query,[username])
       .then(function(result) {
         return result.rows;
@@ -79,7 +79,7 @@ module.exports = {
   },
 
   getForm: function(username) {
-    var query = 'SELECT * FROM form WHERE user_id LIKE (SELECT id FROM users WHERE username=$1)';
+    var query = 'SELECT * FROM forms WHERE user_id = (SELECT id FROM users WHERE username=$1)';
     return pool.query(query,[username])
       .then(function(result) {
         return result.rows;
