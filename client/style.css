@@ -10,13 +10,21 @@ button {
 }
 
 .gif {
-  height: 375px; 
+  height: 320px; 
+  position: relative;
+}
+
+#gif {
+  height: 320px;
+  width: auto;
+  position: absolute;
 }
 
 #screambutton {
-	width: 250px;
-	font-size: 18px;
+	width: 200px;
+	font-size: 18px; 
 	font-weight: bold;
+  display: inline-block;
 }
 
 #screambutton:hover {
@@ -25,4 +33,54 @@ button {
 
 .NavBar {
   background-color: #d9edf7;
+  color: black;
 }
+
+.navbar .navbar-nav>li>a {
+  color: #626060;
+}
+
+.btn {
+  border-width: 1px;
+  border-color: #e7e7e7;
+  background-color: #d9edf7;
+}
+
+.score {
+  display: inline-block;
+  padding: 6px;
+}
+
+.screambutton {
+  display: inline-block;
+}
+
+#saveButton {
+  margin-bottom: 13px;
+}
+
+.modal-footer .btn+.btn {
+  border-color: #e7e7e7;
+  background-color: 888890;
+}
+
+.modal-footer .btn+.btn:hover {
+    color: #fff;
+    background-color: #707077;
+    border-color: #adadad;
+}
+
+.pageText {
+  font-size: 20px;
+  text-align: center;
+}
+
+#morgan {
+  height: 320px;
+  width: auto;
+  border-width: 12px;
+  border-color: #e7e7e7;
+  margin: 6px;
+}
+
+

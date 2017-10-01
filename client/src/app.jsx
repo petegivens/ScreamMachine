@@ -19,7 +19,7 @@ class App extends React.Component {
       showLogin: false,
       showSignup: false,
       isLoggedIn: false,
-      user: 'null',
+      user: null,
     };
     this.navClickHandler = this.navClickHandler.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -41,7 +41,6 @@ class App extends React.Component {
     const incorrectPW = 'The username and password do not match. Please try again.'
     let context = this;
     UserModel.userLogin('/login', username, password).then(function(result) {
-      console.log(result);
       if (result.data === "User not found") {
         alert(notFound);
       } else if (result.data === "password is incorrect") {
@@ -64,7 +63,6 @@ class App extends React.Component {
     const userTaken = 'That username is already taken. Please choose a different username.'
     let context = this;
     UserModel.addUser('/addUser', username, password, firstname, lastname).then(function(result) {
-      console.log(result);
       if (result.data === "User already exists in db") {
         alert(userTaken);
       } else {
@@ -80,7 +78,7 @@ class App extends React.Component {
   navClickHandler(eventKey) {
     if (eventKey === 'logout') {
       this.setState({
-        user: 'null',
+        user: null,
         isLoggedIn: false
       });
       //should logout somehow (MAGIC, obviously)
