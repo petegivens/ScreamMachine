@@ -121,6 +121,7 @@ class StressForm extends React.Component {
 	}
 
 	changePlace(e) {
+		console.log(e,e.eventKey);
 		var arr = this.state.checkedPlace.slice();
 		if (arr[e.target.value] === null) {
 			arr[e.target.value] = placeOptions[e.target.value];
@@ -136,7 +137,7 @@ class StressForm extends React.Component {
 
 	render(props) {
 		var peopleCheckbox = peopleOptions.map( (el,i) => {
-			return <Checkbox onChange={this.changePeople} value={i} key={i}>{el} </Checkbox>	
+			return <Checkbox eventKey={'test'} onChange={this.changePeople} value={i} key={i}>{el} </Checkbox>	
 		})
 		var placeCheckbox = placeOptions.map( (el, i) => {
 			return <Checkbox onChange={this.changePlace} value={i} key={i}>{el} </Checkbox>
