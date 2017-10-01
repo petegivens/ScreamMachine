@@ -21,7 +21,7 @@ CREATE TABLE screams (
 CREATE TABLE form (
   id serial,
   user_id int REFERENCES users(id),
-  stress_level int,
+  stress_level double precision,
   timestamp timestamp default current_timestamp,
   stressors varchar(255),
   PRIMARY KEY (ID)
@@ -31,7 +31,7 @@ CREATE TABLE form (
 CREATE TABLE averages (
  id serial,
  user_id int REFERENCES users(id),
- stress_level int,
+ stress_level double precision,
  form_data varchar(255),
  PRIMARY KEY (ID)
 );

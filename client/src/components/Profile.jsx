@@ -2,15 +2,23 @@ import React, {Componenet} from 'react';
 import {LineChart} from 'react-d3-basic';
 import axios from 'axios';
 import {Grid, Row, Col} from 'react-bootstrap';
+
+var peopleOptions = ['close family', 'extended family', 'friends', 'co-workers', 'ex-SO'];
+var placeOptions = ['work', 'school', 'gym', 'outside for more than an hour','bar'];
+
 class Profile extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       screams: [],
+      stressLevel: 0,
+      topPeople: null,
+      topPlace: null
     }
     this.getScreams = this.getScreams.bind(this);
     this.getScreams();
+    this.getAverage();
   }
 
   getScreams() {
@@ -23,7 +31,33 @@ class Profile extends React.Component {
       this.setState({screams: screams.data});
     })
   }
-  
+
+  getAverage() {
+    axios.get('/getAverage')
+      .then ( (result) => {
+	this.setState({stressLevel: result.data.stress_level});
+	var averageData = JSON.parse(result.data.form_data);
+	var highest = 0;
+	var people = 'none';
+	var place = 'none'; 
+	averageData.people.forEach((el,i) => {
+	  if(el > highest) {
+	    people = peopleOptions[i];
+	  }
+	})
+	highest = 0; 
+	averageData.place.forEach((el,i) => {
+	  if(el > highest) {
+	    place = placeOptions[i];
+	  }
+	})
+	this.setState({
+	  topPeople: people,
+	  topPlace: place
+	})
+      })
+  }
+
   render() {
     // chart series,
     // field: is what field your data want to be selected
@@ -62,6 +96,8 @@ class Profile extends React.Component {
     return (
       <Grid> 
 	<Row> <h1> Hi {this.props.user} </h1> </Row>	
+	<Row> Your average stress level is {this.state.stressLevel} </Row>
+	<Row> We have analzyed your data and think your top stressor for people is {this.state.topPeople} and for places is {this.state.topPlace} </Row>
 	<Row>
 	  <Col md={8} mdOffset={2}>
 	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Volumes'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries1} x={x} />
