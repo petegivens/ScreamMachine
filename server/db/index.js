@@ -1,7 +1,7 @@
 
-/*************************************************
-  REFERENCE: ScreamMachine/server/db/pgschema.sql
- *************************************************/
+/***************************************************
+ * REFERENCE: ScreamMachine/server/db/pgschema.sql *
+ ***************************************************/
 
 var bcrypt = require('bcrypt');
 const saltRounds = 5;
@@ -62,7 +62,7 @@ module.exports = {
       .catch(function(error) {
         console.log('getScreams query fail');
         return err;
-      })
+      });
   },
 
   getScream: function(username){
@@ -74,7 +74,7 @@ module.exports = {
       .catch(function(error) {
         console.log('getScream query fail');
         return error; 
-      })
+      });
   },
 
   getForms: function() {
@@ -85,7 +85,7 @@ module.exports = {
       .catch(function(error) {
         console.log('getForms query fail');
         return error;
-      })
+      });
   },
 
   getForm: function(username) {
@@ -97,7 +97,7 @@ module.exports = {
       .catch(function(error) {
         console.log('getForm query fail');
         return error; 
-      })  
+      });
   },
 
   getAverages: function() {
@@ -108,7 +108,7 @@ module.exports = {
       .catch(function(error) {
         console.log('getAverages query fail');
         return error;
-      })
+      });
   },
 
   getAverage: function(username) {
@@ -120,7 +120,7 @@ module.exports = {
       .catch(function(error) {
         console.log('getAverage query fail');
         return error; 
-      })  
+      });
   },
 
   findUser: function(user) {
