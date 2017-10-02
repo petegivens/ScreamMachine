@@ -8,8 +8,8 @@ import StressForm from './components/StressForm.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
 import * as UserModel from '../models/users.js';
-        
-class App extends React.Component {        
+
+class App extends React.Component {
 
   constructor() {
     super();
@@ -26,11 +26,12 @@ class App extends React.Component {
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
     this.goToProfile = this.goToProfile.bind(this);
+    this.getLoginStatus();
   }
 
   closeModal() {
     this.setState({
-      showLogin: false, 
+      showLogin: false,
       showSignup: false
     });
   }
@@ -42,7 +43,6 @@ class App extends React.Component {
     const incorrectPW = 'The username and password do not match. Please try again.'
     let context = this;
     UserModel.userLogin('/login', username, password).then(function(result) {
-      console.log(result);
       if (result.data === "User not found") {
         alert(notFound);
       } else if (result.data === "password is incorrect") {
@@ -65,17 +65,29 @@ class App extends React.Component {
     const userTaken = 'That username is already taken. Please choose a different username.'
     let context = this;
     UserModel.addUser('/addUser', username, password, firstname, lastname).then(function(result) {
-      console.log(result);
       if (result.data === "User already exists in db") {
         alert(userTaken);
       } else {
         context.setState({
-          isLoggedIn: true,  
+          isLoggedIn: true,
           user: username
         });
         context.closeModal();
       }
     });
+  }
+  getLoginStatus() {
+    let status = this;
+    axios.get('/getStatus')
+      .then((results) => {
+        if(results.data.isLoggedIn !== status.state.isLoggedIn) {
+          status.setState({
+            isLoggedIn: true,
+            user: results.data.username
+          });
+        }
+        console.log('Current status is ',results);
+      });
   }
 
   navClickHandler(eventKey) {
@@ -101,17 +113,18 @@ class App extends React.Component {
         this.setState({page: 'StressForm'});
       }
     }
-  }    
+  }
 
   goToProfile() {
     this.setState({page: 'Profile'});
   }
   render() {
     var page;
+    console.log('This is the current state', this.state);
     if (this.state.page === 'scream') {
       page = <Scream user={this.state.user}/>;
     } else if (this.state.page === 'Profile') {
-      page = <Profile user={this.state.user} />; 
+      page = <Profile user={this.state.user} />;
     } else if (this.state.page === 'StressForm') {
       page = <StressForm user={this.state.user} func={this.goToProfile}/>;
     } else {
@@ -131,4 +144,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
