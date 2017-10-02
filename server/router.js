@@ -96,13 +96,6 @@ app.get('/getAverage', function(req, res) {
     })
 });
 
-app.get('/clearScreams', function(req, res) {
-  db.clearScreams()
-    .then(function(result) {
-      res.send(result);
-    })
-});
-
 /**************************************************
  *
  *  POST Requests:
