@@ -31,6 +31,25 @@
 
 ## Development
 
+PostgreSQL
+------
+[PostgreSQL Installation for Ubuntu](https://help.ubuntu.com/community/PostgreSQL)
+* Useful for deploying on AWS
+* Only used sections titled, "Installation" and "Basic Server Setup"
+```
+sudo apt-get install postgresql
+
+sudo -u postgres psql postgres
+
+\password postgres
+// Set a password for user postgres
+
+sudo -u postgres createdb screams
+
+sudo -u postgres psql < ./ScreamMachine/server/db/pgschema.sql
+// -> run pgschema.sql
+```
+
 ### Installing Dependencies
 
 From within the root directory:

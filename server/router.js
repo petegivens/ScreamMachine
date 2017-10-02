@@ -1,8 +1,10 @@
 // FYI
 // npm start script does not show server-side console logs
-// I ran two terminals:
+// To circumvent this during development, I ran two terminal sessions:
 // 1) webpack -d --watch
 // 2) nodemon server/server.js
+// - package.json already points to server.js, so you can actually
+//   just run "nodemon"
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -85,7 +87,7 @@ app.get('/getAverages', function(req, res) {
     .then(function(result) {
       res.send(result);
     })
-})
+});
 
 app.get('/getAverage', function(req, res) {
   // need to changed to use sessions
@@ -208,6 +210,6 @@ app.post('/addAverages', function(req, res) {
     .then(function(result) {
       res.send(result);
     })
-})
+});
 
 module.exports = app;
