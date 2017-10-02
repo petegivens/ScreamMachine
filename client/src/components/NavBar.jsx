@@ -5,7 +5,7 @@ var NavBar = (props) => (
   <Navbar className='NavBar' onSelect={props.func} >
     <Navbar.Header>
       <Navbar.Brand>
-        <a href='#'>Scream Machine</a>
+        <a href='/'>Scream Machine</a>
       </Navbar.Brand>
     </Navbar.Header>
     <Nav>
