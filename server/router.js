@@ -16,6 +16,14 @@ app.use(cookieParser());
 app.use(session({secret: 'screaming'}));
 
 app.use('/', express.static('client'));
+app.get('/getStatus', function(req, res) {
+	console.log('This is the current req session ',req.session.isLoggedIn);
+	let sessionObj = {
+		isLoggedIn : req.session.isLoggedIn || false,
+		username: req.session.username || undefined
+	}
+	res.send(sessionObj);
+});
 
 app.get('/getUsers', function(req, res) {
   db.getUsers()
@@ -39,7 +47,7 @@ app.get('/getScream', function(req, res) {
     .then(function(result) {
       res.send(result);
     })
-}); 
+});
 
 app.get('/getForms', function(req, res) {
   db.getForm()
@@ -78,6 +86,7 @@ app.get('/clearScreams', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
+
   db.findUser(req.body)
     .then(function(result) {
       if(result.length > 0) {
@@ -96,10 +105,10 @@ app.post('/login', function(req, res) {
           if(isMatch) {
             res.cookie('username', req.body.username);
             res.cookie('isLoggedIn', true);
+						req.session.isLoggedIn = true;
+						req.session.username = req.body.username;
             res.send('Password is correct; cookie established');
             //Adding session info below to test
-            req.session.isLoggedIn = true;
-            req.session.username = req.body.username;
           } else {
             res.cookie('username', null);
             res.cookie('isLoggedIn', false);
