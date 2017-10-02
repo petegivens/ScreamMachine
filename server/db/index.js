@@ -175,7 +175,7 @@ module.exports = {
           });
       })
       .catch(function(err) {
-        console.log('db error: ', err);
+        console.log('bcrypt hash error: ', err);
         return err;
       });
   },
