@@ -1,6 +1,6 @@
 import React from 'react';
 import graph, {getMic, getFreq} from '../../models/micGraph';
-import ScreamButton from './Button.jsx'; 
+import ScreamButton from './ScreamButton.jsx'; 
 import Images from './Images.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';

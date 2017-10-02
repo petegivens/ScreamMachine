@@ -7,7 +7,6 @@ import Profile from './components/Profile.jsx';
 import StressForm from './components/StressForm.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
-import * as UserModel from '../models/users.js';
 
 class App extends React.Component {
 
@@ -42,7 +41,15 @@ class App extends React.Component {
     const notFound = 'We were unable to locate an account with that username. Please try again or go back to the home page and create a new account.'
     const incorrectPW = 'The username and password do not match. Please try again.'
     let context = this;
-    UserModel.userLogin('/login', username, password).then(function(result) {
+    axios({
+      method: 'post',
+      url: '/login',
+      data: {
+        username: username,
+        password: password
+      }
+    })
+    .then(function(result) {
       if (result.data === "User not found") {
         alert(notFound);
       } else if (result.data === "password is incorrect") {
@@ -64,7 +71,17 @@ class App extends React.Component {
     let lastname = document.getElementById('lastname').value;
     const userTaken = 'That username is already taken. Please choose a different username.'
     let context = this;
-    UserModel.addUser('/addUser', username, password, firstname, lastname).then(function(result) {
+    axios({
+      method: 'post',
+      url: '/addUser',
+      data: {
+        username: username,
+        password: password,
+        first_name: firstname,
+        last_name: lastname
+      }
+    })
+    .then(function(result) {
       if (result.data === "User already exists in db") {
         alert(userTaken);
       } else {
@@ -76,6 +93,7 @@ class App extends React.Component {
       }
     });
   }
+
   getLoginStatus() {
     let status = this;
     axios.get('/getStatus')
@@ -116,6 +134,7 @@ class App extends React.Component {
   goToProfile() {
     this.setState({page: 'Profile'});
   }
+
   render() {
     var page;
     if (this.state.page === 'scream') {
@@ -137,7 +156,8 @@ class App extends React.Component {
         <Row>
           {page}
         </Row>
-      </Grid> );
+      </Grid> 
+    );
   }
 }
 export default App;
