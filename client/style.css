@@ -14,17 +14,25 @@ button {
   position: relative;
 }
 
-#gif {
+.pics {
   height: 320px;
   width: auto;
   position: absolute;
+  padding: 18px;
 }
 
 #screambutton {
 	width: 200px;
-	font-size: 18px; 
+  height: 40px;
+	font-size: 22px; 
 	font-weight: bold;
   display: inline-block;
+}
+
+.screambutton {
+  width: 200px;
+  padding-left: 55px;
+  padding-bottom: 12px;
 }
 
 #screambutton:hover {
@@ -47,8 +55,8 @@ button {
 }
 
 .score {
-  display: inline-block;
   padding: 6px;
+  font-size: 80px;
 }
 
 .screambutton {
@@ -56,7 +64,11 @@ button {
 }
 
 #saveButton {
-  margin-bottom: 13px;
+  width: 150px;
+  font-size: medium;
+  color: #626060;
+  margin-left: 90px;
+  margin-top: 15px;
 }
 
 .modal-footer .btn+.btn {
@@ -65,22 +77,16 @@ button {
 }
 
 .modal-footer .btn+.btn:hover {
-    color: #fff;
-    background-color: #707077;
-    border-color: #adadad;
+  color: #fff;
+  background-color: #707077;
+  border-color: #adadad;
 }
 
 .pageText {
   font-size: 20px;
   text-align: center;
+  color: #626060;
 }
 
-#morgan {
-  height: 320px;
-  width: auto;
-  border-width: 12px;
-  border-color: #e7e7e7;
-  margin: 6px;
-}
 
 

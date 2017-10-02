@@ -1,6 +1,7 @@
 import React from 'react';
 import graph, {getMic, getFreq} from '../../models/micGraph';
 import ScreamButton from './Button.jsx'; 
+import Images from './Images.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
 
@@ -98,24 +99,22 @@ class Scream extends React.Component {
 	render() {
 		return (
 			<Grid>
+        <Row className='pageText'>
+          {this.state.screamButtonText === 'Scream Again' ? <div></div> :
+            <p>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</p>
+          }
+        </Row>
 				<Row className='gif'>
-		    	<Col md={8} mdOffset={3}>	
-		        {this.state.scream ? <img id='gif' src="../models/cat.gif" alt="dancing cat" /> : 
-            <div> 
-              <p className='pageText'>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</p>
-              <img id='morgan' src="../models/morgan.jpg"/>
-            </div>}
-		   	  </Col>	
+          {this.state.displayScore ? 
+            <Col md={4} mdOffset={4} className='score'>
+              Score: {Math.floor(this.state.screamLevel * 1000)}<br/>  
+              <Button id='saveButton' onClick={this.saveScream} >{this.state.saveButtonText}</Button> 
+            </Col> :
+		    	  <Images scream={this.state.scream}/>
+          }
 		  	</Row> 
 		  	<Row>
-		    	<Col md={12} mdOffset={4}> 
-            {this.state.displayScore ?
-            <div className='score'>
-              <Row>
-                Score: {Math.floor(this.state.screamLevel * 1000)}  
-                <Button id='saveButton' onClick={this.saveScream} >{this.state.saveButtonText}</Button> 
-              </Row> 
-            </div> : <div> </div> } 
+		    	<Col md={4} mdOffset={4}> 
 		      	<ScreamButton func={this.toggleClick} state={this.state.screamButtonText}/>
 		    	</Col>
 		  	</Row> 
