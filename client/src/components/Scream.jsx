@@ -39,7 +39,7 @@ class Scream extends React.Component {
     if	(this.state.scream) {
       //console.log(micLevel); // for debugging 
       if (micLevel < 0.15) {
-				this.setState({scream: false});
+        this.setState({scream: false});
       } 
     } else if (micLevel > 0.15) {
       this.setState({scream: true})
@@ -54,27 +54,27 @@ class Scream extends React.Component {
       var context = this;
       axios.post('/addScream', {
         params: {
-  	      volume: context.state.screamLevel,
-  	      username: context.props.user,
-  	      lowFreq: context.state.freqArray[0]/context.state.micRounds,
-  	      midFreq: context.state.freqArray[1]/context.state.micRounds,
-  	      highFreq: context.state.freqArray[2]/context.state.micRounds
-          }
-       })
-        .then((res) => {
-        context.setState({
-          freqArary: [0,0,0],
-          micRounds: 0,
-          saveButtonText: 'Saved'
-        });
+          volume: context.state.screamLevel,
+          username: context.props.user,
+          lowFreq: context.state.freqArray[0]/context.state.micRounds,
+          midFreq: context.state.freqArray[1]/context.state.micRounds,
+          highFreq: context.state.freqArray[2]/context.state.micRounds
+        }
       })
-      .catch(function(error) {
-        console.log('App.jsx, Failed to save: ', error);
-      });
+        .then((res) => {
+          context.setState({
+            freqArary: [0,0,0],
+            micRounds: 0,
+            saveButtonText: 'Saved'
+          });
+        })
+        .catch(function(error) {
+          console.log('App.jsx, Failed to save: ', error);
+        });
     } else if (this.props.user === null) {
       alert('Please log in to save your scream.');
     }
-   }
+  }
 
   //scream button controller 
   toggleClick(e) {
@@ -96,40 +96,40 @@ class Scream extends React.Component {
       this.setState({displayScore: true})
       this.state.mic.stop();
     }
-	}
+  }
 
-	render() {
-		return (
-			<Grid>
+  render() {
+    return (
+      <Grid>
         <Row className='pageText'>
           {this.state.screamButtonText === 'Scream Again' ? <div></div> :
-            <p>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</p>
+              <p>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</p>
           }
         </Row>
-				<Row className='gif'>
+        <Row className='gif'>
           {this.state.displayScore ? 
-            <Col md={4} mdOffset={4} className='score'>
-              Score: {Math.floor(this.state.screamLevel * 1000)}<br/>  
-              <Button id='saveButton' onClick={this.saveScream} >{this.state.saveButtonText}</Button>
-              <p id='clickPlay'>Still feeling stressed? Click 'play'!</p> 
-              <audio id='afterFreeman' controls="controls">
-                <source src='../../hlfreeman.wav'/>
-              </audio>
-            </Col> :
-		    	  <Images scream={this.state.scream}/>
+              <Col md={4} mdOffset={4} className='score'>
+                Score: {Math.floor(this.state.screamLevel * 1000)}<br/>  
+                <Button id='saveButton' onClick={this.saveScream} >{this.state.saveButtonText}</Button>
+                <p id='clickPlay'>Still feeling stressed? Click 'play'!</p> 
+                <audio id='afterFreeman' controls="controls">
+                  <source src='../../hlfreeman.wav'/>
+                </audio>
+              </Col> :
+              <Images scream={this.state.scream}/>
           }
-		  	</Row> 
-		  	<Row>
-		    	<Col md={4} mdOffset={4}> 
-		      	<ScreamButton func={this.toggleClick} state={this.state.screamButtonText}/>
-		    	</Col>
-		  	</Row> 
-		  	<Row>
-		    	<Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
-		  	</Row>
-		  </Grid>
-		);
-	}
+        </Row> 
+        <Row>
+          <Col md={4} mdOffset={4}> 
+            <ScreamButton func={this.toggleClick} state={this.state.screamButtonText}/>
+          </Col>
+        </Row> 
+        <Row>
+          <Col md={8} mdOffset={2} id='ScreamMeter'> </Col>
+        </Row>
+      </Grid>
+    );
+  }
 }
 
 export default Scream;
