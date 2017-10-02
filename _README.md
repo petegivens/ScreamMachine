@@ -12,6 +12,9 @@
 
 1. [Requirements](#requirements)
 1. [Development](#development)
+    1. [Node Server](#node-server)
+    1. [HTTPS](#https)
+    1. [PostgreSQL](#postgresql)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Tasks](#tasks)
 1. [Team](#team)
@@ -84,11 +87,6 @@ From within the root directory:
 ```sh
 npm install
 ```
-
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
 
 ## Contributing
 
