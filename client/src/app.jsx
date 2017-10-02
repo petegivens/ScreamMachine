@@ -28,6 +28,7 @@ class App extends React.Component {
     this.getLoginStatus();
   }
 
+  //sets state that gets passed to modals props for show/hide behavior
   closeModal() {
     this.setState({
       showLogin: false,
@@ -114,6 +115,7 @@ class App extends React.Component {
       });
   }
 
+  //handles all events from the nav bar
   navClickHandler(eventKey) {
     if (eventKey === 'logout') {
       this.setState({
