@@ -108,7 +108,11 @@ class Scream extends React.Component {
           {this.state.displayScore ? 
             <Col md={4} mdOffset={4} className='score'>
               Score: {Math.floor(this.state.screamLevel * 1000)}<br/>  
-              <Button id='saveButton' onClick={this.saveScream} >{this.state.saveButtonText}</Button> 
+              <Button id='saveButton' onClick={this.saveScream} >{this.state.saveButtonText}</Button>
+              <p id='clickPlay'>Still feeling stressed? Click 'play'!</p> 
+              <audio id='afterFreeman' controls="controls">
+                <source src='../../hlfreeman.wav'/>
+              </audio>
             </Col> :
 		    	  <Images scream={this.state.scream}/>
           }
