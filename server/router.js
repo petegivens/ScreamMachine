@@ -115,32 +115,34 @@ app.post('/login', function(req, res) {
         res.send('User not found');
       }
     })
-    .catch(function(err) {
-      res.send(err);
-    })
     .then(function(user) {
       // call a function from db that checks password
       db.isCorrectPassword(req.body)
         .then(function(isMatch) {
           if(isMatch) {
-            res.cookie('username', req.body.username);
-            res.cookie('isLoggedIn', true);
+            res.cookie('username', req.body.username); // Use the session
+            res.cookie('isLoggedIn', true);            // Use the session
 						req.session.isLoggedIn = true;
 						req.session.username = req.body.username;
             res.send('Password is correct; cookie established');
             //Adding session info below to test
           } else {
-            res.cookie('username', null);
-            res.cookie('isLoggedIn', false);
+            res.cookie('username', null);              // Use the session
+            res.cookie('isLoggedIn', false);           // Use the session
             //adding session info below to test
             //will check user state with presence of a session ID instead of checking username;
             req.session.destroy();
             res.send('password is incorrect');
           }
         });
+    })
+    .catch(function(err) {
+      res.send(err);
     });
 });
 
+
+// Endpoint /addUser is used for signup
 app.post('/addUser', function(req, res) {
   console.log('/addUser, req.body: ', req.body);
 
