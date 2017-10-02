@@ -2,12 +2,6 @@
 
 > Scream at your machine!
 
-## Team
-
-  - __Product Owner__: Rachel
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: Robert, Johnathan, Julie
-
 ## Table of Contents
 
 1. [Requirements](#requirements)
@@ -16,9 +10,6 @@
     1. [HTTPS](#https)
     1. [PostgreSQL](#postgresql)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
-1. [Contributing](#contributing)
 
 ## Requirements
 
