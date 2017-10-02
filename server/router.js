@@ -16,6 +16,17 @@ app.use(cookieParser());
 app.use(session({secret: 'screaming'}));
 
 app.use('/', express.static('client'));
+
+/**************************************************
+ *
+ *  GET Requests:
+ *    Many of these are here for development
+ *    purposes; helps the team to see what are in
+ *    various tables without having to install
+ *    a local copy of the Postgres DB.
+ *
+ **************************************************/
+
 app.get('/getStatus', function(req, res) {
 	console.log('This is the current req session ',req.session.isLoggedIn);
 	let sessionObj = {
@@ -85,6 +96,14 @@ app.get('/clearScreams', function(req, res) {
       res.send(result);
     })
 });
+
+/**************************************************
+ *
+ *  POST Requests:
+ *    These endpoints are used by front end to add
+ *    records to Postgres
+ *
+ **************************************************/
 
 app.post('/login', function(req, res) {
 
@@ -193,9 +212,5 @@ app.post('/addAverages', function(req, res) {
       res.send(result);
     })
 })
-
-app.get('/profile', function(req, res) {
-  res.send('Welcome to the profile endpoint');
-});
 
 module.exports = app;

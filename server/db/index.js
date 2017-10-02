@@ -3,8 +3,10 @@ const saltRounds = 5;
 
 const { Pool } = require('pg');
 
-/******************** pick your config ***********************/
-// Changed to toggle by object properties; toggle in row 21 new Pool(config[xxx])
+// [ config ] is a settings switcher for Postgres; we were at one
+//    point running local and online copies of Postgres and needed
+//    to be able to easily switch between them
+
 var config = {
   aws: {
     host: 'localhost',
@@ -26,14 +28,20 @@ var config = {
   }
 };
 
+// Use the following line to choose your Postgres config from above:
+
 const pool = new Pool(config['aws']);
 
-// the pool with emit an error on behalf of any idle clients
-// it contains if a backend error or network partition happens
-// pool.on('error', (err, client) => {
-//   console.error('Unexpected error on idle client', err)
-//   process.exit(-1)
-// });
+// Following functions are mostly split by GETTERS and SETTERS
+//  Exceptions are: [ clearScreams, findUser, isCorrectPassword ]
+//  - clearScreams was used during development of Profile page
+//  - findUser, isCorrectPassword are used in authentication
+//  Getters are used to make database tables available to front end devs
+//
+//  Differences between plural and singular methods:
+//  - getScreams gets everything from the [ screams ] table for all users
+//  - getScream requires a user to be specified and only returns data for that user
+//  - getForm(s), getAverage(s) follow the same convention
 
 module.exports = {
   getUsers: function () {
