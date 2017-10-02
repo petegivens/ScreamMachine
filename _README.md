@@ -68,13 +68,16 @@ Depending on your deployment platform, there may be easier ways to issue a certi
 * Only used sections titled, "Installation" and "Basic Server Setup"
 ```
 sudo apt-get install postgresql
+// install PostgreSQL as root/admin
 
 sudo -u postgres psql postgres
+//launch PostgreSQL as user postgres
 
 \password postgres
 // Set a password for user postgres
 
 sudo -u postgres createdb screams
+// Create a database called screams to hold our tables
 
 sudo -u postgres psql < ./ScreamMachine/server/db/pgschema.sql
 // -> run pgschema.sql
