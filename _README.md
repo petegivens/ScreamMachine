@@ -1,26 +1,15 @@
-# Project Name
+# Scream Machine
 
-> Pithy project description
-
-## Team
-
-  - __Product Owner__: Rachel
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: Robert, Johnathon, Julie
+> Scream at your machine!
 
 ## Table of Contents
 
-1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
+    1. [Node Server](#node-server)
+    1. [HTTPS](#https)
+    1. [PostgreSQL](#postgresql)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
-1. [Contributing](#contributing)
-
-## Usage
-
-> Some usage instructions
 
 ## Requirements
 
@@ -29,9 +18,9 @@
 - React
 - Webpack
 
-### Development
+## Development
 
-- Node Server
+### Node Server
 
 This project requires an environment running Node Js 6.10 or higher in order to successfully run project project dependencies.
 
@@ -41,7 +30,7 @@ configure your firewall in order to allow access to these ports.
 
 If you are using an environment such as AWS, you will need to configure the ufw to allow these ports.
 
-- HTTPS
+### HTTPS
 
 Due to security concerns, the p5 library requires data to be handled by a secure origin, i.e. transfer over a
 secure protocol (https).
@@ -63,20 +52,23 @@ for security reasons. In this case, you will need to purchase a domain name that
 You may also choose to use a different web server such as Apache, or configure your certificate directly using node.
 Depending on your deployment platform, there may be easier ways to issue a certificate.
 
-PostgreSQL
-------
+### PostgreSQL
+
 [PostgreSQL Installation for Ubuntu](https://help.ubuntu.com/community/PostgreSQL)
 * Useful for deploying on AWS
 * Only used sections titled, "Installation" and "Basic Server Setup"
 ```
 sudo apt-get install postgresql
+// install PostgreSQL as root/admin
 
 sudo -u postgres psql postgres
+//launch PostgreSQL as user postgres
 
 \password postgres
 // Set a password for user postgres
 
 sudo -u postgres createdb screams
+// Create a database called screams to hold our tables
 
 sudo -u postgres psql < ./ScreamMachine/server/db/pgschema.sql
 // -> run pgschema.sql
@@ -87,15 +79,8 @@ sudo -u postgres psql < ./ScreamMachine/server/db/pgschema.sql
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
-
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
 
 ## Contributing
 
