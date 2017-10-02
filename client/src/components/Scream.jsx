@@ -1,6 +1,6 @@
 import React from 'react';
 import graph, {getMic, getFreq} from '../../models/micGraph';
-import ScreamButton from './Button.jsx'; 
+import ScreamButton from './ScreamButton.jsx'; 
 import Images from './Images.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
@@ -82,6 +82,7 @@ class Scream extends React.Component {
     if (this.state.screamButtonText === 'Start' || this.state.screamButtonText === 'Scream Again') {
       //set button text to 'Stop'
       this.setState({screamButtonText: 'Stop'});
+      this.setState({saveButtonText: 'Save Scream'});
       this.setState({displayScore: false});
       this.setState({screamLevel: 0});
       this.state.mic.start();

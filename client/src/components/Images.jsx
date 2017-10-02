@@ -8,4 +8,4 @@ const Images = (props) => (
   </Col>
 )
  
-export default Images;
+export default Images; 
