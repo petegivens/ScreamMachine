@@ -22,7 +22,6 @@ class Profile extends React.Component {
   }
 
   getScreams() {
-    console.log('************',this.props.user);
     axios.get('/getScream', {
       params: {
 	user: this.props.user
@@ -45,12 +44,14 @@ class Profile extends React.Component {
 	  averageData.people.forEach((el,i) => {
 	    if(el > highest) {
 	      people = peopleOptions[i];
+	      highest = el;
 	    }
 	  })
 	  highest = 0; 
 	  averageData.place.forEach((el,i) => {
 	    if(el > highest) {
 	      place = placeOptions[i];
+	      highest = el;
 	    }
 	  })
 	  this.setState({
@@ -87,7 +88,7 @@ class Profile extends React.Component {
       },
       {
 	field: 'midfreq',
-	name: 'Low Frequency',
+	name: 'Mid Frequency',
 	color: '#123456'
       },
       {
@@ -105,7 +106,7 @@ class Profile extends React.Component {
       <Grid> 
 	<Row> <h1> Hi {this.props.user} </h1> </Row>	
 	<Row> Your average stress level is {this.state.stressLevel} </Row>
-	<Row> We have analzyed your data and think your top stressor for people is {this.state.topPeople} and for places is {this.state.topPlace} </Row>
+	<Row> We have analzyed your data and think your top stressors are <b> {this.state.topPeople} </b> and <b>{this.state.topPlace}</b> </Row>
 	<Row>
 	  <Col md={8} mdOffset={2}>
 	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Volumes'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries1} x={x} />

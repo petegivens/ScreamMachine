@@ -25,6 +25,7 @@ class App extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
+    this.goToProfile = this.goToProfile.bind(this);
     this.getLoginStatus();
   }
 
@@ -114,6 +115,9 @@ class App extends React.Component {
     }
   }
 
+  goToProfile() {
+    this.setState({page: 'Profile'});
+  }
   render() {
     var page;
     console.log('This is the current state', this.state);
@@ -122,7 +126,7 @@ class App extends React.Component {
     } else if (this.state.page === 'Profile') {
       page = <Profile user={this.state.user} />;
     } else if (this.state.page === 'StressForm') {
-      page = <StressForm user={this.state.user}/>;
+      page = <StressForm user={this.state.user} func={this.goToProfile}/>;
     } else {
       page = <div> Page did not load </div>
     }

@@ -106,6 +106,9 @@ class StressForm extends React.Component {
 							isFirst: isFirst
 						}
 					})
+						.then( () =>{
+							this.props.func();
+						})
 				})				
 		})
 	}
@@ -137,7 +140,7 @@ class StressForm extends React.Component {
 
 	render(props) {
 		var peopleCheckbox = peopleOptions.map( (el,i) => {
-			return <Checkbox eventKey={'test'} onChange={this.changePeople} value={i} key={i}>{el} </Checkbox>	
+			return <Checkbox onChange={this.changePeople} value={i} key={i}>{el} </Checkbox>	
 		})
 		var placeCheckbox = placeOptions.map( (el, i) => {
 			return <Checkbox onChange={this.changePlace} value={i} key={i}>{el} </Checkbox>
