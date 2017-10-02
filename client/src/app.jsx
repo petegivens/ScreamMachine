@@ -93,7 +93,14 @@ class App extends React.Component {
       }
     });
   }
-
+  
+  /*
+  Helper function that performs a GET request to check the session status of ther server.
+  The session is the ultimate source of truth for a users login status.
+  If the current state of the app differs from the session information, the state is
+  updated.
+  The state of the app is refreshed anytime a page is refreshed.
+  */
   getLoginStatus() {
     let status = this;
     axios.get('/getStatus')

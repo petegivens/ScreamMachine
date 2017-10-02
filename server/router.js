@@ -1,8 +1,10 @@
 // FYI
 // npm start script does not show server-side console logs
-// I ran two terminals:
+// To circumvent this during development, I ran two terminal sessions:
 // 1) webpack -d --watch
 // 2) nodemon server/server.js
+// - package.json already points to server.js, so you can actually
+//   just run "nodemon"
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -33,8 +35,15 @@ app.use('/', express.static('client'));
  *
  **************************************************/
 
+
+/*
+Special endpoint whose sole purpose is to return the status of a user's
+session in the form of a response obj.
+This is used on the front end in order to determine login status and to
+update state accordingly
+*/
 app.get('/getStatus', function(req, res) {
-	console.log('This is the current req session ',req.session.isLoggedIn);
+	// console.log('This is the current req session ',req.session.isLoggedIn);
 	let sessionObj = {
 		isLoggedIn : req.session.isLoggedIn || false,
 		username: req.session.username || undefined
@@ -85,7 +94,7 @@ app.get('/getAverages', function(req, res) {
     .then(function(result) {
       res.send(result);
     })
-})
+});
 
 app.get('/getAverage', function(req, res) {
   // need to changed to use sessions
@@ -208,6 +217,6 @@ app.post('/addAverages', function(req, res) {
     .then(function(result) {
       res.send(result);
     })
-})
+});
 
 module.exports = app;
