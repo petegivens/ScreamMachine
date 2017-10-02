@@ -76,6 +76,7 @@ class Scream extends React.Component {
     }
    }
 
+  //scream button controller 
   toggleClick(e) {
     e.preventDefault();
     //if button text is 'Start' or 'Scream Again'
