@@ -35,8 +35,15 @@ app.use('/', express.static('client'));
  *
  **************************************************/
 
+
+/*
+Special endpoint whose sole purpose is to return the status of a user's
+session in the form of a response obj.
+This is used on the front end in order to determine login status and to
+update state accordingly
+*/
 app.get('/getStatus', function(req, res) {
-	console.log('This is the current req session ',req.session.isLoggedIn);
+	// console.log('This is the current req session ',req.session.isLoggedIn);
 	let sessionObj = {
 		isLoggedIn : req.session.isLoggedIn || false,
 		username: req.session.username || undefined
