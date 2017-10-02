@@ -8,8 +8,8 @@ import StressForm from './components/StressForm.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
 import * as UserModel from '../models/users.js';
-        
-class App extends React.Component {        
+
+class App extends React.Component {
 
   constructor() {
     super();
@@ -25,11 +25,12 @@ class App extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
+    this.getLoginStatus();
   }
 
   closeModal() {
     this.setState({
-      showLogin: false, 
+      showLogin: false,
       showSignup: false
     });
   }
@@ -67,12 +68,25 @@ class App extends React.Component {
         alert(userTaken);
       } else {
         context.setState({
-          isLoggedIn: true,  
+          isLoggedIn: true,
           user: username
         });
         context.closeModal();
       }
     });
+  }
+  getLoginStatus() {
+    let status = this;
+    axios.get('/getStatus')
+      .then((results) => {
+        if(results.data.isLoggedIn !== status.state.isLoggedIn) {
+          status.setState({
+            isLoggedIn: true,
+            user: results.data.username
+          });
+        }
+        console.log('Current status is ',results);
+      });
   }
 
   navClickHandler(eventKey) {
@@ -98,14 +112,15 @@ class App extends React.Component {
         this.setState({page: 'StressForm'});
       }
     }
-  }    
+  }
 
   render() {
     var page;
+    console.log('This is the current state', this.state);
     if (this.state.page === 'scream') {
       page = <Scream user={this.state.user}/>;
     } else if (this.state.page === 'Profile') {
-      page = <Profile user={this.state.user} />; 
+      page = <Profile user={this.state.user} />;
     } else if (this.state.page === 'StressForm') {
       page = <StressForm user={this.state.user}/>;
     } else {
@@ -125,4 +140,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
