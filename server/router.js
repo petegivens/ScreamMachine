@@ -119,15 +119,15 @@ app.post('/login', function(req, res) {
       db.isCorrectPassword(req.body)
         .then(function(isMatch) {
           if(isMatch) {
-            res.cookie('username', req.body.username); // Use the session
-            res.cookie('isLoggedIn', true);            // Use the session
+            // res.cookie('username', req.body.username); // Use the session
+            // res.cookie('isLoggedIn', true);            // Use the session
 						req.session.isLoggedIn = true;
 						req.session.username = req.body.username;
-            res.send('Password is correct; cookie established');
+            res.send('Password is correct; session established');
             //Adding session info below to test
           } else {
-            res.cookie('username', null);              // Use the session
-            res.cookie('isLoggedIn', false);           // Use the session
+            // res.cookie('username', null);              // Use the session
+            // res.cookie('isLoggedIn', false);           // Use the session
             //adding session info below to test
             //will check user state with presence of a session ID instead of checking username;
             req.session.destroy();
@@ -154,8 +154,8 @@ app.post('/addUser', function(req, res) {
       } else {
         db.addUser(user)
           .then(function(result) {
-            res.cookie('username', user.username);
-            res.cookie('isLoggedIn', true);
+            // res.cookie('username', user.username);
+            // res.cookie('isLoggedIn', true);
             //Adding session method for testing
             req.session.username = user.username;
             req.session.isLoggedIn = true;
