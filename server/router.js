@@ -1,3 +1,9 @@
+// FYI
+// npm start script does not show server-side console logs
+// I ran two terminals:
+// 1) webpack -d --watch
+// 2) nodemon server/server.js
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
