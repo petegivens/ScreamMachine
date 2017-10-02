@@ -1,18 +1,19 @@
+
+/*************************************************
+  REFERENCE: ScreamMachine/server/db/pgschema.sql
+ *************************************************/
+
 var bcrypt = require('bcrypt');
 const saltRounds = 5;
 
 const { Pool } = require('pg');
 
-/******************** pick your config ***********************/
-// Changed to toggle by object properties; toggle in row 21 new Pool(config[xxx])
+// [ config ] is a settings switcher for Postgres; we were at one
+//    point running local and online copies of Postgres and needed
+//    to be able to easily switch between them
+
 var config = {
   aws: {
-    host: 'localhost',
-    user: 'postgres',
-    password: 'admin',
-    database: 'scream'
-  },
-  jc_offline: {
     host: 'localhost',
     user: 'postgres',
     password: 'admin',
@@ -26,23 +27,29 @@ var config = {
   }
 };
 
+// Use the following line to choose your Postgres config from above:
+
 const pool = new Pool(config['aws']);
 
-// the pool with emit an error on behalf of any idle clients
-// it contains if a backend error or network partition happens
-// pool.on('error', (err, client) => {
-//   console.error('Unexpected error on idle client', err)
-//   process.exit(-1)
-// });
+// Following functions are mostly split by GETTERS and SETTERS
+//  Exceptions are: [ findUser, isCorrectPassword ]
+//  - Used in authentication
+//
+//  Getters are used to make database tables available to front end devs
+//
+//  Differences between plural and singular methods:
+//  - getScreams gets everything from the [ screams ] table for all users
+//  - getScream requires a user to be specified and only returns data for that user
+//  - getForm(s), getAverage(s) follow the same convention
 
 module.exports = {
   getUsers: function () {
-    return pool.query("select username, first_name, last_name from users")
+    return pool.query("SELECT username, first_name, last_name FROM users")
       .then(function(result) {
         return result.rows;
       })
       .catch(function(err) {
-        console.log('query fail');
+        console.log('getUsers query fail');
         return err;
       });
   },
@@ -53,6 +60,7 @@ module.exports = {
         return result.rows;
       })
       .catch(function(error) {
+        console.log('getScreams query fail');
         return err;
       })
   },
@@ -64,27 +72,30 @@ module.exports = {
         return result.rows;
       })
       .catch(function(error) {
+        console.log('getScream query fail');
         return error; 
       })
   },
 
   getForms: function() {
-    return pool.query("SELECT * from form")
+    return pool.query("SELECT * FROM form")
       .then(function(result) {
         return result.rows;
       })
       .catch(function(error) {
+        console.log('getForms query fail');
         return error;
       })
   },
 
   getForm: function(username) {
     var query = 'SELECT * FROM forms WHERE user_id = (SELECT id FROM users WHERE username=$1)';
-    return pool.query(query,[username])
+    return pool.query(query, [ username ])
       .then(function(result) {
         return result.rows;
       })
       .catch(function(error) {
+        console.log('getForm query fail');
         return error; 
       })  
   },
@@ -95,6 +106,7 @@ module.exports = {
         return result.rows;
       })
       .catch(function(error) {
+        console.log('getAverages query fail');
         return error;
       })
   },
@@ -106,18 +118,9 @@ module.exports = {
         return result.rows[0];
       })
       .catch(function(error) {
+        console.log('getAverage query fail');
         return error; 
       })  
-  },
-
-  clearScreams: function() {
-    return pool.query("delete from screams where id > 0")
-      .then(function(result) {
-        return result.rows;
-      })
-      .catch(function(error) {
-        return error;
-      })
   },
 
   findUser: function(user) {
@@ -126,6 +129,7 @@ module.exports = {
         return result.rows;
       })
       .catch(function(err) {
+        console.log('findUser query fail');
         return err;
       });
   },
@@ -144,19 +148,10 @@ module.exports = {
       .then(function(hash) {
         user.password = hash;
 
-        let rayedUser = [
-          user.username,
-          user.password,
-          user.first_name,
-          user.last_name
-        ];
+        // changed query from obj to string
+        let query = 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)';
 
-        let query = {
-          text: 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)',
-          values: rayedUser
-        };
-
-        return pool.query(query)
+        return pool.query(query, [ user.username, user.password, user.first_name, user.last_name ])
           .then(function(result) {
             console.log('db.index.js, succcess: ', result.rows);
             return result.rows;
@@ -167,7 +162,7 @@ module.exports = {
           });
       })
       .catch(function(err) {
-        console.log('db error: ', err);
+        console.log('bcrypt hash error: ', err);
         return err;
       });
   },
@@ -175,7 +170,10 @@ module.exports = {
   isCorrectPassword: function(user) {
     // Assumes that you first check if user exists before running this function
 
-    return pool.query("SELECT password FROM users WHERE username = '" + user.username + "'")
+    // changed from string concat to $1 format
+    let query = 'SELECT password FROM users WHERE username=$1';
+
+    return pool.query(query, [ user.username ])
       .then(function(result) {
         return bcrypt.compare(user.password, result.rows[0].password)
           .then(function(isMatch) {
@@ -195,10 +193,10 @@ module.exports = {
      *    highFreq: 1.0000
      *  }
      */
-    let query = {
-      text: 'INSERT INTO screams (user_id, volume, lowFreq, midFreq, highFreq) VALUES ( (SELECT id FROM users WHERE username=$1), $2, $3, $4, $5);'
-    };
-    console.log('query.text: ', query.text);
+
+    // changed query from obj to string
+    let query = 'INSERT INTO screams (user_id, volume, lowFreq, midFreq, highFreq) VALUES ( (SELECT id FROM users WHERE username=$1), $2, $3, $4, $5);'
+    
     return pool.query(query,[data.username, data.volume, data.lowFreq, data.midFreq, data.highFreq])
       .then(function(result) {
         console.log('addScream query success');
@@ -220,15 +218,16 @@ module.exports = {
      *  }
      *
      */
-     let query = {
-        text: 'INSERT INTO form (user_id, stress_level, stressors) VALUES ( (SELECT id FROM users WHERE username=$1), $2, $3);' 
-     }
+
+     // Changed query from obj to string
+     let query = 'INSERT INTO form (user_id, stress_level, stressors) VALUES ( (SELECT id FROM users WHERE username=$1), $2, $3);';
+
      return pool.query(query,[data.username, data.stress_level, data.stressors])
       .then(function(result) {
         return result;
       })
       .catch(function(error) {
-        console.log(error);
+        console.log('addForm query fail');
         return error;
       });
   },
@@ -244,26 +243,12 @@ module.exports = {
      *
      */
     console.log(data);
+    // changed query from obj to string
     if (data.isFirst) {
-      var query = {
-        text: 'INSERT INTO averages (user_id, stress_level, form_data) VALUES ( (SELECT id from users WHERE username=$3), $1, $2)'
-      }
+      var query = 'INSERT INTO averages (user_id, stress_level, form_data) VALUES ( (SELECT id from users WHERE username=$3), $1, $2)';
     } else {
-      var query = {
-        text: 'UPDATE averages SET stress_level = $1, form_data = $2 WHERE user_id = (SELECT id FROM users WHERE username=$3);'
-     }
+      var query = 'UPDATE averages SET stress_level = $1, form_data = $2 WHERE user_id = (SELECT id FROM users WHERE username=$3);'
     }
      return pool.query(query,[data.stress_level, data.form_data, data.username]);
   }
 }
-
-/*
-CREATE TABLE averages (
- id serial,
- user_id int REFERENCES users(id),
- stress_level int,
- form_data varchar(255),
- PRIMARY KEY (ID)
-);
-
-*/

@@ -1,3 +1,9 @@
+// FYI
+// npm start script does not show server-side console logs
+// I ran two terminals:
+// 1) webpack -d --watch
+// 2) nodemon server/server.js
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
@@ -16,6 +22,17 @@ app.use(cookieParser());
 app.use(session({secret: 'screaming'}));
 
 app.use('/', express.static('client'));
+
+/**************************************************
+ *
+ *  GET Requests:
+ *    Many of these are here for development
+ *    purposes; helps the team to see what are in
+ *    various tables without having to install
+ *    a local copy of the Postgres DB.
+ *
+ **************************************************/
+
 app.get('/getStatus', function(req, res) {
 	console.log('This is the current req session ',req.session.isLoggedIn);
 	let sessionObj = {
@@ -79,54 +96,53 @@ app.get('/getAverage', function(req, res) {
     })
 });
 
-app.get('/clearScreams', function(req, res) {
-  db.clearScreams()
-    .then(function(result) {
-      res.send(result);
-    })
-});
+/**************************************************
+ *
+ *  POST Requests:
+ *    These endpoints are used by front end to add
+ *    records to Postgres
+ *
+ **************************************************/
 
 app.post('/login', function(req, res) {
 
   db.findUser(req.body)
     .then(function(result) {
       if(result.length > 0) {
-        return result[0]; // if multiple entries exist for username, use the first. this can only happen by manual entries
+        return result[0]; // if multiple entries exist for [ username ], use the first. this can only happen by manual entries
       } else {
         res.send('User not found');
       }
-    })
-    .catch(function(err) {
-      res.send(err);
     })
     .then(function(user) {
       // call a function from db that checks password
       db.isCorrectPassword(req.body)
         .then(function(isMatch) {
           if(isMatch) {
-            res.cookie('username', req.body.username);
-            res.cookie('isLoggedIn', true);
+            // res.cookie('username', req.body.username); // Use the session
+            // res.cookie('isLoggedIn', true);            // Use the session
 						req.session.isLoggedIn = true;
 						req.session.username = req.body.username;
-            res.send('Password is correct; cookie established');
+            res.send('Password is correct; session established');
             //Adding session info below to test
           } else {
-            res.cookie('username', null);
-            res.cookie('isLoggedIn', false);
+            // res.cookie('username', null);              // Use the session
+            // res.cookie('isLoggedIn', false);           // Use the session
             //adding session info below to test
             //will check user state with presence of a session ID instead of checking username;
             req.session.destroy();
             res.send('password is incorrect');
           }
         });
+    })
+    .catch(function(err) {
+      res.send(err);
     });
 });
 
-app.post('/addUser', function(req, res) {
-  // JRJR pass = 'jrpass'
-  // luig0 pass = 'pass1234'
-  // longhorns pass = 'hashme'
 
+// Endpoint /addUser is used for signup
+app.post('/addUser', function(req, res) {
   console.log('/addUser, req.body: ', req.body);
 
   var user = req.body;
@@ -138,8 +154,8 @@ app.post('/addUser', function(req, res) {
       } else {
         db.addUser(user)
           .then(function(result) {
-            res.cookie('username', user.username);
-            res.cookie('isLoggedIn', true);
+            // res.cookie('username', user.username);
+            // res.cookie('isLoggedIn', true);
             //Adding session method for testing
             req.session.username = user.username;
             req.session.isLoggedIn = true;
@@ -156,7 +172,7 @@ app.post('/addUser', function(req, res) {
 });
 
 app.post('/addScream', function(req, res) {
-  // need to require logged in cookie
+  // auth management is being handled in front end
 
   var screamData = req.body.params;
   console.log('router.js, req.body: ', req.body.params);
@@ -193,9 +209,5 @@ app.post('/addAverages', function(req, res) {
       res.send(result);
     })
 })
-
-app.get('/profile', function(req, res) {
-  res.send('Welcome to the profile endpoint');
-});
 
 module.exports = app;
