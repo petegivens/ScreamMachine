@@ -110,7 +110,7 @@ app.post('/login', function(req, res) {
   db.findUser(req.body)
     .then(function(result) {
       if(result.length > 0) {
-        return result[0]; // if multiple entries exist for username, use the first. this can only happen by manual entries
+        return result[0]; // if multiple entries exist for [ username ], use the first. this can only happen by manual entries
       } else {
         res.send('User not found');
       }
@@ -142,10 +142,6 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/addUser', function(req, res) {
-  // JRJR pass = 'jrpass'
-  // luig0 pass = 'pass1234'
-  // longhorns pass = 'hashme'
-
   console.log('/addUser, req.body: ', req.body);
 
   var user = req.body;
@@ -175,7 +171,7 @@ app.post('/addUser', function(req, res) {
 });
 
 app.post('/addScream', function(req, res) {
-  // need to require logged in cookie
+  // auth management is being handled in front end
 
   var screamData = req.body.params;
   console.log('router.js, req.body: ', req.body.params);

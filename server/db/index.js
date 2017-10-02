@@ -264,14 +264,3 @@ module.exports = {
      return pool.query(query,[data.stress_level, data.form_data, data.username]);
   }
 }
-
-/*
-CREATE TABLE averages (
- id serial,
- user_id int REFERENCES users(id),
- stress_level int,
- form_data varchar(255),
- PRIMARY KEY (ID)
-);
-
-*/
