@@ -3,8 +3,6 @@ import {LineChart} from 'react-d3-basic';
 import axios from 'axios';
 import {Grid, Row, Col} from 'react-bootstrap';
 
-var peopleOptions = ['close family', 'extended family', 'friends', 'co-workers', 'ex-SO'];
-var placeOptions = ['work', 'school', 'gym', 'outside for more than an hour','bar'];
 
 class Profile extends React.Component {
 
@@ -13,8 +11,7 @@ class Profile extends React.Component {
     this.state = {
       screams: [],
       stressLevel: 0,
-      topPeople: null,
-      topPlace: null
+      top: []
     }
     this.getScreams = this.getScreams.bind(this);
     this.getScreams();
@@ -27,9 +24,9 @@ class Profile extends React.Component {
 	user: this.props.user
       }
     })
-    .then( (screams) => {
-      this.setState({screams: screams.data});
-    })
+      .then( (screams) => {
+	this.setState({screams: screams.data});
+      })
   }
 
   getAverage() {
@@ -38,31 +35,20 @@ class Profile extends React.Component {
 	this.setState({stressLevel: result.data.stress_level});
 	if (result.data.length !== 0) {
 	  var averageData = JSON.parse(result.data.form_data);
-	  var highest = 0;
-	  var people = 'none';
-	  var place = 'none'; 
-	  averageData.people.forEach((el,i) => {
-	    if(el > highest) {
-	      people = peopleOptions[i];
-	      highest = el;
+	  var newState = {};
+	  for(var key in formOptions) {
+	    var highest = 0;
+	    averageData[key].forEach( (el,i) => {
+	      if(el > highest) {
+		newState[key] = formOptions[key][i];
+		highest = el;
+	      }
+	    })
+	    if (newState[key] === undefined) {
+	      newState[key] = 'None';
 	    }
-	  })
-	  highest = 0; 
-	  averageData.place.forEach((el,i) => {
-	    if(el > highest) {
-	      place = placeOptions[i];
-	      highest = el;
-	    }
-	  })
-	  this.setState({
-	    topPeople: people,
-	    topPlace: place
-	  })
-	} else {
-	  this.setState({
-	    topPeople: 'None',
-	    topPlace: 'None'
-	  })
+	  }
+	  this.setState({top:newState});
 	}
       })
   }
@@ -101,12 +87,12 @@ class Profile extends React.Component {
     var x = function(d) {
       return d.id;
     }
-
+    // have to hard code top
     return (
       <Grid> 
 	<Row> <h1> Hi {this.props.user} </h1> </Row>	
 	<Row> Your average stress level is {this.state.stressLevel} </Row>
-	<Row> We have analzyed your data and think your top stressors are <b> {this.state.topPeople} </b> and <b>{this.state.topPlace}</b> </Row>
+	<Row> We have analzyed your data and think your top stressors are hanging out with <b> {this.state.top.people} </b> and  going to <b>{this.state.top.places}</b> </Row>
 	<Row>
 	  <Col md={8} mdOffset={2}>
 	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Volumes'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries1} x={x} />

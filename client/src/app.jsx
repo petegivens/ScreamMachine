@@ -86,7 +86,6 @@ class App extends React.Component {
             user: results.data.username
           });
         }
-        console.log('Current status is ',results);
       });
   }
 
@@ -104,7 +103,6 @@ class App extends React.Component {
       //displays signup modal
       this.setState({showSignup: true});
     } else if (this.state.user !== null) {
-      console.log('here');
       if (eventKey === 'Profile') {
         //renders profile page instead of scream page
         this.setState({page: 'Profile'});
@@ -120,7 +118,6 @@ class App extends React.Component {
   }
   render() {
     var page;
-    console.log('This is the current state', this.state);
     if (this.state.page === 'scream') {
       page = <Scream user={this.state.user}/>;
     } else if (this.state.page === 'Profile') {
