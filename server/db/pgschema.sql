@@ -39,6 +39,6 @@ CREATE TABLE averages (
 CREATE TABLE user_scores (
  id serial,
  user_id int REFERENCES users(id) UNIQUE,
- level int,
+ score int,
  PRIMARY KEY (ID)
 );

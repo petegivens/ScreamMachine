@@ -105,7 +105,7 @@ app.get('/getAverage', function(req, res) {
     })
 });
 
-app.get('/startGame', function(req, res) {
+app.get('/getHighScores', function(req, res) {
   // need to call function that gets user data and get user high scores
 
   db.getHighScores()

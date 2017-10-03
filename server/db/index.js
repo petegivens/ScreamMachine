@@ -120,7 +120,7 @@ module.exports = {
 
   getHighScores: function() {
     //return top five scores from database with the users associated
-    return pool.query("SELECT user_levels.level, users.username FROM user_levels INNER JOIN users ON userlevels.user_id = users.id ORDER BY user_levels.level DESC")
+    return pool.query("SELECT user_scores.score, users.username FROM user_scores INNER JOIN users ON user_scores.user_id = users.id ORDER BY user_scores.score DESC limit 5")
     .then(function(result){
       return result.rows;
     })
