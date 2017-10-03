@@ -17,7 +17,8 @@ var config = {
     host: 'ec2-54-235-88-58.compute-1.amazonaws.com',
     user: 'lnhhqcwwfkgyqw',
     password: '0d85baa1e330fd21e90afe335cf0bd9a32bb117f6cb785914114c9848bf1cb74',
-    database: 'd461kk2fe556bm'
+    database: 'd461kk2fe556bm',
+    ssl: true
   }
 };
 
@@ -115,6 +116,27 @@ module.exports = {
         console.log('getAverage query fail');
         return error;
       });
+  },
+
+  getHighScores: function() {
+    //return top five scores from database with the users associated
+    return pool.query("SELECT user_levels.level, users.username FROM user_levels INNER JOIN users ON userlevels.user_id = users.id ORDER BY user_levels.level DESC")
+    .then(function(result){
+      return result.rows;
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+  },
+
+  getUserData: function(user) {
+    return pool.query("SELECT * FROM users WHERE username = '" + user.username + "'")
+    .then(function(result){
+      return result.rows[0];
+    })
+    .catch(function(err){
+      console.log(err);
+    });
   },
 
   findUser: function(user) {
