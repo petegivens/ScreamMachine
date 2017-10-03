@@ -17,7 +17,6 @@ class App extends React.Component {
       page: 'Arcade',
       showSignup: false,
       showLogin: false,
-      showSignup: false,
       isLoggedIn: false,
       user: null,
     };
