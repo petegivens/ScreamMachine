@@ -118,6 +118,27 @@ module.exports = {
       });
   },
 
+  getHighScores: function() {
+    //return top five scores from database with the users associated
+    return pool.query("SELECT user_scores.score, users.username FROM user_scores INNER JOIN users ON user_scores.user_id = users.id ORDER BY user_scores.score DESC limit 5")
+    .then(function(result){
+      return result.rows;
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+  },
+
+  getUserData: function(user) {
+    return pool.query("SELECT * FROM users WHERE username = '" + user.username + "'")
+    .then(function(result){
+      return result.rows[0];
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+  },
+
   findUser: function(user) {
     return pool.query("SELECT username FROM users WHERE username = '" + user.username + "'")
       .then(function(result) {
