@@ -141,7 +141,7 @@ app.post('/login', function(req, res) {
             // res.cookie('isLoggedIn', true);            // Use the session
 						req.session.isLoggedIn = true;
 						req.session.username = req.body.username;
-            res.send('Password is correct; session established');
+            //res.send('Password is correct; session established');
             //Adding session info below to test
           } else {
             // res.cookie('username', null);              // Use the session
@@ -149,10 +149,18 @@ app.post('/login', function(req, res) {
             //adding session info below to test
             //will check user state with presence of a session ID instead of checking username;
             req.session.destroy();
-            res.send('password is incorrect');
+            //res.send('password is incorrect');
           }
         });
-    })
+    }).then(function() {
+			db.getUserData(req.body)
+			.then(function(userObj){
+				var score = db.getUserHighScore(userObj);
+				userObj.personalBest = score;
+				console.log('USER OBJECT*******', userObj)
+				res.send(userObj);
+			})
+		})
     .catch(function(err) {
       res.send(err);
     });

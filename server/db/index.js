@@ -139,6 +139,13 @@ module.exports = {
     });
   },
 
+  getUserHighScore: function(user) {
+    return pool.query("SELECT score FROM user_scores WHERE user_id = '" + user.id + "'")
+    .then(function(result){
+      return result.rows
+    })
+  },
+
   findUser: function(user) {
     return pool.query("SELECT username FROM users WHERE username = '" + user.username + "'")
       .then(function(result) {
