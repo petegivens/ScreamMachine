@@ -130,6 +130,9 @@ class App extends React.Component {
     } else if (eventKey === 'signup') {
       //displays signup modal
       this.setState({showSignup: true});
+    } else if (eventKey === 'scream') {
+        //displays signup modal
+        this.setState({page: 'scream'});
     } else if (this.state.user !== null) {
       if (eventKey === 'Profile') {
         //renders profile page instead of scream page
