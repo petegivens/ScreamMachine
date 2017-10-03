@@ -17,7 +17,8 @@ var config = {
     host: 'ec2-54-235-88-58.compute-1.amazonaws.com',
     user: 'lnhhqcwwfkgyqw',
     password: '0d85baa1e330fd21e90afe335cf0bd9a32bb117f6cb785914114c9848bf1cb74',
-    database: 'd461kk2fe556bm'
+    database: 'd461kk2fe556bm',
+    ssl: true
   }
 };
 
