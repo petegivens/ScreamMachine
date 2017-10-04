@@ -50,7 +50,7 @@ class HighStriker extends React.Component {
     return (
       <div>
         {
-          <Recorder ref="recorder" sensitivity={5} status={this.state.status} getVolume={this.getVolume.bind(this)} render={(volume) => {
+          <Recorder ref="recorder" sensitivity={4} status={this.state.status} getVolume={this.getVolume.bind(this)} render={(volume) => {
             return (
               <div style={style.striker}>
                 {volume}
