@@ -2,7 +2,8 @@ import React from 'react';
 import sketch, {getMic, getFreq} from '../../models/micGraph';
 import ScreamButton from './ScreamButton.jsx';
 import Images from './Images.jsx';
-import {Row,Grid,Col,Button} from 'react-bootstrap';
+import Grid from 'material-ui/Grid';
+import Button from 'material-ui/Button';
 import axios from 'axios';
 import P5Wrapper from 'react-p5-wrapper';
 
@@ -101,35 +102,39 @@ class Scream extends React.Component {
 
   render() {
     return (
-      <Grid>
-        <Row className='pageText'>
+      <div>
+        <Grid className='pagetext'>
           {this.state.screamButtonText === 'Scream Again' ? <div></div> :
-          <p>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</p>
+            <p>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</p>
           }
-        </Row>
-        <Row className='gif'>
-          {this.state.displayScore ?
-            <Col md={4} mdOffset={4} className='score'>
-              Score: {Math.floor(this.state.screamLevel * 1000)}<br/>
-              <Button id='saveButton' onClick={this.saveScream} >{this.state.saveButtonText}</Button>
-              <p id='clickPlay'>Still feeling stressed? Click 'play'!</p>
-              <audio id='afterFreeman' controls="controls">
-                <source src='../../hlfreeman.wav'/>
-              </audio>
-            </Col> :
-            <Images scream={this.state.scream}/>
-          }
-        </Row>
-        <Row>
-          <Col md={4} mdOffset={4}>
+        </Grid>
+        <div>
+          <Grid item xs={12} container={true} justify={'center'} className='gif'>
+            {this.state.displayScore ?
+                <Grid item md={4} className='score'>
+                  Score: {Math.floor(this.state.screamLevel * 1000)}<br/>
+                  <Button raised id='saveButton' style={{backgroundColor: '00BCD4'}} onClick={this.saveScream} >{this.state.saveButtonText}</Button>
+                  <p id='clickPlay'>Still feeling stressed? Click 'play'!</p>
+                  <audio id='afterFreeman' controls="controls">
+                    <source src='../../hlfreeman.wav'/>
+                  </audio>
+                </Grid> :
+                <Images scream={this.state.scream}/>
+              }
+          </Grid>
+        </div>
+        <div>
+          <Grid item xs={11} justify={'center'} container={true}>
             <ScreamButton func={this.toggleClick} state={this.state.screamButtonText}/>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={8} mdOffset={2} id='ScreamMeter'><P5Wrapper sketch={sketch} /></Col>
-        </Row>
-      </Grid>
-    );
+          </Grid>
+        </div>
+        <div>
+            <Grid item xs={12} justify={'center'} container={true} id='ScreamMeter'><P5Wrapper sketch={sketch} /></Grid>
+        </div>
+      </div>
+
+
+    )
   }
 }
 
