@@ -106,6 +106,10 @@ button {
   margin-left: 100
 }
 
+.striker {
+  text-align: center;
+}
+
 .striker input[type='range'] {
   outline: none;
   height: 30px;
