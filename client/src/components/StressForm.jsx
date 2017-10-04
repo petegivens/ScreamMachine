@@ -8,9 +8,12 @@ import {
   FormHelperText,
 } from 'material-ui/Form';
 import Switch from 'material-ui/Switch'
+import Input, { InputLabel } from 'material-ui/Input';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography';
+import Select from 'material-ui/Select';
+import { MenuItem } from 'material-ui/Menu';
 import axios from 'axios';
 
 
@@ -120,6 +123,7 @@ class StressForm extends React.Component {
 	}
 
 	stressLevel(e, value) {
+		console.log('stressLevel: ', value)
 		this.setState({stressLevel: parseInt(value)});
 	}
 
@@ -141,20 +145,27 @@ class StressForm extends React.Component {
 				<Typography type='title'> Where where you today? </Typography>
 					{placeCheckbox}
 				<Typography type='title'> How stressed were you today? </Typography>
-				<RadioGroup name='stressLevel' aria-label='stressLevel' value={this.state.stressLevel} onChange={this.stressLevel}>
-					<FormControlLabel control={<Radio value='0' name='stressLevel'/>} label='0' />
-					<FormControlLabel control={<Radio value='1' name='stressLevel'/>} label='1' />
-					<FormControlLabel control={<Radio value='2' name='stressLevel'/>} label='2' />
-					<FormControlLabel control={<Radio value='3' name='stressLevel'/>} label='3' />
-					<FormControlLabel control={<Radio value='4' name='stressLevel'/>} label='4' />
-					<FormControlLabel control={<Radio value='5' name='stressLevel'/>} label='5' />
-					<FormControlLabel control={<Radio value='6' name='stressLevel'/>} label='6' />
-					<FormControlLabel control={<Radio value='7' name='stressLevel'/>} label='7' />
-					<FormControlLabel control={<Radio value='8' name='stressLevel'/>} label='8' />
-					<FormControlLabel control={<Radio value='9' name='stressLevel'/>} label='9' />
-					<FormControlLabel control={<Radio value='10' name='stressLevel'/>} label='10' />
-				</RadioGroup>
-				<Button raised type='submit'> Submit </Button>
+
+				<Select
+					native
+					value={this.state.stressLevel}
+					onChange={this.stressLevel}
+					>
+						<option value='0' name="stressLevel">0</option>
+						<option value='1' name="stressLevel">1</option>
+						<option value='2' name="stressLevel">2</option>
+						<option value='3' name="stressLevel">3</option>
+						<option value='4' name="stressLevel">4</option>
+						<option value='5' name="stressLevel">5</option>
+						<option value='6' name="stressLevel">6</option>
+						<option value='7' name="stressLevel">7</option>
+						<option value='8' >8</option>
+						<option value='9' >9</option>
+						<option value='10'>10</option>
+					</Select> <br />
+				<div>
+					<Button raised type='submit'> Submit </Button>
+				</div>
 			</form>
 				</div>
 		)}
