@@ -147,14 +147,14 @@ app.post('/login', function(req, res) {
 			db.getUserData(req.body)
 			.then(function(userObj){
 				return db.getHighScore(userObj)
-					.then((result) => {
-						if (result.length > 0) {
-							userObj.personalBest = result[0].score
-						} else {
-							userObj.personalBest = 1;
-						}
-						res.send(userObj)
-					})
+				.then((result) => {
+					if (result.length > 0) {
+						userObj.personalBest = result[0].score
+					} else {
+						userObj.personalBest = 1;
+					}
+					res.send(userObj)
+				})
 			})
 		})
     .catch(function(err) {
@@ -170,27 +170,34 @@ app.post('/addUser', function(req, res) {
   var user = req.body;
 
   db.findUser(user)
-    .then(function(result) {
+  .then(function(result) {
       if(result.length > 0) {
         res.send('User already exists in db');
       } else {
         db.addUser(user)
-          .then(function(result) {
-            // res.cookie('username', user.username);
-            // res.cookie('isLoggedIn', true);
-            //Adding session method for testing
-            req.session.username = user.username;
-            req.session.isLoggedIn = true;
-            res.send('User added');
-          })
-          .catch(function (error) {
-            res.send('addUser catch: ', error);
-          });
-      }
-    })
-    .catch(function(error) {
-      res.send('findUser catch: ' + error);
-    });
+        .then(function(result) {
+          req.session.username = user.username;
+          req.session.isLoggedIn = true;
+        })
+				.then(function() {
+					db.getUserData(user)
+					.then(function(userObj){
+						return db.getHighScore(userObj)
+						.then((result) => {
+							if (result.length > 0) {
+								userObj.personalBest = result[0].score
+							} else {
+								userObj.personalBest = 1;
+							}
+							res.send(userObj)
+						})
+					})
+				})
+		    .catch(function(error) {
+    			res.send('findUser catch: ' + error);
+  			});
+			}
+		})
 });
 
 app.post('/addScream', function(req, res) {
