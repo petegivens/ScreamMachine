@@ -44,7 +44,7 @@ class Recorder extends React.Component {
         this.volume = total;
       }
 
-      this.interval = setInterval(getVolume, 1);
+      this.interval = setInterval(getVolume, 50);
     }
 
     this.soundNotAllowed = function(error) {
