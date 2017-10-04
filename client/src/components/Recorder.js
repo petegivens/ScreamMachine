@@ -86,11 +86,7 @@ class Recorder extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.render(this.state.volume)}
-      </div>
-    )
+    return null;
   }
 }
 
