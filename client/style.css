@@ -30,7 +30,6 @@ button {
 
 .screambutton {
   width: 200px;
-  padding-left: 55px;
   padding-bottom: 12px;
 }
 
@@ -60,6 +59,10 @@ button {
 
 .screambutton {
   display: inline-block;
+}
+
+#formsubmit {
+  padding-top: 15px;
 }
 
 #saveButton {
@@ -145,6 +148,10 @@ button {
 .striker .confetti {
   left: 60px;
   top: 50px;
+}
+
+.formtitle {
+  padding-top: 15px;
 }
 
 .sharebutton {
