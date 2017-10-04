@@ -139,11 +139,14 @@ app.post('/login', function(req, res) {
           if(isMatch) {
 						req.session.isLoggedIn = true;
 						req.session.username = req.body.username;
+						res.send('Password is correct; session established');
           } else {
             req.session.destroy();
+						res.send('password is incorrect');
           }
         });
-    }).then(function() {
+    })
+		.then(function() {
 			db.getUserData(req.body)
 			.then(function(userObj){
 				return db.getUserHighScore(userObj)
