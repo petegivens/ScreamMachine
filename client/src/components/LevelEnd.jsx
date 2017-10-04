@@ -71,7 +71,7 @@ export default class LevelEnd extends React.Component {
 
       <div>
         <Button raised onClick={this.handleOpen}>LevelEnd</Button>
-
+        
         <Dialog open={this.state.open} onRequestClose={this.handleClose}>
           <DialogTitle>{"You've Passed Level ***Insert Level***"}</DialogTitle>
           <DialogContent>
