@@ -156,7 +156,6 @@ class App extends React.Component {
     }
     return (
       <Grid>
-        <Row><Login /></Row>
         <Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
         <Row>
           <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} />
