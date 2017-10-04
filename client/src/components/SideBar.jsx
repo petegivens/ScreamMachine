@@ -1,13 +1,22 @@
 import React from 'react';
-import Card from 'material-ui/Dialog';
+import Card, {CardContent} from 'material-ui/Card';
+import Grid from 'material-ui/Grid';
 
-export default class SideBar extends React.Component{
+const SideBar = () => (
 
-
-  render () {
     <div>
-      <Card></Card>
+      <Grid item xs={12} sm={6}>
+        <Card>
+          <CardContent>Sup</CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Card>
+          <CardContent>Hey</CardContent>
+        </Card>
+      </Grid>
     </div>
 
-  }
-}
+);
+
+export default SideBar;

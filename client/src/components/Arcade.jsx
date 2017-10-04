@@ -1,5 +1,6 @@
 import React from 'react';
 import HighStriker from './HighStriker.jsx';
+import SideBar from './SideBar.jsx';
 
 class Arcade extends React.Component {
 
@@ -7,6 +8,7 @@ class Arcade extends React.Component {
     return (
       <div>
         <HighStriker />
+        <SideBar />
       </div>
     );
   }
