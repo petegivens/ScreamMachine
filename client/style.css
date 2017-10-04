@@ -26,7 +26,6 @@ button {
   height: 40px;
 	font-size: 22px;
 	font-weight: bold;
-  display: inline-block;
 }
 
 .screambutton {
@@ -106,6 +105,7 @@ button {
   margin-left: 100
 }
 
+<<<<<<< HEAD
 .striker input[type='range'] {
   outline: none;
   height: 30px;
@@ -142,4 +142,8 @@ button {
 .striker .confetti {
   left: 60px;
   top: 50px;
+=======
+#ScreamMeter {
+  padding-left: 40
+>>>>>>> restyled scream, screambutton, images. DBZ theme
 }

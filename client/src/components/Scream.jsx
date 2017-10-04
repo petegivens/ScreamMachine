@@ -40,10 +40,10 @@ class Scream extends React.Component {
     //console.log(micLevel); // for debugging
     if	(this.state.scream) {
       //console.log(micLevel); // for debugging
-      if (micLevel < 0.15) {
+      if (micLevel < 0.10) {
         this.setState({scream: false});
       }
-    } else if (micLevel > 0.15) {
+    } else if (micLevel > 0.10) {
       this.setState({scream: true})
     }
     if(this.state.screamButtonText === 'Stop') {
@@ -105,24 +105,26 @@ class Scream extends React.Component {
       <div>
         <Grid className='pagetext'>
           {this.state.screamButtonText === 'Scream Again' ? <div></div> :
-            <p>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</p>
+            <Grid>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</Grid>
           }
         </Grid>
         <div>
-          <Grid item xs={12} container={true} justify={'center'} className='gif'>
+          <Grid item spacing={24} container={true} justify={'center'} className='gif'>
             {this.state.displayScore ?
-                <Grid item md={4} className='score'>
-                  Score: {Math.floor(this.state.screamLevel * 1000)}<br/>
-                  <Button raised id='saveButton' style={{backgroundColor: '00BCD4'}} onClick={this.saveScream} >{this.state.saveButtonText}</Button>
-                  <p id='clickPlay'>Still feeling stressed? Click 'play'!</p>
+                <div><Grid item className='score'>
+                  <div><Grid item xl={12} container={true} justify={'center'}>Score: {Math.floor(this.state.screamLevel * 1000)}</Grid></div><br/>
+                  <Grid item ><Button raised id='saveButton' style={{backgroundColor: '00BCD4'}} onClick={this.saveScream} >{this.state.saveButtonText}</Button></Grid>
+                  <div><p id='clickPlay'>Still feeling stressed? Click 'play'!</p></div>
                   <audio id='afterFreeman' controls="controls">
                     <source src='../../hlfreeman.wav'/>
                   </audio>
-                </Grid> :
+                </Grid></div> :
                 <Images scream={this.state.scream}/>
               }
           </Grid>
         </div>
+        <br />
+        <br />
         <div>
           <Grid item xs={11} justify={'center'} container={true}>
             <ScreamButton func={this.toggleClick} state={this.state.screamButtonText}/>
