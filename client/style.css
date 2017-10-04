@@ -26,7 +26,6 @@ button {
   height: 40px;
 	font-size: 22px;
 	font-weight: bold;
-  display: inline-block;
 }
 
 .screambutton {
@@ -146,4 +145,14 @@ button {
 .striker .confetti {
   left: 60px;
   top: 50px;
+}
+
+.sharebutton {
+  display: inline-block;
+  padding-right: 10px;
+  padding-top: 5px;
+}
+
+.levelEndText {
+  padding-top: 20px;
 }

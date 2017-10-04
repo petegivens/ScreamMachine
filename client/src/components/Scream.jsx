@@ -2,7 +2,8 @@ import React from 'react';
 import sketch, {getMic, getFreq} from '../../models/micGraph';
 import ScreamButton from './ScreamButton.jsx';
 import Images from './Images.jsx';
-import {Row,Grid,Col,Button} from 'react-bootstrap';
+import Grid from 'material-ui/Grid';
+import Button from 'material-ui/Button';
 import axios from 'axios';
 import P5Wrapper from 'react-p5-wrapper';
 
@@ -39,10 +40,10 @@ class Scream extends React.Component {
     //console.log(micLevel); // for debugging
     if	(this.state.scream) {
       //console.log(micLevel); // for debugging
-      if (micLevel < 0.15) {
+      if (micLevel < 0.10) {
         this.setState({scream: false});
       }
-    } else if (micLevel > 0.15) {
+    } else if (micLevel > 0.10) {
       this.setState({scream: true})
     }
     if(this.state.screamButtonText === 'Stop') {
@@ -101,35 +102,42 @@ class Scream extends React.Component {
 
   render() {
     return (
-      <Grid>
-        <Row className='pageText'>
+      <div>
+        <Grid className='pagetext'>
           {this.state.screamButtonText === 'Scream Again' ? <div></div> :
-          <p>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</p>
+            <Grid>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</Grid>
           }
-        </Row>
-        <Row className='gif'>
-          {this.state.displayScore ?
-            <Col md={4} mdOffset={4} className='score'>
-              Score: {Math.floor(this.state.screamLevel * 1000)}<br/>
-              <Button id='saveButton' onClick={this.saveScream} >{this.state.saveButtonText}</Button>
-              <p id='clickPlay'>Still feeling stressed? Click 'play'!</p>
-              <audio id='afterFreeman' controls="controls">
-                <source src='../../hlfreeman.wav'/>
-              </audio>
-            </Col> :
-            <Images scream={this.state.scream}/>
-          }
-        </Row>
-        <Row>
-          <Col md={4} mdOffset={4}>
+        </Grid>
+        <div>
+          <Grid item spacing={24} container={true} justify={'center'} className='gif'>
+            {this.state.displayScore ?
+                <div><Grid item className='score'>
+                  <div><Grid item xl={12} container={true} justify={'center'}>Score: {Math.floor(this.state.screamLevel * 1000)}</Grid></div><br/>
+                  <Grid item ><Button raised id='saveButton' style={{backgroundColor: '00BCD4'}} onClick={this.saveScream} >{this.state.saveButtonText}</Button></Grid>
+                  <div><p id='clickPlay'>Still feeling stressed? Click 'play'!</p></div>
+                  <audio id='afterFreeman' controls="controls">
+                    <source src='../../hlfreeman.wav'/>
+                  </audio>
+                </Grid></div> :
+                <Images scream={this.state.scream}/>
+              }
+          </Grid>
+        </div>
+        <div>
+          <Grid item xs={12} justify={'center'} container={true}>
             <ScreamButton func={this.toggleClick} state={this.state.screamButtonText}/>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={8} mdOffset={2} id='ScreamMeter'><P5Wrapper sketch={sketch} /></Col>
-        </Row>
-      </Grid>
-    );
+          </Grid>
+        </div>
+        <div>
+            <Grid item xs={12} justify={'center'} container={true} id='ScreamMeter'><P5Wrapper sketch={sketch} /></Grid>
+        </div>
+
+
+
+      </div>
+
+
+    )
   }
 }
 
