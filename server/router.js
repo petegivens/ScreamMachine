@@ -147,8 +147,12 @@ app.post('/login', function(req, res) {
 			db.getUserData(req.body)
 			.then(function(userObj){
 				return db.getHighScore(userObj)
-					.then(([{score}]) => {
-						userObj.score = score
+					.then((result) => {
+						if (result.length > 0) {
+							userObj.personalBest = result[0].score
+						} else {
+							userObj.personalBest = 1;
+						}
 						res.send(userObj)
 					})
 			})

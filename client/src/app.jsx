@@ -41,7 +41,6 @@ class App extends React.Component {
     let password = document.getElementById('password').value;
     const notFound = 'We were unable to locate an account with that username. Please try again or go back to the home page and create a new account.'
     const incorrectPW = 'The username and password do not match. Please try again.'
-    let context = this;
     axios({
       method: 'post',
       url: '/login',
@@ -50,20 +49,14 @@ class App extends React.Component {
         password: password
       }
     })
-    .then(function(result) {
-      if (result.data === "User not found") {
-        alert(notFound);
-      } else if (result.data === "password is incorrect") {
-        alert(incorrectPW);
-      } else {
-        context.setState({
+    .then( (result) => {
+        this.setState({
         	isLoggedIn: true,
-        	user: username
+        	user: result.data
         });
-        context.closeModal();
-      }
-    });
-  }
+        this.closeModal();
+      });
+    }
 
   signup() {
     let username = document.getElementById('username').value;
