@@ -1,6 +1,7 @@
 import React from 'react';
 import Recorder from './Recorder.js';
 import Confetti from 'react-dom-confetti';
+import Button from 'material-ui/Button';
 
 const confettiConfig = {
   angle: 90,
@@ -42,6 +43,12 @@ const style = {
   volume: {
     color: 'white',
     fontSize: 30
+  },
+  startBtn: {
+    fontSize: 25,
+    margin: 'auto',
+    display: 'block',
+    padding: 5
   }
 }
 
@@ -60,6 +67,7 @@ class HighStriker extends React.Component {
     this.setState({
       status: 'start'
     });
+    setTimeout(this.stopRecording.bind(this), 3000)
   }
 
   stopRecording() {
@@ -102,8 +110,9 @@ class HighStriker extends React.Component {
             )
           }} />
         }
-        <button onClick={this.startRecording.bind(this)}>Start</button>
-        <button onClick={this.stopRecording.bind(this)}>Stop</button>
+        <Button onClick={this.startRecording.bind(this)} color="primary">
+          Start
+        </Button>
       </div>
     )
   }
