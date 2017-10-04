@@ -14,19 +14,26 @@ const style = {
   striker: {
     position: 'relative',
     display: 'block',
-    height: '76vh',
+    height: 550,
     backgroundColor: 'yellow',
     width: 100,
     margin: 'auto'
   },
   slider: {
-    width: '70vh',
-    transformOrigin: '35vh 35vh',
+    width: 400,
+    transformOrigin: '200px 200px',
     transform: 'rotate(-90deg)',
     position: 'relative',
     top: 0,
     left: 35,
     backgroundColor: 'transparent'
+  },
+  bell: {
+    width: 120,
+    height: 120,
+    backgroundColor: 'red',
+    borderRadius: 100,
+    marginLeft: '-10px'
   }
 }
 
@@ -66,7 +73,16 @@ class HighStriker extends React.Component {
   }
 
   volumeListener(volume) {
-    console.log(volume);
+    if (volume >= 100) {
+      this.setState({
+        hit100: true
+      });
+      setTimeout(() => {
+        this.setState({
+          hit100: false
+        });
+      }, 4000)
+    }
   }
 
   componentDidMount() {
@@ -79,9 +95,11 @@ class HighStriker extends React.Component {
           <Recorder ref="recorder" sensitivity={4} status={this.state.status} getVolume={this.getVolume.bind(this)} volumeListener={this.volumeListener.bind(this)} render={(volume) => {
             return (
               <div style={style.striker}>
-                <Confetti active={this.state.hit100} config={confettiConfig} />
-                {volume}
+                <div style={style.bell}>
+                  <Confetti className="confetti" active={this.state.hit100} config={confettiConfig} />
+                </div>
                 <input style={style.slider} type="range" min="0" max="100" value={volume} />
+                {volume}
               </div>
             )
           }} />

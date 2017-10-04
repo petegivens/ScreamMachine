@@ -39,9 +39,12 @@ class Recorder extends React.Component {
         if (props.sensitivity) {
           total = (total / (props.sensitivity * 100));
         }
-        total = Math.round(total);
-        this.setState({volume: total});
-        this.volume = total;
+        var volume = Math.round(total);
+        this.setState({volume: volume});
+        this.volume = volume;
+        if (props.volumeListener) {
+          props.volumeListener(volume);
+        }
       }
 
       this.interval = setInterval(getVolume, 50);
