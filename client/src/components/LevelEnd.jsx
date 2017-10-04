@@ -18,10 +18,6 @@ const {
   TwitterShareButton
 } = ShareButtons;
 
-<<<<<<< HEAD
-  constructor() {
-    state = {
-=======
 const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 const GooglePlusIcon = generateShareIcon('google');
@@ -32,7 +28,6 @@ export default class LevelEnd extends React.Component {
     super(props)
 
     this.state = {
->>>>>>> rebase
       open: false
     }
 
@@ -41,32 +36,6 @@ export default class LevelEnd extends React.Component {
     this.handleNextLevel = this.handleNextLevel.bind(this)
   };
 
-<<<<<<< HEAD
-  handleRequestClose = () => {
-    this.setState({ open: false });
-  };
-
-
-  render () {
-    <div>
-      <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-        <DialogTitle>{"You've Passed Level ***Insert Level***"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Have You Screamed Enough?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleRequestClose} color="primary">
-              I'm Finished
-            </Button>
-            <Button onClick={this.handleRequestClose} color="primary">
-              Next Level
-            </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-=======
   handleOpen() {
     this.setState({
       open: true
@@ -83,7 +52,6 @@ export default class LevelEnd extends React.Component {
   handleNextLevel() {
     //change the state of HighStriker to go up to the next level
   }
->>>>>>> rebase
 
   handleStartOver() {
     //change the state of HighStriker to go back to the first level
@@ -93,12 +61,14 @@ export default class LevelEnd extends React.Component {
     const url = "https://www.youtube.com/watch?v=J---aiyznGQ";
     const quote = 'I Got to Level **insert level**. Think You Can Beat Me?'
     return (
+
       <div>
         <Button raised onClick={this.handleOpen}>LevelEnd</Button>
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
             <DialogTitle>{"You've Passed Level ***Insert Level***"}</DialogTitle>
             <DialogContent>
-              <div>
+              <div> Share Your Score! </div>
+              <div className="sharebutton">
                 <FacebookShareButton
                   url={url}
                   quote={quote}>
@@ -107,7 +77,25 @@ export default class LevelEnd extends React.Component {
                   square />
                 </FacebookShareButton>
               </div>
-              <DialogContentText>
+              <div className="sharebutton">
+                <TwitterShareButton
+                  url={url}
+                  quote={quote}>
+                <TwitterIcon
+                  size={32}
+                  square />
+                </TwitterShareButton>
+              </div>
+              <div className="sharebutton">
+                <GooglePlusShareButton
+                  url={url}
+                  quote={quote}>
+                <GooglePlusIcon
+                  size={32}
+                  square />
+                </GooglePlusShareButton>
+              </div>
+              <DialogContentText className="levelEndText">
                 Have You Screamed Enough?
               </DialogContentText>
 
@@ -116,9 +104,12 @@ export default class LevelEnd extends React.Component {
               <Button onClick={this.handleClose} color="primary">
                   I'm Finished
                 </Button>
-                <Button onClick={this.handleClose} color="primary">
-                  Next Level
-                </Button>
+              <Button onClick={this.handleStartOver} color="primary">
+                Start Over
+              </Button>
+              <Button onClick={this.handleClose} color="primary">
+                Next Level
+              </Button>
             </DialogActions>
           </Dialog>
         </div>
