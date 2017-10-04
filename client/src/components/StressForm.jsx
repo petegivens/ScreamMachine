@@ -134,7 +134,7 @@ class StressForm extends React.Component {
 		})
 
 		return (
-			<form onSubmit={this.submit}>
+			<form onSubmit={this.submit} id='stressform'>
 				<Typography type='title'> Who did you hangout with today? </Typography>
 					{peopleCheckbox}
 				<Typography type='title'> Where where you today? </Typography>
