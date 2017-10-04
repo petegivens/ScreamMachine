@@ -138,10 +138,8 @@ app.post('/login', function(req, res) {
           if(isMatch) {
 						req.session.isLoggedIn = true;
 						req.session.username = req.body.username;
-						res.send('Password is correct; session established');
           } else {
             req.session.destroy();
-						res.send('password is incorrect');
           }
         });
     })
@@ -230,11 +228,11 @@ app.post('/addAverages', function(req, res) {
     })
 });
 
-// Test Route
-app.post('/getHighScore', function(req, res) {
-	db.getHighScore({username: "pete", id: 2})
+//
+app.post('/addScore', function(req, res) {
+	db.addScore(req.body.user, req.body.score)
 	.then(function(data) {
-		res.send(data);
+		res.status(201).send(data);
 	})
 });
 
