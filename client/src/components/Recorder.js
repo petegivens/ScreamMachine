@@ -2,8 +2,8 @@ import React from 'react';
 
 class Recorder extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       volume: 0
@@ -36,11 +36,15 @@ class Recorder extends React.Component {
         for (var i = 0; i < 255; i++) {
           total += frequencyArray[i];
         }
+        if (props.sensitivity) {
+          total = (total / (props.sensitivity * 100));
+        }
+        total = Math.round(total);
         this.setState({volume: total});
         this.volume = total;
       }
 
-      this.interval = setInterval(getVolume, 10);
+      this.interval = setInterval(getVolume, 1);
     }
 
     this.soundNotAllowed = function(error) {
