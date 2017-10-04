@@ -7,7 +7,7 @@ class Recorder extends React.Component {
 
     this.state = {
       volume: 0
-    }
+    };
 
     this.volume = 0;
     this.recording = false;
