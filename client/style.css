@@ -30,8 +30,9 @@ button {
 
 .screambutton {
   width: 200px;
-  padding-left: 55px;
   padding-bottom: 12px;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 #screambutton:hover {

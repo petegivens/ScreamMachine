@@ -123,16 +123,17 @@ class Scream extends React.Component {
               }
           </Grid>
         </div>
-        <br />
-        <br />
         <div>
-          <Grid item xs={11} justify={'center'} container={true}>
+          <Grid item xs={12} justify={'center'} container={true}>
             <ScreamButton func={this.toggleClick} state={this.state.screamButtonText}/>
           </Grid>
         </div>
         <div>
             <Grid item xs={12} justify={'center'} container={true} id='ScreamMeter'><P5Wrapper sketch={sketch} /></Grid>
         </div>
+
+
+
       </div>
 
 
