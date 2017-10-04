@@ -23,23 +23,28 @@ class HighStriker extends React.Component {
     });
   }
 
-  onVolume(volume) {
-    console.log('V', volume);
-    this.setState({
-      volume
-    })
+  getVolume(){
+    console.log('VOLUME', this.refs.recorder.volume, 'RECORDING', this.refs.recorder.recording);
+  }
+
+  componentDidMount() {
   }
 
   render() {
     return (
       <div>
         {
-          <Recorder status={this.state.status} onVolume={this.onVolume.bind(this)} />
+          <Recorder ref="recorder" status={this.state.status} getVolume={this.getVolume.bind(this)} render={(volume) => {
+            return (
+              <div>{volume}</div>
+            )
+          }} />
         }
         {this.state.volume}
         <input type="range" min="0" max="100" value={this.state.volume} />
         <button onClick={this.startRecording.bind(this)}>Start</button>
         <button onClick={this.stopRecording.bind(this)}>Stop</button>
+        <button onClick={this.getVolume.bind(this)}>Stop</button>
       </div>
     )
   }
