@@ -139,10 +139,10 @@ module.exports = {
     });
   },
 
-  getUserHighScore: function(user) {
+  getHighScore: function(user) {
     return pool.query("SELECT score FROM user_scores WHERE user_id = '" + user.id + "'")
     .then(function(result){
-      return result.rows
+      return result.rows;
     })
   },
 
@@ -265,7 +265,6 @@ module.exports = {
      *  }
      *
      */
-    console.log(data);
     // changed query from obj to string
     if (data.isFirst) {
       var query = 'INSERT INTO averages (user_id, stress_level, form_data) VALUES ( (SELECT id from users WHERE username=$3), $1, $2)';
@@ -273,5 +272,16 @@ module.exports = {
       var query = 'UPDATE averages SET stress_level = $1, form_data = $2 WHERE user_id = (SELECT id FROM users WHERE username=$3);'
     }
      return pool.query(query,[data.stress_level, data.form_data, data.username]);
+  },
+
+  addScore: function(user, score) {
+    return pool.query(`SELECT * FROM user_scores WHERE user_id = ${user.id}`)
+    .then(function(data) {
+      if (data.rows.length === 0) {
+        return pool.query(`INSERT INTO user_scores (user_id, score) VALUES (${user.id}, ${score})`)
+      } else {
+        return pool.query(`UPDATE user_scores SET score = ${score} WHERE user_id = ${user.id}`)
+      }
+    })
   }
 }

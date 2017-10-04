@@ -1,5 +1,6 @@
 import React from 'react';
 import Recorder from './Recorder.js';
+
 import Confetti from 'react-dom-confetti';
 
 const confettiConfig = {

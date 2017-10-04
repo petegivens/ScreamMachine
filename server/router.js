@@ -106,7 +106,6 @@ app.get('/getAverage', function(req, res) {
 });
 
 app.get('/getHighScores', function(req, res) {
-  // need to call function that gets user data and get user high scores
 
   db.getHighScores()
     .then(function(result) {
@@ -139,21 +138,23 @@ app.post('/login', function(req, res) {
           if(isMatch) {
 						req.session.isLoggedIn = true;
 						req.session.username = req.body.username;
-						res.send('Password is correct; session established');
           } else {
             req.session.destroy();
-						res.send('password is incorrect');
           }
         });
     })
 		.then(function() {
 			db.getUserData(req.body)
 			.then(function(userObj){
-				return db.getUserHighScore(userObj)
-					.then(([{score}]) => {
-						userObj.score = score
-						res.send(userObj)
-					})
+				return db.getHighScore(userObj)
+				.then((result) => {
+					if (result.length > 0) {
+						userObj.personalBest = result[0].score
+					} else {
+						userObj.personalBest = 1;
+					}
+					res.send(userObj)
+				})
 			})
 		})
     .catch(function(err) {
@@ -169,27 +170,34 @@ app.post('/addUser', function(req, res) {
   var user = req.body;
 
   db.findUser(user)
-    .then(function(result) {
+  .then(function(result) {
       if(result.length > 0) {
         res.send('User already exists in db');
       } else {
         db.addUser(user)
-          .then(function(result) {
-            // res.cookie('username', user.username);
-            // res.cookie('isLoggedIn', true);
-            //Adding session method for testing
-            req.session.username = user.username;
-            req.session.isLoggedIn = true;
-            res.send('User added');
-          })
-          .catch(function (error) {
-            res.send('addUser catch: ', error);
-          });
-      }
-    })
-    .catch(function(error) {
-      res.send('findUser catch: ' + error);
-    });
+        .then(function(result) {
+          req.session.username = user.username;
+          req.session.isLoggedIn = true;
+        })
+				.then(function() {
+					db.getUserData(user)
+					.then(function(userObj){
+						return db.getHighScore(userObj)
+						.then((result) => {
+							if (result.length > 0) {
+								userObj.personalBest = result[0].score
+							} else {
+								userObj.personalBest = 1;
+							}
+							res.send(userObj)
+						})
+					})
+				})
+		    .catch(function(error) {
+    			res.send('findUser catch: ' + error);
+  			});
+			}
+		})
 });
 
 app.post('/addScream', function(req, res) {
@@ -231,11 +239,11 @@ app.post('/addAverages', function(req, res) {
     })
 });
 
-// Test Route
-app.post('/getUserHighScore', function(req, res) {
-	db.getUserHighScore({username: "pete", id: 2})
+//
+app.post('/addScore', function(req, res) {
+	db.addScore(req.body.user, req.body.score)
 	.then(function(data) {
-		res.send(data);
+		res.status(201).send(data);
 	})
 });
 
