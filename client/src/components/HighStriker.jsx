@@ -4,10 +4,10 @@ import Confetti from 'react-dom-confetti';
 
 const confettiConfig = {
   angle: 90,
-  spread: 360,
-  startVelocity: 21,
-  elementCount: 124,
-  decay: 0.95
+  spread: 186,
+  startVelocity: 17,
+  elementCount: 102,
+  decay: 0.96
 };
 
 const style = {
@@ -33,7 +33,15 @@ const style = {
     height: 120,
     backgroundColor: 'red',
     borderRadius: 100,
-    marginLeft: '-10px'
+    marginLeft: '-10px',
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    display: 'grid',
+    boxShadow: 'rgba(247, 10, 10, 0.2) 0px 2px 4px 2px'
+  },
+  volume: {
+    color: 'white',
+    fontSize: 30
   }
 }
 
@@ -60,28 +68,18 @@ class HighStriker extends React.Component {
     });
   }
 
-  getVolume(){
-    console.log('VOLUME', this.refs.recorder.volume, 'RECORDING', this.refs.recorder.recording);
-    this.setState({
-      hit100: true
-    });
-    setTimeout(() => {
-      this.setState({
-        hit100: false
-      });
-    }, 100)
-  }
-
   volumeListener(volume) {
     if (volume >= 100) {
-      this.setState({
-        hit100: true
-      });
-      setTimeout(() => {
+      if (!this.state.hit100){
         this.setState({
-          hit100: false
+          hit100: true
         });
-      }, 4000)
+        setTimeout(() => {
+          this.setState({
+            hit100: false
+          });
+        }, 4000)
+      }
     }
   }
 
@@ -92,21 +90,20 @@ class HighStriker extends React.Component {
     return (
       <div className="striker">
         {
-          <Recorder ref="recorder" sensitivity={4} status={this.state.status} getVolume={this.getVolume.bind(this)} volumeListener={this.volumeListener.bind(this)} render={(volume) => {
+          <Recorder ref="recorder" sensitivity={4} status={this.state.status} volumeListener={this.volumeListener.bind(this)} render={(volume) => {
             return (
               <div style={style.striker}>
                 <div style={style.bell}>
                   <Confetti className="confetti" active={this.state.hit100} config={confettiConfig} />
+                  <div style={style.volume}>{volume}</div>
                 </div>
                 <input style={style.slider} type="range" min="0" max="100" value={volume} />
-                {volume}
               </div>
             )
           }} />
         }
         <button onClick={this.startRecording.bind(this)}>Start</button>
         <button onClick={this.stopRecording.bind(this)}>Stop</button>
-        <button onClick={this.getVolume.bind(this)}>Stop</button>
       </div>
     )
   }
