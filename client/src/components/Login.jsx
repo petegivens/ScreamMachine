@@ -27,16 +27,16 @@ class Login extends React.Component {
   render() {
     return (
       <div className="loginButton">
-        <Button onClick={this.handleOpen}>Login</Button>
-        <Dialog open={this.state.open} onRequestClose={this.handleClose}>
-        <DialogTitle>{'Subscribe'}</DialogTitle>
+        <Button onClick={this.handleOpen.bind(this)}>Login</Button>
+        <Dialog open={this.state.open} onRequestClose={this.handleClose.bind(this)}>
+          <DialogTitle>{'Subscribe'}</DialogTitle>
           <DialogContent>
             <TextField autoFocus id="username" label="username" />
             <TextField autoFocus id="password" label="password" type="password" />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose}>Cancel</Button>
-            <Button onClick={this.handleClose}>Submit</Button>
+            <Button onClick={this.handleClose.bind(this)}>Cancel</Button>
+            <Button onClick={this.handleClose.bind(this)}>Submit</Button>
           </DialogActions>
         </Dialog>
       </div>
