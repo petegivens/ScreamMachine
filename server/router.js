@@ -137,28 +137,20 @@ app.post('/login', function(req, res) {
       db.isCorrectPassword(req.body)
         .then(function(isMatch) {
           if(isMatch) {
-            // res.cookie('username', req.body.username); // Use the session
-            // res.cookie('isLoggedIn', true);            // Use the session
 						req.session.isLoggedIn = true;
 						req.session.username = req.body.username;
-            //res.send('Password is correct; session established');
-            //Adding session info below to test
           } else {
-            // res.cookie('username', null);              // Use the session
-            // res.cookie('isLoggedIn', false);           // Use the session
-            //adding session info below to test
-            //will check user state with presence of a session ID instead of checking username;
             req.session.destroy();
-            //res.send('password is incorrect');
           }
         });
     }).then(function() {
 			db.getUserData(req.body)
 			.then(function(userObj){
-				var score = db.getUserHighScore(userObj);
-				userObj.personalBest = score;
-				console.log('USER OBJECT*******', userObj)
-				res.send(userObj);
+				return db.getUserHighScore(userObj)
+					.then(([{score}]) => {
+						userObj.score = score
+						res.send(userObj)
+					})
 			})
 		})
     .catch(function(err) {
@@ -234,6 +226,14 @@ app.post('/addAverages', function(req, res) {
     .then(function(result) {
       res.send(result);
     })
+});
+
+// Test Route
+app.post('/getUserHighScore', function(req, res) {
+	db.getUserHighScore({username: "pete", id: 2})
+	.then(function(data) {
+		res.send(data);
+	})
 });
 
 module.exports = app;
