@@ -119,8 +119,8 @@ class StressForm extends React.Component {
 		this.setState({selectedOptions: newState});
 	}
 
-	stressLevel(e) {
-		this.setState({stressLevel: parseInt(e.target.value)});
+	stressLevel(e, value) {
+		this.setState({stressLevel: parseInt(value)});
 	}
 
 	render(props) {
@@ -134,13 +134,14 @@ class StressForm extends React.Component {
 		})
 
 		return (
+			<div>
 			<form onSubmit={this.submit} id='stressform'>
 				<Typography type='title'> Who did you hangout with today? </Typography>
 					{peopleCheckbox}
 				<Typography type='title'> Where where you today? </Typography>
 					{placeCheckbox}
 				<Typography type='title'> How stressed were you today? </Typography>
-				<RadioGroup value={this.state.stressLevel} onChange={this.stressLevel}>
+				<RadioGroup name='stressLevel' aria-label='stressLevel' value={this.state.stressLevel} onChange={this.stressLevel}>
 					<FormControlLabel control={<Radio value='0' name='stressLevel'/>} label='0' />
 					<FormControlLabel control={<Radio value='1' name='stressLevel'/>} label='1' />
 					<FormControlLabel control={<Radio value='2' name='stressLevel'/>} label='2' />
@@ -155,13 +156,14 @@ class StressForm extends React.Component {
 				</RadioGroup>
 				<Button raised type='submit'> Submit </Button>
 			</form>
+				</div>
 		)}
 
 }
 
 window.formOptions = {
-	people: ['close family', 'extended family', 'friends', 'co-workers', 'ex-SO'],
-	places: ['work', 'school', 'gym', 'outside for more than an hour','bar']
+	people: ['Close Family', 'Extended Family', 'Friends', 'Co-Workers', 'Ex-SO'],
+	places: ['Work', 'School', 'Gym', 'Outside For More Than an Hour','Bar']
 }
 
 export default StressForm;
