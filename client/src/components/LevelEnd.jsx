@@ -8,7 +8,8 @@ import Dialog, {
 
 export default class LevelEnd extends React.Component{
 
-  constructor() {
+  constructor(props) {
+    super(props);
     state = {
       open: false
     }
@@ -22,6 +23,9 @@ export default class LevelEnd extends React.Component{
     this.setState({ open: false });
   };
 
+  handleNextLevel = () => {
+
+  }
 
   render () {
     <div>
@@ -36,7 +40,7 @@ export default class LevelEnd extends React.Component{
           <Button onClick={this.handleRequestClose} color="primary">
               I'm Finished
             </Button>
-            <Button onClick={this.handleRequestClose} color="primary">
+            <Button onClick={this.handleNexLevel} color="primary">
               Next Level
             </Button>
         </DialogActions>

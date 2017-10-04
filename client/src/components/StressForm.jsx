@@ -8,9 +8,12 @@ import {
   FormHelperText,
 } from 'material-ui/Form';
 import Switch from 'material-ui/Switch'
+import Input, { InputLabel } from 'material-ui/Input';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography';
+import Select from 'material-ui/Select';
+import { MenuItem } from 'material-ui/Menu';
 import axios from 'axios';
 
 
@@ -119,7 +122,7 @@ class StressForm extends React.Component {
 		this.setState({selectedOptions: newState});
 	}
 
-	stressLevel(e) {
+	stressLevel(e, value) {
 		this.setState({stressLevel: parseInt(e.target.value)});
 	}
 
@@ -134,34 +137,43 @@ class StressForm extends React.Component {
 		})
 
 		return (
-			<form onSubmit={this.submit}>
+			<div>
+			<form onSubmit={this.submit} id='stressform'>
 				<Typography type='title'> Who did you hangout with today? </Typography>
 					{peopleCheckbox}
 				<Typography type='title'> Where where you today? </Typography>
 					{placeCheckbox}
 				<Typography type='title'> How stressed were you today? </Typography>
-				<RadioGroup value={this.state.stressLevel} onChange={this.stressLevel}>
-					<FormControlLabel control={<Radio value='0' name='stressLevel'/>} label='0' />
-					<FormControlLabel control={<Radio value='1' name='stressLevel'/>} label='1' />
-					<FormControlLabel control={<Radio value='2' name='stressLevel'/>} label='2' />
-					<FormControlLabel control={<Radio value='3' name='stressLevel'/>} label='3' />
-					<FormControlLabel control={<Radio value='4' name='stressLevel'/>} label='4' />
-					<FormControlLabel control={<Radio value='5' name='stressLevel'/>} label='5' />
-					<FormControlLabel control={<Radio value='6' name='stressLevel'/>} label='6' />
-					<FormControlLabel control={<Radio value='7' name='stressLevel'/>} label='7' />
-					<FormControlLabel control={<Radio value='8' name='stressLevel'/>} label='8' />
-					<FormControlLabel control={<Radio value='9' name='stressLevel'/>} label='9' />
-					<FormControlLabel control={<Radio value='10' name='stressLevel'/>} label='10' />
-				</RadioGroup>
-				<Button raised type='submit'> Submit </Button>
+
+				<Select
+					native
+					value={this.state.stressLevel}
+					onChange={this.stressLevel}
+					>
+						<option value='0'>0</option>
+						<option value='1'>1</option>
+						<option value='2'>2</option>
+						<option value='3'>3</option>
+						<option value='4'>4</option>
+						<option value='5'>5</option>
+						<option value='6'>6</option>
+						<option value='7'>7</option>
+						<option value='8'>8</option>
+						<option value='9'>9</option>
+						<option value='10'>10</option>
+				</Select>
+				<div>
+					<Button raised type='submit'> Submit </Button>
+				</div>
 			</form>
+				</div>
 		)}
 
 }
 
 window.formOptions = {
-	people: ['close family', 'extended family', 'friends', 'co-workers', 'ex-SO'],
-	places: ['work', 'school', 'gym', 'outside for more than an hour','bar']
+	people: ['Close Family', 'Extended Family', 'Friends', 'Co-Workers', 'Ex-SO'],
+	places: ['Work', 'School', 'Gym', 'Outside For More Than an Hour','Bar']
 }
 
 export default StressForm;
