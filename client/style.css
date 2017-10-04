@@ -138,3 +138,8 @@ button {
   top: 8px; /* don't change this */
   background: #777;
 }
+
+.striker .confetti {
+  left: 60px;
+  top: 50px;
+}
