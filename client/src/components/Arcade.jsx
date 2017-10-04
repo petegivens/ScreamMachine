@@ -11,6 +11,7 @@ class Arcade extends React.Component {
         <HighStriker />
         <SideBar />
       </div>
+      <br />
       <div>
         <LevelEnd />
       </div>

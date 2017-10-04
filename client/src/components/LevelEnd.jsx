@@ -90,10 +90,9 @@ export default class LevelEnd extends React.Component {
   }
 
   render () {
+    const url = "https://www.youtube.com/watch?v=J---aiyznGQ";
+    const quote = 'I Got to Level **insert level**. Think You Can Beat Me?'
     return (
-      const url = "https://www.youtube.com/watch?v=J---aiyznGQ";
-      const quote = 'I Got to Level **insert level**. Think You Can Beat Me?'
-
       <div>
         <Button raised onClick={this.handleOpen}>LevelEnd</Button>
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
