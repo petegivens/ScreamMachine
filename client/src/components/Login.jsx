@@ -9,8 +9,11 @@ import Dialog, {
 } from 'material-ui/Dialog';
 
 class Login extends React.Component {
-  state = {
-    open: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    }
   }
 
   handleOpen = () => {

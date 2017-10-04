@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import NavBar from './components/NavBar.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
-import Arcade from './components/Arcade.jsx';
 import Scream from './components/Scream.jsx';
 import Profile from './components/Profile.jsx';
 import StressForm from './components/StressForm.jsx';
@@ -14,7 +13,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      page: 'Arcade',
+      page: 'scream',
       showSignup: false,
       showLogin: false,
       isLoggedIn: false,
@@ -41,6 +40,7 @@ class App extends React.Component {
     let password = document.getElementById('password').value;
     const notFound = 'We were unable to locate an account with that username. Please try again or go back to the home page and create a new account.'
     const incorrectPW = 'The username and password do not match. Please try again.'
+    let context = this;
     axios({
       method: 'post',
       url: '/login',
@@ -49,14 +49,20 @@ class App extends React.Component {
         password: password
       }
     })
-    .then( (result) => {
-        this.setState({
+    .then(function(result) {
+      if (result.data === "User not found") {
+        alert(notFound);
+      } else if (result.data === "password is incorrect") {
+        alert(incorrectPW);
+      } else {
+        context.setState({
         	isLoggedIn: true,
-        	user: result.data
+        	user: username
         });
-        this.closeModal();
-      });
-    }
+        context.closeModal();
+      }
+    });
+  }
 
   signup() {
     let username = document.getElementById('username').value;
@@ -122,9 +128,6 @@ class App extends React.Component {
     } else if (eventKey === 'signup') {
       //displays signup modal
       this.setState({showSignup: true});
-    } else if (eventKey === 'scream') {
-        //displays signup modal
-        this.setState({page: 'scream'});
     } else if (this.state.user !== null) {
       if (eventKey === 'Profile') {
         //renders profile page instead of scream page
@@ -144,8 +147,6 @@ class App extends React.Component {
     var page;
     if (this.state.page === 'scream') {
       page = <Scream user={this.state.user}/>;
-    } else if (this.state.page === 'Arcade') {
-      page = <Arcade user={this.state.user} />;
     } else if (this.state.page === 'Profile') {
       page = <Profile user={this.state.user} />;
     } else if (this.state.page === 'StressForm') {
@@ -155,7 +156,7 @@ class App extends React.Component {
     }
     return (
       <Grid>
-        <Row><Login closeModal={this.closeModal} showLogin={this.state.showLogin} login={this.login} /></Row>
+        <Row><Login /></Row>
         <Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
         <Row>
           <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} />
