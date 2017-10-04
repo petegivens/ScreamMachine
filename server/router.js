@@ -106,7 +106,6 @@ app.get('/getAverage', function(req, res) {
 });
 
 app.get('/getHighScores', function(req, res) {
-  // need to call function that gets user data and get user high scores
 
   db.getHighScores()
     .then(function(result) {
@@ -149,7 +148,7 @@ app.post('/login', function(req, res) {
 		.then(function() {
 			db.getUserData(req.body)
 			.then(function(userObj){
-				return db.getUserHighScore(userObj)
+				return db.getHighScore(userObj)
 					.then(([{score}]) => {
 						userObj.score = score
 						res.send(userObj)
@@ -232,8 +231,8 @@ app.post('/addAverages', function(req, res) {
 });
 
 // Test Route
-app.post('/getUserHighScore', function(req, res) {
-	db.getUserHighScore({username: "pete", id: 2})
+app.post('/getHighScore', function(req, res) {
+	db.getHighScore({username: "pete", id: 2})
 	.then(function(data) {
 		res.send(data);
 	})

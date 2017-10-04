@@ -139,7 +139,7 @@ module.exports = {
     });
   },
 
-  getUserHighScore: function(user) {
+  getHighScore: function(user) {
     return pool.query("SELECT score FROM user_scores WHERE user_id = '" + user.id + "'")
     .then(function(result){
       return result.rows
