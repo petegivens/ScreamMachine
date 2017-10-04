@@ -31,25 +31,26 @@ class Profile extends React.Component {
 
   getAverage() {
     axios.get('/getAverage')
-      .then ( (result) => {
-	this.setState({stressLevel: result.data.stress_level});
-	if (result.data.length !== 0) {
-	  var averageData = JSON.parse(result.data.form_data);
-	  var newState = {};
-	  for(var key in formOptions) {
-	    var highest = 0;
-	    averageData[key].forEach( (el,i) => {
-	      if (el > highest) {
-		newState[key] = formOptions[key][i];
-		highest = el;
-	      }
-	    })
-	    if (newState[key] === undefined) {
-	      newState[key] = 'None';
-	    }
-	  }
-	  this.setState({top:newState});
-	}
+    .then ( (result) => {
+    	this.setState({stressLevel: result.data.stress_level});
+    	if (result.data.length !== 0) {
+    	  var averageData = JSON.parse(result.data.form_data);
+    	  var newState = {};
+    	  for(var key in formOptions) {
+    	    var highest = 0;
+    	    averageData[key].forEach( (el,i) => {
+    	      if (el > highest) {
+          		newState[key] = formOptions[key][i];
+          		highest = el;
+    	      }
+    	    })
+
+    	    if (newState[key] === undefined) {
+    	      newState[key] = 'None';
+    	    }
+    	  }
+    	  this.setState({top:newState});
+    	}
       })
   }
 
@@ -60,27 +61,27 @@ class Profile extends React.Component {
     // color: what color is the line
     var chartSeries1 = [
       {
-	field: 'volume',
-	name: 'Volume',
-	color: '#ff7f0e'
+      	field: 'volume',
+      	name: 'Volume',
+      	color: '#ff7f0e'
       }
     ];
 
     var	chartSeries2 = [
       {
-	field: 'lowfreq',
-	name: 'Low Frequency',
-	color: '#cabb6e'
+      	field: 'lowfreq',
+      	name: 'Low Frequency',
+      	color: '#cabb6e'
       },
       {
-	field: 'midfreq',
-	name: 'Mid Frequency',
-	color: '#123456'
+      	field: 'midfreq',
+      	name: 'Mid Frequency',
+      	color: '#123456'
       },
       {
-	field: 'highfreq',
-	name: 'High Frequency',
-	color: '#654321'
+      	field: 'highfreq',
+      	name: 'High Frequency',
+      	color: '#654321'
       }
     ];
     // your x accessor

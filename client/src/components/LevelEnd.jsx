@@ -6,7 +6,7 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 
-class RoundEnd extends React.Component{
+export default class LevelEnd extends React.Component{
 
   constructor() {
     state = {
