@@ -40,7 +40,7 @@ export default class LevelEnd extends React.Component {
     this.setState({
       open: true
     })
-    console.log(window.location)
+    //console.log(window.location)
   }
 
   handleClose() {
@@ -65,7 +65,7 @@ export default class LevelEnd extends React.Component {
       <div>
         <Button raised onClick={this.handleOpen}>LevelEnd</Button>
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
-            <DialogTitle>{"You've Passed Level ***Insert Level***"}</DialogTitle>
+            <DialogTitle>{"You've Passed Level ***Insert Level***!"}</DialogTitle>
             <DialogContent>
               <div> Share Your Score! </div>
               <div className="sharebutton">

@@ -139,11 +139,11 @@ class StressForm extends React.Component {
 		return (
 			<div>
 			<form onSubmit={this.submit} id='stressform'>
-				<Typography type='title'> Who did you hangout with today? </Typography>
+				<Typography type='title' className="formtitle"> Who did you hangout with today? </Typography>
 					{peopleCheckbox}
-				<Typography type='title'> Where where you today? </Typography>
+				<Typography type='title' className="formtitle"> Where where you today? </Typography>
 					{placeCheckbox}
-				<Typography type='title'> How stressed were you today? </Typography>
+				<Typography type='title' className="formtitle"> How stressed were you today? </Typography>
 
 				<Select
 					native
@@ -162,7 +162,7 @@ class StressForm extends React.Component {
 						<option value='9'>9</option>
 						<option value='10'>10</option>
 				</Select>
-				<div>
+				<div id="formsubmit">
 					<Button raised type='submit'> Submit </Button>
 				</div>
 			</form>
