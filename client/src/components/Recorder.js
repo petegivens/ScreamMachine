@@ -9,6 +9,9 @@ class Recorder extends React.Component {
       volume: 0
     }
 
+    this.volume = 0;
+    this.recording = false;
+    
     this.soundAllowed = (stream) => {
       this.stream = stream;
 
@@ -34,7 +37,7 @@ class Recorder extends React.Component {
           total += frequencyArray[i];
         }
         this.setState({volume: total});
-        this.props.onVolume(total);
+        this.volume = total;
       }
 
       this.interval = setInterval(getVolume, 10);
@@ -46,26 +49,39 @@ class Recorder extends React.Component {
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || null;
 
+    this.start = () => {
+      if (!this.recording){
+        navigator.getUserMedia({
+          audio: true
+        }, this.soundAllowed, this.soundNotAllowed);
+        this.recording = true;
+      }
+    }
+
+    this.stop = () => {
+      if (this.recording){
+        this.stream.getAudioTracks().forEach(function(track) {
+          track.stop();
+        });
+        clearInterval(this.interval);
+        this.audioContent.close();
+        this.recording = false;
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.status === 'start') {
-      navigator.getUserMedia({
-        audio: true
-      }, this.soundAllowed, this.soundNotAllowed);
+      this.start();
     } else if (nextProps.status === 'stop') {
-      this.stream.getAudioTracks().forEach(function(track) {
-        track.stop();
-      });
-      clearInterval(this.interval);
-      this.audioContent.close();
+      this.stop();
     }
   }
 
   render() {
     return (
       <div>
-        {/* {this.props.render(this.state.volume)} */}
+        {this.props.render(this.state.volume)}
       </div>
     )
   }
