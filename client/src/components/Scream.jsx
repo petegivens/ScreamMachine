@@ -105,7 +105,7 @@ class Scream extends React.Component {
       <div>
         <Grid className='pagetext'>
           {this.state.screamButtonText === 'Scream Again' ? <div></div> :
-            <Grid>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</Grid>
+            <Grid>Wow, You Look STRESSED! Go Ahead and Scream. You'll Feel Better.</Grid>
           }
         </Grid>
         <div>
