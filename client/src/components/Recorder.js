@@ -11,7 +11,7 @@ class Recorder extends React.Component {
 
     this.volume = 0;
     this.recording = false;
-    
+
     this.soundAllowed = (stream) => {
       this.stream = stream;
 
