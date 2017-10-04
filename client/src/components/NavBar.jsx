@@ -1,29 +1,43 @@
 import React from 'react';
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
 
-var NavBar = (props) => (
-  <Navbar className='NavBar' onSelect={props.func} >
-    <Navbar.Header>
-      <Navbar.Brand>
-        <a href='/'>Scream Machine</a>
-      </Navbar.Brand>
-    </Navbar.Header>
-    <Nav>
-      <NavDropdown title="Profile" id="basic-nav-dropdown">
-        <MenuItem eventKey={'Profile'}>Your Graphs</MenuItem>
-        <MenuItem eventKey={'StressForm'}>Daily Stress Form</MenuItem>
-      </NavDropdown>
-      <NavItem eventKey={'scream'} href="#">Scream Page</NavItem>
-    </Nav>
-    {props.isLoggedIn === false ?
-      <Nav pullRight>
-        <NavItem  eventKey={'login'} href="#">Login</NavItem>
-        <NavItem  eventKey={'signup'} href="#">Sign Up</NavItem>
-      </Nav> :
-      <Nav pullRight>
-        <NavItem  eventKey={'logout'} href="#">Logout</NavItem>
-      </Nav>}
-  </Navbar>
-)
+import Login from './Login.jsx';
 
-export default NavBar
+const styles = theme => ({
+  root: {
+    marginTop: theme.spacing.unit * 3,
+    width: '100%',
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+});
+
+const NavBar = (props) => {
+  return (
+    <div className="navbar">
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton className="menuButton" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography type="title">Scream Machine</Typography>
+          <Login />
+        </Toolbar>
+      </AppBar>
+    </div>
+  )
+}
+
+export default withStyles(styles)(NavBar);
