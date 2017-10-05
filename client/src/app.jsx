@@ -36,9 +36,7 @@ class App extends React.Component {
     });
   }
 
-  login() {
-    let username = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
+  login(user) {
     const notFound = 'We were unable to locate an account with that username. Please try again or go back to the home page and create a new account.'
     const incorrectPW = 'The username and password do not match. Please try again.'
     let context = this;
@@ -46,8 +44,8 @@ class App extends React.Component {
       method: 'post',
       url: '/login',
       data: {
-        username: username,
-        password: password
+        username: user.username,
+        password: user.password
       }
     })
     .then(function(result) {
@@ -164,7 +162,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        <NavBar isLoggedIn={this.state.isLoggedIn} showLegacy={this.showLegacy} page={this.state.page}/>
+        <NavBar user={this.state.user} isLoggedIn={this.state.isLoggedIn} showLegacy={this.showLegacy} page={this.state.page} login={this.login}/>
         <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/>
         <div style={{marginTop:65}}>
           {page}
