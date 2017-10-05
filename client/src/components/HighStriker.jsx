@@ -59,22 +59,21 @@ class HighStriker extends React.Component {
 
     this.state = {
       status: 'stop',
-      volume: 0,
-      hit100: false
+      volume: 0
     }
   }
 
   startRecording() {
+    var timeout = setTimeout(this.stopRecording.bind(this), 3000);
     this.setState({
-      status: 'start'
+      status: 'start',
+      timeout
     });
-    setTimeout(this.stopRecording.bind(this), 3000)
   }
 
   stopRecording() {
     this.setState({
-      status: 'stop',
-      hit100: false
+      status: 'stop'
     });
     this.props.setOpenLevelEnd(true, {score: this.state.volume});
   }
@@ -82,13 +81,11 @@ class HighStriker extends React.Component {
   volumeListener(volume) {
     if (volume >= 100) {
       volume = 100;
-      if (!this.state.hit100){
-        this.setState({
-          hit100: true,
-          volume: volume
-        });
-        this.stopRecording();
-      }
+      this.setState({
+        volume: volume
+      });
+      clearTimeout(this.state.timeout);
+      this.stopRecording();
     } else {
       this.setState({
         volume: volume
