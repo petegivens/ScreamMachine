@@ -135,34 +135,38 @@ class HighStriker extends React.Component {
     countdown(3);
   }
 
+  //stop the recorder, reset the confetti cannon, and open the LevelEnd modal
   stopRecording() {
     this.setState({
       status: 'stop',
       confetti: false
     });
+    //open the level end modal and pass it the volume/score
     this.props.setOpenLevelEnd(true, {score: this.state.volume});
   }
 
+  //runs when the volume is updated
   volumeListener(volume) {
+    //if volume over 100 set it to 100
     if (volume >= 100) {
       volume = 100;
       this.setState({
         volume: volume,
         confetti: true
       });
+      //stop the timeout from startRecording
       clearTimeout(this.state.timeout);
       this.stopRecording();
     } else {
+      //set the volume on the state
       this.setState({
         volume: volume
       });
     }
   }
 
-  componentDidMount() {
-  }
-
   render() {
+    //set the sensitivity based on the level/currentScore
     const sensitivity = 3 + (this.props.currentScore * 0.1);
 
     return (
