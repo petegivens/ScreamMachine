@@ -36,7 +36,7 @@ class Arcade extends React.Component {
       <div>
         <div>
           <HighStriker setOpenLevelEnd={this.setOpenLevelEnd}/>
-          <Scores user={this.props.user} />
+          <Scores user={this.props.user} highScores={this.state.highScores} />
         </div>
         <br />
         <div>
