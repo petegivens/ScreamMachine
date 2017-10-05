@@ -104,22 +104,32 @@ class Scream extends React.Component {
   render() {
     return (
       <div>
-        <Grid className='pagetext'>
+        <Grid item className='pagetext'>
           {this.state.screamButtonText === 'Scream Again' ? <div></div> :
             <Grid>Wow, You Look STRESSED! Go Ahead and Scream. You'll Feel Better.</Grid>
           }
         </Grid>
         <div>
-          <Grid item spacing={24} container={true} justify={'center'} className='gif'>
+          <Grid container={true} justify={'center'} className='gif'>
             {this.state.displayScore ?
-                <div><Grid item className='score'>
-                  <div><Grid item xl={12} container={true} justify={'center'}>Score: {Math.floor(this.state.screamLevel * 1000)}</Grid></div><br/>
-                  <Grid item ><Button raised id='saveButton' style={{backgroundColor: '00BCD4'}} onClick={this.saveScream} >{this.state.saveButtonText}</Button></Grid>
-                  <div><p id='clickPlay'>Still feeling stressed? Click 'play'!</p></div>
-                  <audio id='afterFreeman' controls="controls">
-                    <source src='../../hlfreeman.wav'/>
-                  </audio>
-                </Grid></div> :
+                <div>
+                  <Grid spacing={24} container={true} style={{paddingLeft: 125}}>
+                    <Grid item xs={6}>
+                      <div id='screamscore'> Score: {Math.floor(this.state.screamLevel * 1000)} </div>
+                      <Button raised id='saveButton' style={{backgroundColor: '00BCD4'}} onClick={this.saveScream}>
+                        {this.state.saveButtonText}
+                      </Button>
+                      <p id='clickPlay'>Still feeling stressed? Click 'play'!</p>
+                    <audio id='afterFreeman' controls="controls">
+                      <source src='../../hlfreeman.wav'/>
+                    </audio>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Resources />
+                  </Grid>
+                </Grid>
+              </div>
+              :
                 <Images scream={this.state.scream}/>
               }
           </Grid>
@@ -132,9 +142,6 @@ class Scream extends React.Component {
         <div>
             <Grid item xs={12} justify={'center'} container={true} id='ScreamMeter'><P5Wrapper sketch={sketch} /></Grid>
         </div>
-
-
-
       </div>
 
 

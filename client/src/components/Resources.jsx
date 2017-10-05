@@ -11,7 +11,7 @@ import axios from 'axios';
 
 const styles = theme => ({
   card: {
-    maxWidth: 400,
+    maxWidth: 300,
   },
   media: {
     height: 194,
@@ -44,21 +44,26 @@ class Resources extends React.Component {
     }
   }
 
+  handleExpandClick () => {
+    this.setState({
+      expanded: true
+    })
+  }
+
   render() {
     return (
-      <div>
+      <div style={{paddingRight: 50, paddingLeft: 100}}>
         <Card >
           <CardHeader
             title="Resources"
           />
           <CardMedia
-            image=""
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpKqqoBzDVHieCzDspkoRJLhyHhNjLIVAZ5spQ4ltoyDsSZW0b"
             title="Relaxation"
           />
           <CardContent>
             <Typography component="p">
-              This impressive paella is a perfect party dish and a fun meal to cook together with
-              your guests. Add 1 cup of frozen peas along with the mussels, if you like.
+              BLAH BLAH BLAH
             </Typography>
           </CardContent>
           <CardActions disableActionSpacing>
