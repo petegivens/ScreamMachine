@@ -4,7 +4,7 @@ var fft;
 var s = function(p) {
 
   p.setup = function() {
-    p.createCanvas(700,300);
+    p.createCanvas(500,250);
     p.noStroke();
     p.fill(0,255,255);
     mic = new p5.AudioIn();

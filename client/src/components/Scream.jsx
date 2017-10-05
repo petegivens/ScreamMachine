@@ -6,6 +6,7 @@ import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import Resources from './Resources.jsx';
 import axios from 'axios';
+import ReactPlayer from 'react-player'
 import P5Wrapper from 'react-p5-wrapper';
 
 class Scream extends React.Component {
@@ -102,6 +103,12 @@ class Scream extends React.Component {
   }
 
   render() {
+    const size = {
+      width: '50%',
+      height: 500,
+    };
+    const view = 'list'; // or 'coverart'
+    const theme = 'black'; // or 'white'
     return (
       <div>
         <Grid item className='pagetext'>
@@ -113,18 +120,18 @@ class Scream extends React.Component {
           <Grid container={true} justify={'center'} className='gif'>
             {this.state.displayScore ?
                 <div>
-                  <Grid spacing={24} container={true} style={{paddingLeft: 125}}>
-                    <Grid item xs={6}>
+                  <Grid spacing={24} container={true} style={{paddingLeft: 100}}>
+                    <Grid item xs={8}>
                       <div id='screamscore'> Score: {Math.floor(this.state.screamLevel * 1000)} </div>
                       <Button raised id='saveButton' style={{backgroundColor: '00BCD4'}} onClick={this.saveScream}>
                         {this.state.saveButtonText}
                       </Button>
-                      <p id='clickPlay'>Still feeling stressed? Click 'play'!</p>
-                    <audio id='afterFreeman' controls="controls">
-                      <source src='../../hlfreeman.wav'/>
-                    </audio>
+                      <div id='clickPlay'>Still feeling stressed? Click 'play'!</div>
+                      <audio id='afterFreeman' controls="controls">
+                        <source src='../../hlfreeman.wav'/>
+                      </audio>
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={4} style={{paddingRight: 25}}>
                     <Resources />
                   </Grid>
                 </Grid>
@@ -139,9 +146,9 @@ class Scream extends React.Component {
             <ScreamButton func={this.toggleClick} state={this.state.screamButtonText}/>
           </Grid>
         </div>
-        <div>
-            <Grid item xs={12} justify={'center'} container={true} id='ScreamMeter'><P5Wrapper sketch={sketch} /></Grid>
-        </div>
+          <Grid item xs={12} justify={'center'} container={true} id='ScreamMeter'>
+            <P5Wrapper sketch={sketch} />
+          </Grid>
       </div>
 
 
