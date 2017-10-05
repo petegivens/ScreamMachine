@@ -24,7 +24,7 @@ class App extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
-    this.goToProfile = this.goToProfile.bind(this);
+    this.showLegacy = this.showLegacy.bind(this);
     this.getLoginStatus();
   }
 
@@ -116,6 +116,7 @@ class App extends React.Component {
   }
 
   //handles all events from the nav bar
+  //PG - may need to rewrite all These
   navClickHandler(eventKey) {
     if (eventKey === 'logout') {
       this.setState({
@@ -140,8 +141,12 @@ class App extends React.Component {
     }
   }
 
-  goToProfile() {
-    this.setState({page: 'Profile'});
+  showLegacy() {
+    if (this.state.page === 'Arcade'){
+      this.setState({ page: 'scream' })
+    } else {
+      this.setState({ page: 'Arcade' })
+    }
   }
 
   render() {
@@ -153,21 +158,16 @@ class App extends React.Component {
     } else if (this.state.page === 'Profile') {
       page = <Profile user={this.state.user} />;
     } else if (this.state.page === 'StressForm') {
-      page = <StressForm user={this.state.user} func={this.goToProfile}/>;
+      page = <StressForm user={this.state.user}/>;
     } else {
       page = <div> Page did not load </div>
     }
     return (
-      <Grid>
-        <Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
-        <Row>
-          <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} />
-        </Row>
-        <Row>
-          {page}
-        </Row>
-      </Grid>
-    );
+      <div>
+        <NavBar isLoggedIn={this.state.isLoggedIn} showLegacy={this.showLegacy} page={this.state.page}/>
+        <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/>
+      </div>
+    )
   }
 }
 export default App;

@@ -7,7 +7,8 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-
+import green from 'material-ui/colors/green';
+import LegacySwitch from './LegacySwitch.jsx';
 import Login from './Login.jsx';
 
 const styles = theme => ({
@@ -24,20 +25,17 @@ const styles = theme => ({
   },
 });
 
-const NavBar = (props) => {
-  return (
-    <div className="navbar">
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton className="menuButton" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography type="title">Scream Machine</Typography>
-          <Login />
-        </Toolbar>
-      </AppBar>
-    </div>
-  )
-}
+const NavBar = ({ showLegacy }) => (
+  <AppBar position="fixed" >
+    <Toolbar>
+      <IconButton className="menuButton">
+        <MenuIcon />
+      </IconButton>
+      <Typography type="title">Scream Machine</Typography>
+      <LegacySwitch showLegacy={showLegacy}/>
+      <Login />
+    </Toolbar>
+  </AppBar>
+)
 
 export default withStyles(styles)(NavBar);
