@@ -6,7 +6,6 @@ import Typography from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';
 import { withStyles, withTheme } from 'material-ui/styles';
 
-
 const styles = {
   card: {
     textAlign: 'center',
