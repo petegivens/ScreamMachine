@@ -37,15 +37,6 @@ button {
 	background-color: aliceblue;
 }
 
-.NavBar {
-  background-color: #d9edf7;
-  color: black;
-}
-
-.navbar .navbar-nav>li>a {
-  color: #626060;
-}
-
 .btn {
   border-width: 1px;
   border-color: #e7e7e7;

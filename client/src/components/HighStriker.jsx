@@ -170,7 +170,7 @@ class HighStriker extends React.Component {
           </div>
           <input style={style.slider} type="range" min="0" max="100" value={this.state.volume} />
         </div>
-        <Button onClick={this.startRecording.bind(this)} color="accent">
+        <Button raised color="primary" onClick={this.startRecording.bind(this)}>
           Start
         </Button>
         <div ref="countdown" style={style.countdown}>
