@@ -11,8 +11,6 @@ export default class LegacySwitch extends React.Component {
     this.state = {
       showLegacy: false
     }
-    const showLegacy = props.showLegacy
-    console.log(showLegacy)
   }
 
   render() {

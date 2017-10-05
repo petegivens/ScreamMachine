@@ -4,27 +4,40 @@ import Recorder from './Recorder.js';
 import Confetti from 'react-dom-confetti';
 import Button from 'material-ui/Button';
 
+// const confettiConfig = {
+//   angle: 90,
+//   spread: 146,
+//   startVelocity: 17,
+//   elementCount: 102,
+//   decay: 0.96
+// };
+
 const confettiConfig = {
-  angle: 90,
-  spread: 186,
-  startVelocity: 17,
-  elementCount: 102,
-  decay: 0.96
+  angle: 180,
+  spread: 360,
+  startVelocity: 31,
+  elementCount: 200,
+  decay: 0.94
 };
 
 const style = {
   striker: {
     background: 'linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%)',
     paddingTop: 20,
-    marginBottom: 20
+    marginBottom: 20,
+    position: 'relative',
+    height: 625,
+    borderRadius: 2,
+    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
   },
   machine: {
     position: 'relative',
     display: 'block',
     height: 550,
-    backgroundColor: 'yellow',
+    backgroundColor: '#ffe401',
     width: 100,
-    margin: 'auto'
+    margin: 'auto',
+    borderRadius: 2
   },
   slider: {
     width: 400,
@@ -38,23 +51,43 @@ const style = {
   bell: {
     width: 120,
     height: 120,
-    backgroundColor: 'red',
+    backgroundColor: '#ed1b24',
     borderRadius: 100,
     marginLeft: -10,
     textAlign: 'center',
-    verticalAlign: 'middle',
-    display: 'grid',
+    display: 'block',
     boxShadow: 'rgba(247, 10, 10, 0.2) 0px 2px 4px 2px'
   },
   volume: {
     color: 'white',
-    fontSize: 30
+    fontSize: 30,
+    position: 'relative',
+    top: 'calc(50% - 20px)'
   },
   startBtn: {
     fontSize: 25,
     margin: 'auto',
     display: 'block',
     padding: 5
+  },
+  countdown: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    display: 'table',
+    width: '100%',
+    height: '100%',
+    background: 'rgba(0, 0, 0, 0.35)',
+    pointerEvents: 'none',
+    transition: 'all 0.25s linear',
+    opacity: 0
+  },
+  number: {
+    verticalAlign: 'middle',
+    textAlign: 'center',
+    display: 'table-cell',
+    fontSize: 180,
+    color: 'white'
   }
 }
 
@@ -65,16 +98,36 @@ class HighStriker extends React.Component {
     this.state = {
       status: 'stop',
       volume: 0,
-      confetti: false
+      confetti: false,
+      countdownNumber: null
     }
   }
 
   startRecording() {
-    var timeout = setTimeout(this.stopRecording.bind(this), 3000);
+    var countdown = (number) => {
+      this.setState({
+        countdownNumber: number
+      });
+      setTimeout(() => {
+        if (number === 1){
+          var timeout = setTimeout(this.stopRecording.bind(this), 3000);
+          this.setState({
+            status: 'start',
+            timeout,
+            countdownNumber: null
+          });
+          this.refs.countdown.style.opacity = 0;
+        } else {
+          countdown(number-1);
+        }
+      }, 1000);
+    }
+
+    this.refs.countdown.style.opacity = 1;
     this.setState({
-      status: 'start',
-      timeout
-    });
+      volume: 0
+    })
+    countdown(3);
   }
 
   stopRecording() {
@@ -105,9 +158,11 @@ class HighStriker extends React.Component {
   }
 
   render() {
+    const sensitivity = 3 + (this.props.currentScore * 0.1);
+
     return (
       <div className="striker" style={style.striker}>
-        <Recorder ref="recorder" sensitivity={4} status={this.state.status} volumeListener={this.volumeListener.bind(this)} />
+        <Recorder ref="recorder" sensitivity={sensitivity} status={this.state.status} volumeListener={this.volumeListener.bind(this)} />
         <div style={style.machine}>
           <div style={style.bell}>
             <Confetti className="confetti" active={this.state.confetti} config={confettiConfig} />
@@ -118,6 +173,11 @@ class HighStriker extends React.Component {
         <Button onClick={this.startRecording.bind(this)} color="primary">
           Start
         </Button>
+        <div ref="countdown" style={style.countdown}>
+          <div style={style.number}>
+            {this.state.countdownNumber}
+          </div>
+        </div>
       </div>
     )
   }

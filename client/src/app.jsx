@@ -20,6 +20,7 @@ class App extends React.Component {
       isLoggedIn: false,
       user: null,
     };
+    
     this.navClickHandler = this.navClickHandler.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.login = this.login.bind(this);
