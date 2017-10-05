@@ -4,6 +4,7 @@ import ScreamButton from './ScreamButton.jsx';
 import Images from './Images.jsx';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
+import Resources from './Resources.jsx';
 import axios from 'axios';
 import P5Wrapper from 'react-p5-wrapper';
 
@@ -107,6 +108,9 @@ class Scream extends React.Component {
           {this.state.screamButtonText === 'Scream Again' ? <div></div> :
             <Grid>Wow, You Look STRESSED! Go Ahead and Scream. You'll Feel Better.</Grid>
           }
+        </Grid>
+        <Grid item>
+          <Resources />
         </Grid>
         <div>
           <Grid item spacing={24} container={true} justify={'center'} className='gif'>
