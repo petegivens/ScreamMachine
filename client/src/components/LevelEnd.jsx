@@ -52,7 +52,6 @@ export default class LevelEnd extends React.Component {
   handleNextLevel() {
     //change the state of HighStriker to go up to the next level
     this.props.nextLevel();
-    // this.handleClose();
   }
 
   handleStartOver() {
@@ -65,7 +64,6 @@ export default class LevelEnd extends React.Component {
       open: nextProps.open,
       payload: nextProps.payload
     })
-    console.log('will receive props', this.props)
   }
 
   render () {
