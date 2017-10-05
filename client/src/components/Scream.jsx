@@ -109,9 +109,6 @@ class Scream extends React.Component {
             <Grid>Wow, You Look STRESSED! Go Ahead and Scream. You'll Feel Better.</Grid>
           }
         </Grid>
-        <Grid item>
-          <Resources />
-        </Grid>
         <div>
           <Grid item spacing={24} container={true} justify={'center'} className='gif'>
             {this.state.displayScore ?
