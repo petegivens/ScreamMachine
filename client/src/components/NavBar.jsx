@@ -24,7 +24,9 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
-
+  login: {
+    float: 'right'
+  }
 });
 
 const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
@@ -40,6 +42,7 @@ const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
         login={login}
         logout={logout}
         isLoggedIn={isLoggedIn}
+        className="login"
       />
       <Signup signup={signup} isLoggedIn={isLoggedIn}/>
     </Toolbar>
