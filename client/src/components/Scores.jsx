@@ -5,7 +5,7 @@ import HighScores from './HighScores.jsx';
 import Typography from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';
 
-const style = {
+const styles = {
   card: {
     backgroundColor: '#36bfc7',
     textAlign: 'center'
@@ -33,7 +33,9 @@ class Scores extends React.Component {
     this.state = {
       userHighScore: 1,
     }
+    const { theme } = props;
   }
+
 
   // changeScore() {
   //   this.setState({

@@ -7,7 +7,6 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import green from 'material-ui/colors/green';
 import LegacySwitch from './LegacySwitch.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
@@ -30,7 +29,7 @@ const styles = theme => ({
 });
 
 const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
-  <AppBar position="absolute" className="navBar">
+  <AppBar position="absolute" className="navBar" square>
     <Toolbar>
       <IconButton className="menuButton">
         <MenuIcon />
