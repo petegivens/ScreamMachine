@@ -37,14 +37,16 @@ class Arcade extends React.Component {
 
   startOverLevel() {
     this.setState({
-      currentScore: 1
+      currentScore: 1,
+      openLevelEnd: false
     })
   }
 
   nextLevel() {
     var nextLevel = this.state.currentScore + 1;
     this.setState({
-      currentScore: nextLevel
+      currentScore: nextLevel,
+      openLevelEnd: false
     }, console.log(this.state.currentScore))
   }
 
