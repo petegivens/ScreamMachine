@@ -2,7 +2,8 @@ import React from 'react';
 import HighStriker from './HighStriker.jsx';
 import LevelEnd from './LevelEnd.jsx'
 import Scores from './Scores.jsx';
-
+import SideBar from './SideBar.jsx';
+import axios from 'axios';
 
 class Arcade extends React.Component {
   constructor(props) {
@@ -10,10 +11,18 @@ class Arcade extends React.Component {
 
     this.state = {
       openLevelEnd: false,
-      payload: {}
+      payload: {},
+      highScores: []
     }
 
     this.setOpenLevelEnd = this.setOpenLevelEnd.bind(this);
+  }
+
+  componentWillMount() {
+    axios.get('/getHighScores')
+    .then( ({ data }) => {
+      this.setState({ highScores: data } )
+    })
   }
 
   setOpenLevelEnd(value, payload) {
