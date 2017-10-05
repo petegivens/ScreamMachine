@@ -149,10 +149,6 @@ class App extends React.Component {
     }
   }
 
-  goToProfile() {
-    this.setState({page: 'Profile'});
-  }
-
   render() {
     var page;
     if (this.state.page === 'scream') {
