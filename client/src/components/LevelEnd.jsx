@@ -41,7 +41,6 @@ export default class LevelEnd extends React.Component {
     this.setState({
       open: true
     })
-    //console.log(window.location)
   }
 
   handleClose() {
@@ -52,10 +51,13 @@ export default class LevelEnd extends React.Component {
 
   handleNextLevel() {
     //change the state of HighStriker to go up to the next level
+    this.props.nextLevel();
+    // this.handleClose();
   }
 
   handleStartOver() {
     //change the state of HighStriker to go back to the first level
+    this.props.startOver();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,17 +65,18 @@ export default class LevelEnd extends React.Component {
       open: nextProps.open,
       payload: nextProps.payload
     })
+    console.log('will receive props', this.props)
   }
 
   render () {
-    const url = "https://www.youtube.com/watch?v=J---aiyznGQ";
-    const quote = 'I Got to Level **insert level**. Think You Can Beat Me?'
-
+    const url = window.location.href;
+    const currentScore = this.props.currentScore;
+    const quote = 'I Got to Level '+currentScore+'. Think You Can Beat Me?'
     const score = this.state.payload.score;
 
     const passed = (
       <Dialog open={this.state.open} onRequestClose={this.handleClose}>
-        <DialogTitle>{"You've Passed Level ***Insert Level***"}</DialogTitle>
+        <DialogTitle>{"You've Passed Level "+currentScore+"!"}</DialogTitle>
         <DialogContent>
           <div className="score"> Score: {score} </div>
           <div> Share Your Score! </div>
@@ -110,8 +113,13 @@ export default class LevelEnd extends React.Component {
           <Button onClick={this.handleClose} color="primary">
             I'm Finished
           </Button>
-          <Button onClick={this.handleClose} color="primary">
-            Next Level
+          <Button onClick={
+            () => {
+              this.handleNextLevel();
+              this.handleClose();
+                }}
+              color="primary">
+              Next Level
           </Button>
         </DialogActions>
       </Dialog>
@@ -160,8 +168,12 @@ export default class LevelEnd extends React.Component {
           <Button onClick={this.handleClose} color="primary">
             I'm Finished
           </Button>
-          <Button onClick={this.handleStartOver} color="primary">
-            Start Over
+          <Button onClick={ () => {
+              this.handleStartOver();
+              this.handleClose();}
+              }
+              color="primary">
+              Start Over
           </Button>
         </DialogActions>
       </Dialog>

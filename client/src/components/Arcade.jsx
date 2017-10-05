@@ -17,6 +17,8 @@ class Arcade extends React.Component {
     }
 
     this.setOpenLevelEnd = this.setOpenLevelEnd.bind(this);
+    this.startOverLevel = this.startOverLevel.bind(this);
+    this.nextLevel = this.nextLevel.bind(this);
   }
 
   componentWillMount() {
@@ -33,6 +35,21 @@ class Arcade extends React.Component {
     })
   }
 
+  startOverLevel() {
+    this.setState({
+      currentScore: 1,
+      openLevelEnd: false
+    })
+  }
+
+  nextLevel() {
+    var nextLevel = this.state.currentScore + 1;
+    this.setState({
+      currentScore: nextLevel,
+      openLevelEnd: false
+    }, console.log(this.state.currentScore))
+  }
+
   render() {
     return (
       <div>
@@ -44,7 +61,12 @@ class Arcade extends React.Component {
             <HighStriker setOpenLevelEnd={this.setOpenLevelEnd} currentScore={this.state.currentScore} />
           </Grid>
         </Grid>
-        <LevelEnd open={this.state.openLevelEnd} payload={this.state.payload} />
+        <LevelEnd
+          currentScore={this.state.currentScore}
+          startOver={this.startOverLevel}
+          nextLevel={this.nextLevel}
+          open={this.state.openLevelEnd}
+          payload={this.state.payload} />
       </div>
     );
   }

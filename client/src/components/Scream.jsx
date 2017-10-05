@@ -6,7 +6,6 @@ import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
 import Resources from './Resources.jsx';
 import axios from 'axios';
-import ReactPlayer from 'react-player'
 import P5Wrapper from 'react-p5-wrapper';
 
 class Scream extends React.Component {
