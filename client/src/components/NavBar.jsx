@@ -10,14 +10,13 @@ import MenuIcon from 'material-ui-icons/Menu';
 import LegacySwitch from './LegacySwitch.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
+import { withTheme } from 'material-ui/styles';
+import white from 'material-ui/colors';
 
 const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
   <AppBar position="absolute" >
     <Toolbar>
-      <IconButton className="menuButton">
-        <MenuIcon />
-      </IconButton>
-      <Typography type="title">Scream Machine</Typography>
+      <Typography type="title" style={{ flex: 1 }}>SCREAM MACHINE</Typography>
       <LegacySwitch showLegacy={showLegacy}/>
       <Login
         user={user}
