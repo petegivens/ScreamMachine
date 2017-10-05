@@ -166,6 +166,7 @@ class App extends React.Component {
       <div>
         <NavBar isLoggedIn={this.state.isLoggedIn} showLegacy={this.showLegacy} page={this.state.page}/>
         <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/>
+        {page}
       </div>
     )
   }
