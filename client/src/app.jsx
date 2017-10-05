@@ -23,6 +23,7 @@ class App extends React.Component {
     this.navClickHandler = this.navClickHandler.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
     this.signup = this.signup.bind(this);
     this.showLegacy = this.showLegacy.bind(this);
     this.getLoginStatus();
@@ -147,6 +148,13 @@ class App extends React.Component {
     }
   }
 
+  logout() {
+    this.setState({
+      user: null,
+      isLoggedIn: false
+    })
+  }
+
   render() {
     var page;
     if (this.state.page === 'scream') {
@@ -162,7 +170,14 @@ class App extends React.Component {
     }
     return (
       <div>
-        <NavBar user={this.state.user} isLoggedIn={this.state.isLoggedIn} showLegacy={this.showLegacy} page={this.state.page} login={this.login}/>
+        <NavBar
+          user={this.state.user}
+          isLoggedIn={this.state.isLoggedIn}
+          showLegacy={this.showLegacy}
+          page={this.state.page}
+          login={this.login}
+          logout={this.logout}
+        />
         <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/>
         <div style={{marginTop:65}}>
           {page}

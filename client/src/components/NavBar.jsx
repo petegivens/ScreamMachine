@@ -26,7 +26,7 @@ const styles = theme => ({
 
 });
 
-const NavBar = ({ showLegacy, login, user, isLoggedIn }) => (
+const NavBar = ({ showLegacy, login, logout, user, isLoggedIn }) => (
   <AppBar position="absolute" className="navBar">
     <Toolbar>
       <IconButton className="menuButton">
@@ -34,7 +34,12 @@ const NavBar = ({ showLegacy, login, user, isLoggedIn }) => (
       </IconButton>
       <Typography type="title">Scream Machine</Typography>
       <LegacySwitch showLegacy={showLegacy}/>
-      { isLoggedIn ? (`Welcome back, ${user.username}`) : (<Login login={login} />)}
+      <Login
+        user={user}
+        login={login}
+        logout={logout}
+        isLoggedIn={isLoggedIn}
+      />
     </Toolbar>
   </AppBar>
 )
