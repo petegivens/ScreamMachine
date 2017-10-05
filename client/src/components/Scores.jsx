@@ -6,36 +6,13 @@ import HighScores from './HighScores.jsx';
 import Typography from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';
 
-const styles = {
-  card: {
-    textAlign: 'center',
-  },
-  cardContent: {
-    fontSize: '36px'
-  },
-  chip: {
-    fontSize: '18px',
-    fontWeight: 'bold',
-    margin: '2px',
-    textAlign: 'center'
-  },
-  carnival: {
-    boxShadow: 'none',
-    fontFamily: 'circusregular',
-    fontSize: '44px',
-    textAlign: 'center'
-  }
-}
-
 class Scores extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userHighScore: 1,
     }
-    const { theme } = props;
   }
-
 
   // changeScore() {
   //   this.setState({
@@ -44,6 +21,32 @@ class Scores extends React.Component {
   // }
 
   render() {
+    const { theme } = this.props;
+    const primary = theme.palette.primary[500];
+    const accent = theme.palette.secondary[500];
+
+    const styles = {
+      card: {
+        backgroundColor: primary,
+        textAlign: 'center',
+      },
+      cardContent: {
+        fontSize: '36px'
+      },
+      chip: {
+        fontSize: '18px',
+        fontWeight: 'bold',
+        margin: '2px',
+        textAlign: 'center'
+      },
+      carnival: {
+        boxShadow: 'none',
+        fontFamily: 'circusregular',
+        fontSize: '44px',
+        textAlign: 'center'
+      }
+    }
+
     return(
       <div>
         <Grid container spacing={24}>
@@ -91,4 +94,4 @@ class Scores extends React.Component {
   };
 };
 
-export default Scores;
+export default withTheme()(Scores);
