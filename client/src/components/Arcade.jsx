@@ -2,7 +2,6 @@ import React from 'react';
 import HighStriker from './HighStriker.jsx';
 import LevelEnd from './LevelEnd.jsx'
 import Scores from './Scores.jsx';
-import SideBar from './SideBar.jsx';
 import axios from 'axios';
 
 class Arcade extends React.Component {
