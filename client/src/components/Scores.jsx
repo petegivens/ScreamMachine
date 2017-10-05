@@ -2,10 +2,10 @@ import React from 'react';
 import Card, {CardHeader, CardContent} from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import HighScores from './HighScores.jsx'
+import { withStyles, withTheme } from 'material-ui/styles';
 
-const style = {
+const styles = {
   card: {
-    backgroundColor: '#36bfc7',
     textAlign: 'center',
   },
   cardContent: {
@@ -19,7 +19,9 @@ class Scores extends React.Component {
     this.state = {
       userHighScore: 1,
     }
+    const { theme } = props;
   }
+
 
   // changeScore() {
   //   this.setState({
@@ -33,19 +35,19 @@ class Scores extends React.Component {
         <Grid container spacing={24}>
           <Grid item xs={12}>
             {this.props.user ?
-              <Card style={style.card}>
+              <Card style={styles.card}>
                 <CardHeader title="Your HIGHEST Score!"/>
                 <CardContent>{this.props.user.personalBest}</CardContent>
               </Card>
               :
-              <Card style={style.card}>
+              <Card style={styles.card}>
                 <CardHeader title="Your HIGHEST Score!"/>
-                <CardContent style={style.cardContent}>1</CardContent>
+                <CardContent style={styles.cardContent}>1</CardContent>
               </Card>
             }
           </Grid>
           <Grid item xs={12}>
-            <Card style={style.card}>
+            <Card style={styles.card}>
               <CardHeader title="Other Peoples High Score!"/>
               <CardContent>
                 {this.props.highScores.map((highScore, i) => (

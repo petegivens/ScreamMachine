@@ -8,6 +8,16 @@ import Arcade from './components/Arcade.jsx';
 import StressForm from './components/StressForm.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { cyan, red, yellow } from 'material-ui/colors';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: cyan,
+    secondary: yellow,
+    error: red
+  }
+});
 
 class App extends React.Component {
 
@@ -165,20 +175,22 @@ class App extends React.Component {
       page = <div> Page did not load </div>
     }
     return (
-      <div>
-        <NavBar
-          user={this.state.user}
-          isLoggedIn={this.state.isLoggedIn}
-          showLegacy={this.showLegacy}
-          page={this.state.page}
-          login={this.login}
-          logout={this.logout}
-          signup={this.signup}
-        />
-        <div style={{marginTop:65}}>
-          {page}
+      <MuiThemeProvider theme={theme}>
+        <div>
+          <NavBar
+            user={this.state.user}
+            isLoggedIn={this.state.isLoggedIn}
+            showLegacy={this.showLegacy}
+            page={this.state.page}
+            login={this.login}
+            logout={this.logout}
+            signup={this.signup}
+          />
+          <div style={{marginTop:65}}>
+            {page}
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
     )
   }
 }
