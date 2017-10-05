@@ -11,7 +11,8 @@ class Arcade extends React.Component {
     this.state = {
       openLevelEnd: false,
       payload: {},
-      highScores: []
+      highScores: [],
+      currentScore: 1
     }
 
     this.setOpenLevelEnd = this.setOpenLevelEnd.bind(this);
