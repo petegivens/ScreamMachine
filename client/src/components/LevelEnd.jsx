@@ -69,11 +69,13 @@ export default class LevelEnd extends React.Component {
     const url = "https://www.youtube.com/watch?v=J---aiyznGQ";
     const quote = 'I Got to Level **insert level**. Think You Can Beat Me?'
 
+    const score = this.state.payload.score;
+
     const passed = (
       <Dialog open={this.state.open} onRequestClose={this.handleClose}>
         <DialogTitle>{"You've Passed Level ***Insert Level***"}</DialogTitle>
         <DialogContent>
-          {JSON.stringify(this.state.payload)}
+          <div className="score"> Score: {score} </div>
           <div> Share Your Score! </div>
           <div className="sharebutton">
             <FacebookShareButton
@@ -115,11 +117,12 @@ export default class LevelEnd extends React.Component {
       </Dialog>
     );
 
+
     const failed = (
       <Dialog open={this.state.open} onRequestClose={this.handleClose}>
         <DialogTitle>{"You didn't pass this level"}</DialogTitle>
         <DialogContent>
-          {JSON.stringify(this.state.payload)}
+          <div className="score"> Score: {score} </div>
           <div> Share Your Score! </div>
           <div className="sharebutton">
             <FacebookShareButton

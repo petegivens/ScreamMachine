@@ -38,7 +38,7 @@ class Arcade extends React.Component {
       <div>
         <Grid container spacing={24}>
           <Grid item xs={12} sm={4}>
-            <Scores user={this.props.user} highScores={this.state.highScores} currentScore={this.state.currentScore} />
+            <Scores user={this.props.user} currentScore={this.state.currentScore} highScores={this.state.highScores} />
           </Grid>
           <Grid item xs={12} sm={8}>
             <HighStriker setOpenLevelEnd={this.setOpenLevelEnd} currentScore={this.state.currentScore} />

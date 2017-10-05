@@ -45,6 +45,7 @@
     "react-dom": "^15.6.1",
     "react-dom-confetti": "0.0.8",
     "react-p5-wrapper": "0.0.4",
+    "react-player": "^0.25.0",
     "react-share": "^1.16.0",
     "webpack": "^3.6.0"
   },

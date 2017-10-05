@@ -4,7 +4,9 @@ import ScreamButton from './ScreamButton.jsx';
 import Images from './Images.jsx';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
+import Resources from './Resources.jsx';
 import axios from 'axios';
+import ReactPlayer from 'react-player'
 import P5Wrapper from 'react-p5-wrapper';
 
 class Scream extends React.Component {
@@ -101,24 +103,40 @@ class Scream extends React.Component {
   }
 
   render() {
+    const size = {
+      width: '50%',
+      height: 500,
+    };
+    const view = 'list'; // or 'coverart'
+    const theme = 'black'; // or 'white'
     return (
       <div>
-        <Grid className='pagetext'>
+        <Grid item className='pagetext'>
           {this.state.screamButtonText === 'Scream Again' ? <div></div> :
-            <Grid>Wow, you look STRESSED! Go ahead and scream. You'll feel better.</Grid>
+            <Grid>Wow, You Look STRESSED! Go Ahead and Scream. You'll Feel Better.</Grid>
           }
         </Grid>
         <div>
-          <Grid item spacing={24} container={true} justify={'center'} className='gif'>
+          <Grid container={true} justify={'center'} className='gif'>
             {this.state.displayScore ?
-                <div><Grid item className='score'>
-                  <div><Grid item xl={12} container={true} justify={'center'}>Score: {Math.floor(this.state.screamLevel * 1000)}</Grid></div><br/>
-                  <Grid item ><Button raised id='saveButton' style={{backgroundColor: '00BCD4'}} onClick={this.saveScream} >{this.state.saveButtonText}</Button></Grid>
-                  <div><p id='clickPlay'>Still feeling stressed? Click 'play'!</p></div>
-                  <audio id='afterFreeman' controls="controls">
-                    <source src='../../hlfreeman.wav'/>
-                  </audio>
-                </Grid></div> :
+                <div>
+                  <Grid spacing={24} container={true} style={{paddingLeft: 100}}>
+                    <Grid item xs={8}>
+                      <div id='screamscore'> Score: {Math.floor(this.state.screamLevel * 1000)} </div>
+                      <Button raised id='saveButton' style={{backgroundColor: '00BCD4'}} onClick={this.saveScream}>
+                        {this.state.saveButtonText}
+                      </Button>
+                      <div id='clickPlay'>Still feeling stressed? Click 'play'!</div>
+                      <audio id='afterFreeman' controls="controls">
+                        <source src='../../hlfreeman.wav'/>
+                      </audio>
+                  </Grid>
+                  <Grid item xs={4} style={{paddingRight: 25}}>
+                    <Resources />
+                  </Grid>
+                </Grid>
+              </div>
+              :
                 <Images scream={this.state.scream}/>
               }
           </Grid>
@@ -128,12 +146,9 @@ class Scream extends React.Component {
             <ScreamButton func={this.toggleClick} state={this.state.screamButtonText}/>
           </Grid>
         </div>
-        <div>
-            <Grid item xs={12} justify={'center'} container={true} id='ScreamMeter'><P5Wrapper sketch={sketch} /></Grid>
-        </div>
-
-
-
+          <Grid item xs={12} justify={'center'} container={true} id='ScreamMeter'>
+            <P5Wrapper sketch={sketch} />
+          </Grid>
       </div>
 
 
