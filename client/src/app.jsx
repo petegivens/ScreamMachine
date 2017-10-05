@@ -58,7 +58,7 @@ class App extends React.Component {
       } else {
         context.setState({
         	isLoggedIn: true,
-        	user: username
+        	user: result.data
         });
         context.closeModal();
       }
@@ -154,7 +154,7 @@ class App extends React.Component {
     if (this.state.page === 'scream') {
       page = <Scream user={this.state.user}/>;
     } else if (this.state.page === 'Arcade') {
-      page = <Arcade />;
+      page = <Arcade user={this.state.user} />;
     } else if (this.state.page === 'Profile') {
       page = <Profile user={this.state.user} />;
     } else if (this.state.page === 'StressForm') {

@@ -7,6 +7,9 @@ const style = {
   card: {
     backgroundColor: '#36bfc7',
     textAlign: 'center'
+  },
+  cardContent: {
+    fontSize: '36px'
   }
 }
 
@@ -15,7 +18,6 @@ class Scores extends React.Component {
     super(props);
     this.state = {
       userHighScore: 1,
-      highScores: []
     }
   }
 
@@ -38,7 +40,7 @@ class Scores extends React.Component {
               :
               <Card style={style.card}>
                 <CardHeader title="Your HIGHEST Score!"/>
-                <CardContent>1</CardContent>
+                <CardContent style={style.cardContent}>1</CardContent>
               </Card>
             }
           </Grid>
@@ -46,8 +48,8 @@ class Scores extends React.Component {
             <Card style={style.card}>
               <CardHeader title="Other Peoples High Score!"/>
               <CardContent>
-                {props.highScores.map((score, i) => (
-                <highScore key={i} score={score}/>
+                {this.props.highScores.map((highScore, i) => (
+                <HighScores key={i} highScore={highScore}/>
                 ))}
               </CardContent>
             </Card>
