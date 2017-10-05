@@ -4,6 +4,7 @@ import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import Scream from './components/Scream.jsx';
 import Profile from './components/Profile.jsx';
+import Arcade from './components/Arcade.jsx';
 import StressForm from './components/StressForm.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
@@ -13,7 +14,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      page: 'scream',
+      page: 'Arcade',
       showSignup: false,
       showLogin: false,
       isLoggedIn: false,
@@ -147,6 +148,8 @@ class App extends React.Component {
     var page;
     if (this.state.page === 'scream') {
       page = <Scream user={this.state.user}/>;
+    } else if (this.state.page === 'Arcade') {
+      page = <Arcade />;
     } else if (this.state.page === 'Profile') {
       page = <Profile user={this.state.user} />;
     } else if (this.state.page === 'StressForm') {

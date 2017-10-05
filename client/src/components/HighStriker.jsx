@@ -59,36 +59,37 @@ class HighStriker extends React.Component {
 
     this.state = {
       status: 'stop',
-      volume: 0,
-      hit100: false
+      volume: 0
     }
   }
 
   startRecording() {
+    var timeout = setTimeout(this.stopRecording.bind(this), 3000);
     this.setState({
-      status: 'start'
+      status: 'start',
+      timeout
     });
-    setTimeout(this.stopRecording.bind(this), 3000)
   }
 
   stopRecording() {
     this.setState({
       status: 'stop'
     });
+    this.props.setOpenLevelEnd(true, {score: this.state.volume});
   }
 
   volumeListener(volume) {
     if (volume >= 100) {
-      if (!this.state.hit100){
-        this.setState({
-          hit100: true
-        });
-        setTimeout(() => {
-          this.setState({
-            hit100: false
-          });
-        }, 4000)
-      }
+      volume = 100;
+      this.setState({
+        volume: volume
+      });
+      clearTimeout(this.state.timeout);
+      this.stopRecording();
+    } else {
+      this.setState({
+        volume: volume
+      });
     }
   }
 
@@ -98,19 +99,14 @@ class HighStriker extends React.Component {
   render() {
     return (
       <div className="striker">
-        {
-          <Recorder ref="recorder" sensitivity={4} status={this.state.status} volumeListener={this.volumeListener.bind(this)} render={(volume) => {
-            return (
-              <div style={style.striker}>
-                <div style={style.bell}>
-                  <Confetti className="confetti" active={this.state.hit100} config={confettiConfig} />
-                  <div style={style.volume}>{volume}</div>
-                </div>
-                <input style={style.slider} type="range" min="0" max="100" value={volume} />
-              </div>
-            )
-          }} />
-        }
+        <Recorder ref="recorder" sensitivity={4} status={this.state.status} volumeListener={this.volumeListener.bind(this)} />
+        <div style={style.striker}>
+          <div style={style.bell}>
+            <Confetti className="confetti" active={this.state.hit100} config={confettiConfig} />
+            <div style={style.volume}>{this.state.volume}</div>
+          </div>
+          <input style={style.slider} type="range" min="0" max="100" value={this.state.volume} />
+        </div>
         <Button onClick={this.startRecording.bind(this)} color="primary">
           Start
         </Button>
