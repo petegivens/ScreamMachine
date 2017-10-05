@@ -10,6 +10,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import LegacySwitch from './LegacySwitch.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
+import NavProfile from './NavProfile.jsx';
 
 const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup, page}) => {
     const background = page === 'Arcade' ? 'primary' : 'default';
@@ -17,12 +18,7 @@ const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup, page}) =>
       <AppBar position="absolute" color={background}>
         <Toolbar>
           {(page === 'scream' || page === 'Profile' || page === 'StressForm') &&
-            <Select
-              native
-              >
-              <option value="Profile"> Profile </option>
-              <option value="StressForm">Stress Form</option>
-            </Select>
+            <NavProfile />
           }
           <div style={{ flex: 1 }}>
             <LegacySwitch showLegacy={showLegacy} page={page}/>
