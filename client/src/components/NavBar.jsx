@@ -16,6 +16,14 @@ const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup, page}) =>
     return (
       <AppBar position="absolute" color={background}>
         <Toolbar>
+          {(page === 'scream' || page === 'Profile' || page === 'StressForm') &&
+            <Select
+              native
+              >
+              <option value="Profile"> Profile </option>
+              <option value="StressForm">Stress Form</option>
+            </Select>
+          }
           <div style={{ flex: 1 }}>
             <LegacySwitch showLegacy={showLegacy} page={page}/>
           </div>
