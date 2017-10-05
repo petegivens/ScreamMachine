@@ -4,12 +4,20 @@ import Recorder from './Recorder.js';
 import Confetti from 'react-dom-confetti';
 import Button from 'material-ui/Button';
 
+// const confettiConfig = {
+//   angle: 90,
+//   spread: 146,
+//   startVelocity: 17,
+//   elementCount: 102,
+//   decay: 0.96
+// };
+
 const confettiConfig = {
-  angle: 90,
-  spread: 186,
-  startVelocity: 17,
-  elementCount: 102,
-  decay: 0.96
+  angle: 180,
+  spread: 360,
+  startVelocity: 31,
+  elementCount: 200,
+  decay: 0.94
 };
 
 const style = {
@@ -42,13 +50,14 @@ const style = {
     borderRadius: 100,
     marginLeft: -10,
     textAlign: 'center',
-    verticalAlign: 'middle',
-    display: 'grid',
+    display: 'block',
     boxShadow: 'rgba(247, 10, 10, 0.2) 0px 2px 4px 2px'
   },
   volume: {
     color: 'white',
-    fontSize: 30
+    fontSize: 30,
+    position: 'relative',
+    top: 'calc(50% - 20px)'
   },
   startBtn: {
     fontSize: 25,
@@ -105,9 +114,11 @@ class HighStriker extends React.Component {
   }
 
   render() {
+    const sensitivity = 3 + (this.props.currentScore * 0.5);
+
     return (
       <div className="striker" style={style.striker}>
-        <Recorder ref="recorder" sensitivity={4} status={this.state.status} volumeListener={this.volumeListener.bind(this)} />
+        <Recorder ref="recorder" sensitivity={sensitivity} status={this.state.status} volumeListener={this.volumeListener.bind(this)} />
         <div style={style.machine}>
           <div style={style.bell}>
             <Confetti className="confetti" active={this.state.confetti} config={confettiConfig} />
@@ -116,7 +127,7 @@ class HighStriker extends React.Component {
           <input style={style.slider} type="range" min="0" max="100" value={this.state.volume} />
         </div>
         <Button onClick={this.startRecording.bind(this)} color="primary">
-          Start
+          Start {this.props.currentScore}
         </Button>
       </div>
     )
