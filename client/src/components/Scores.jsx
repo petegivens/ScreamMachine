@@ -1,7 +1,7 @@
 import React from 'react';
 import Card, {CardHeader, CardContent, CardMedia} from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
-import { withStyles, withTheme } from 'material-ui/styles';
+import { withTheme } from 'material-ui/styles';
 import HighScores from './HighScores.jsx';
 import Typography from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';
