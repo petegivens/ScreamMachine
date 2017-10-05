@@ -4,11 +4,11 @@ import Grid from 'material-ui/Grid';
 import HighScores from './HighScores.jsx';
 import Typography from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';
+import { withStyles, withTheme } from 'material-ui/styles';
 
-const style = {
+const styles = {
   card: {
-    backgroundColor: '#36bfc7',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   cardContent: {
     fontSize: '36px'
@@ -33,7 +33,9 @@ class Scores extends React.Component {
     this.state = {
       userHighScore: 1,
     }
+    const { theme } = props;
   }
+
 
   // changeScore() {
   //   this.setState({
@@ -46,7 +48,7 @@ class Scores extends React.Component {
       <div>
         <Grid container spacing={24}>
           <Grid item xs={12} sm={12}>
-          <Card style={style.carnival} >
+          <Card style={styles.carnival} >
             <CardContent>
                 CARNIVAL SCREAM MACHINE
             </CardContent>
@@ -54,27 +56,27 @@ class Scores extends React.Component {
           </Grid>
           <Grid item xs={12} sm={12}>
             {this.props.user ?
-              <Card style={style.card}>
+              <Card style={styles.card}>
                 <Grid container spacing={24}>
                   <Grid item xs>
                     <CardHeader title="Your Current Score!"/>
-                    <Chip style={style.chip} label={this.props.currentScore} />
+                    <Chip style={styles.chip} label={this.props.currentScore} />
                   </Grid>
                   <Grid item xs>
                     <CardHeader title="Your Highest Score!"/>
-                    <Chip style={style.chip} label={this.props.user.personalBest} />
+                    <Chip style={styles.chip} label={this.props.user.personalBest} />
                   </Grid>
                 </Grid>
               </Card>
               :
-              <Card style={style.card}>
+              <Card style={styles.card}>
                 <CardHeader title="Your Current Score!"/>
-                <CardContent style={style.cardContent}>{this.props.currentScore}</CardContent>
+                <CardContent style={styles.cardContent}>{this.props.currentScore}</CardContent>
               </Card>
             }
           </Grid>
           <Grid item xs={12} sm={12}>
-            <Card style={style.card}>
+            <Card style={styles.card}>
               <CardHeader title="HIGH SCORES"/>
               <CardContent>
                 {this.props.highScores.map((highScore, i) => (
