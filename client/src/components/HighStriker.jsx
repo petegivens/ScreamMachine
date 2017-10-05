@@ -155,7 +155,7 @@ class HighStriker extends React.Component {
   }
 
   render() {
-    const sensitivity = 3 + (this.props.currentScore * 0.5);
+    const sensitivity = 3 + (this.props.currentScore * 0.1);
 
     return (
       <div className="striker" style={style.striker}>
