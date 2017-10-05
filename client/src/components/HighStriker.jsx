@@ -14,6 +14,11 @@ const confettiConfig = {
 
 const style = {
   striker: {
+    background: 'linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%)',
+    paddingTop: 20,
+    marginBottom: 20
+  },
+  machine: {
     position: 'relative',
     display: 'block',
     height: 550,
@@ -35,7 +40,7 @@ const style = {
     height: 120,
     backgroundColor: 'red',
     borderRadius: 100,
-    marginLeft: '-10px',
+    marginLeft: -10,
     textAlign: 'center',
     verticalAlign: 'middle',
     display: 'grid',
@@ -59,7 +64,8 @@ class HighStriker extends React.Component {
 
     this.state = {
       status: 'stop',
-      volume: 0
+      volume: 0,
+      confetti: false
     }
   }
 
@@ -73,7 +79,8 @@ class HighStriker extends React.Component {
 
   stopRecording() {
     this.setState({
-      status: 'stop'
+      status: 'stop',
+      confetti: false
     });
     this.props.setOpenLevelEnd(true, {score: this.state.volume});
   }
@@ -82,7 +89,8 @@ class HighStriker extends React.Component {
     if (volume >= 100) {
       volume = 100;
       this.setState({
-        volume: volume
+        volume: volume,
+        confetti: true
       });
       clearTimeout(this.state.timeout);
       this.stopRecording();
@@ -98,11 +106,11 @@ class HighStriker extends React.Component {
 
   render() {
     return (
-      <div className="striker">
+      <div className="striker" style={style.striker}>
         <Recorder ref="recorder" sensitivity={4} status={this.state.status} volumeListener={this.volumeListener.bind(this)} />
-        <div style={style.striker}>
+        <div style={style.machine}>
           <div style={style.bell}>
-            <Confetti className="confetti" active={this.state.hit100} config={confettiConfig} />
+            <Confetti className="confetti" active={this.state.confetti} config={confettiConfig} />
             <div style={style.volume}>{this.state.volume}</div>
           </div>
           <input style={style.slider} type="range" min="0" max="100" value={this.state.volume} />
