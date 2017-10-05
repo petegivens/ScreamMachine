@@ -36,7 +36,8 @@ const style = {
     height: 550,
     backgroundColor: '#ffe401',
     width: 100,
-    margin: 'auto'
+    margin: 'auto',
+    borderRadius: 2
   },
   slider: {
     width: 400,
