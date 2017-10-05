@@ -24,7 +24,7 @@ class App extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
-    this.goToProfile = this.goToProfile.bind(this);
+    this.showLegacy = this.showLegacy.bind(this);
     this.getLoginStatus();
   }
 
@@ -158,21 +158,16 @@ class App extends React.Component {
     } else if (this.state.page === 'Profile') {
       page = <Profile user={this.state.user} />;
     } else if (this.state.page === 'StressForm') {
-      page = <StressForm user={this.state.user} func={this.goToProfile}/>;
+      page = <StressForm user={this.state.user}/>;
     } else {
       page = <div> Page did not load </div>
     }
     return (
-      <Grid>
-        <Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
-        <Row>
-          <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} showLegacy={this.showLegacy.bind(this)} page={this.state.page}/>
-        </Row>
-        <Row>
-          {page}
-        </Row>
-      </Grid>
-    );
+      <div>
+        <NavBar isLoggedIn={this.state.isLoggedIn} showLegacy={this.showLegacy} page={this.state.page}/>
+        <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/>
+      </div>
+    )
   }
 }
 export default App;
