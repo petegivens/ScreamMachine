@@ -32,7 +32,7 @@ const style = {
     position: 'relative',
     display: 'block',
     height: 550,
-    backgroundColor: 'yellow',
+    backgroundColor: '#ffe401',
     width: 100,
     margin: 'auto'
   },
@@ -48,7 +48,7 @@ const style = {
   bell: {
     width: 120,
     height: 120,
-    backgroundColor: 'red',
+    backgroundColor: '#ed1b24',
     borderRadius: 100,
     marginLeft: -10,
     textAlign: 'center',
