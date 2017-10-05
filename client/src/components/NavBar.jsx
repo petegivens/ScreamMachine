@@ -24,7 +24,7 @@ const styles = theme => ({
   },
 });
 
-const NavBar = (props) => {
+const NavBar = ({ showLegacy, page }) => {
   return (
     <div className="navbar">
       <AppBar position="static">
@@ -33,6 +33,9 @@ const NavBar = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography type="title">Scream Machine</Typography>
+          <Button onClick={showLegacy}>
+            Toggle Legacy App
+          </Button>
           <Login />
         </Toolbar>
       </AppBar>

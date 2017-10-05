@@ -116,6 +116,7 @@ class App extends React.Component {
   }
 
   //handles all events from the nav bar
+  //PG - may need to rewrite all These
   navClickHandler(eventKey) {
     if (eventKey === 'logout') {
       this.setState({
@@ -140,6 +141,14 @@ class App extends React.Component {
     }
   }
 
+  showLegacy() {
+    if (this.state.page === 'Arcade'){
+      this.setState({ page: 'scream' })
+    } else {
+      this.setState({ page: 'Arcade' })
+    }
+  }
+
   goToProfile() {
     this.setState({page: 'Profile'});
   }
@@ -161,7 +170,7 @@ class App extends React.Component {
       <Grid>
         <Row> <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/> </Row>
         <Row>
-          <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} />
+          <NavBar isLoggedIn={this.state.isLoggedIn} func={this.navClickHandler} showLegacy={this.showLegacy.bind(this)} page={this.state.page}/>
         </Row>
         <Row>
           {page}
