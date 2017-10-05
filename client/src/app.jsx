@@ -88,7 +88,7 @@ class App extends React.Component {
       } else {
         context.setState({
           isLoggedIn: true,
-          user: username
+          user: result.data
         });
         context.closeModal();
       }

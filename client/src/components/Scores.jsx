@@ -2,7 +2,6 @@ import React from 'react';
 import Card, {CardHeader, CardContent} from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 
-
 const style = {
   card: {
     backgroundColor: '#36bfc7',
@@ -10,21 +9,20 @@ const style = {
   }
 }
 
-
-class SideBar extends React.Component {
+class Scores extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userHighScore: this.props.user.personalBest,
+      userHighScore: 1,
       highScores: []
     }
   }
 
-  changeScore() {
-    this.setState({
-      userHighScore: //something??
-    });
-  }
+  // changeScore() {
+  //   this.setState({
+  //     userHighScore: //something??
+  //   });
+  // }
 
   render() {
     return(
@@ -55,4 +53,4 @@ class SideBar extends React.Component {
   };
 };
 
-export default SideBar;
+export default Scores;
