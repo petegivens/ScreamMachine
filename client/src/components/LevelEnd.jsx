@@ -75,7 +75,7 @@ export default class LevelEnd extends React.Component {
     const score = this.state.payload.score;
 
     const passed = (
-      <Dialog open={this.state.open} onRequestClose={this.handleClose}>
+      <Dialog open={this.state.open}>
         <DialogTitle>{"You've Passed Level "+currentScore+"!"}</DialogTitle>
         <DialogContent>
           <div className="score"> Score: {score} </div>
@@ -111,7 +111,7 @@ export default class LevelEnd extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button onClick={this.handleClose} color="primary">
-            I'm Finished
+            Try Again
           </Button>
           <Button onClick={
             () => {
@@ -127,7 +127,7 @@ export default class LevelEnd extends React.Component {
 
 
     const failed = (
-      <Dialog open={this.state.open} onRequestClose={this.handleClose}>
+      <Dialog open={this.state.open}>
         <DialogTitle>{"You didn't pass this level"}</DialogTitle>
         <DialogContent>
           <div className="score"> Score: {score} </div>
@@ -166,7 +166,7 @@ export default class LevelEnd extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button onClick={this.handleClose} color="primary">
-            I'm Finished
+            Try Again
           </Button>
           <Button onClick={ () => {
               this.handleStartOver();
