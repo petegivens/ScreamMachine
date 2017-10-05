@@ -23,6 +23,7 @@ class App extends React.Component {
     this.navClickHandler = this.navClickHandler.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
     this.signup = this.signup.bind(this);
     this.showLegacy = this.showLegacy.bind(this);
     this.getLoginStatus();
@@ -63,21 +64,17 @@ class App extends React.Component {
     });
   }
 
-  signup() {
-    let username = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
-    let firstname = document.getElementById('firstname').value;
-    let lastname = document.getElementById('lastname').value;
+  signup(user) {
     const userTaken = 'That username is already taken. Please choose a different username.'
     let context = this;
     axios({
       method: 'post',
       url: '/addUser',
       data: {
-        username: username,
-        password: password,
-        first_name: firstname,
-        last_name: lastname
+        username: user.username,
+        password: user.password,
+        first_name: user.firstname,
+        last_name: user.lastname
       }
     })
     .then(function(result) {
@@ -147,6 +144,13 @@ class App extends React.Component {
     }
   }
 
+  logout() {
+    this.setState({
+      user: null,
+      isLoggedIn: false
+    })
+  }
+
   render() {
     var page;
     if (this.state.page === 'scream') {
@@ -162,8 +166,15 @@ class App extends React.Component {
     }
     return (
       <div>
-        <NavBar user={this.state.user} isLoggedIn={this.state.isLoggedIn} showLegacy={this.showLegacy} page={this.state.page} login={this.login}/>
-        <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/>
+        <NavBar
+          user={this.state.user}
+          isLoggedIn={this.state.isLoggedIn}
+          showLegacy={this.showLegacy}
+          page={this.state.page}
+          login={this.login}
+          logout={this.logout}
+          signup={this.signup}
+        />
         <div style={{marginTop:65}}>
           {page}
         </div>

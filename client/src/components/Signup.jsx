@@ -1,28 +1,117 @@
 import React from 'react';
-import {Modal, Button} from 'react-bootstrap';
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from 'material-ui/Dialog';
 
-const Signup = (props) => (
-  <div className="static-modal">
-    <Modal show={props.showSignup}>
-      <Modal.Header>
-        <Modal.Title>Sign Up</Modal.Title>
-      </Modal.Header>
-      <Modal.Body> 
-        <label>First Name:</label>
-        <input placeholder='FirstName' id='firstname'></input><br/>
-        <label>Last Name:</label>
-        <input placeholder='LastName' id='lastname'></input><br/>
-        <label>Username:</label>
-        <input placeholder='username' id='username'></input><br/>
-        <label>Password:</label>
-        <input placeholder='password' id='password' type='password'></input>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.closeModal}>Close</Button>
-        <Button bsStyle="primary" onClick={props.signup}>Sign Up</Button>
-      </Modal.Footer>
-    </Modal>
-  </div>
-)
+const styles = theme => ({
+  textField: {
+    margin: "auto",
+    width: 200
+  }
+});
 
-export default Signup;
+class Signup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      firstname: '',
+      lastname: '',
+      username: '',
+      password: '',
+      verifyPassword: ''
+    }
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.signup = props.signup;
+  }
+
+  handleOpen() {
+    this.setState({ open: true })
+  }
+
+  handleClose() {
+    this.setState({ open: false })
+  }
+
+  handleChange(name) {
+    return (event) => {
+      this.setState({
+        [name]: event.target.value,
+      });
+    }
+  }
+
+  render() {
+    const { classes, isLoggedIn } = this.props;
+    if (!isLoggedIn) {
+      return (
+        <div className="signupButton">
+          <Button onClick={this.handleOpen}>Sign Up</Button>
+          <Dialog open={this.state.open} onRequestClose={this.handleClose}>
+            <DialogTitle>{'Sign Up'}</DialogTitle>
+            <DialogContent>
+              <form>
+                <TextField
+                   label="First Name"
+                   placeholder="First Name"
+                   className={classes.textField}
+                   margin="normal"
+                   onChange={this.handleChange('firstname')}
+                 />
+                <TextField
+                  label="Last Name"
+                  placeholder="Last Name"
+                  className={classes.textField}
+                  margin="normal"
+                  onChange={this.handleChange('lastname')}
+                />
+                <TextField
+                   label="Enter username"
+                   placeholder="username"
+                   className={classes.textField}
+                   margin="normal"
+                   onChange={this.handleChange('username')}
+                 />
+                <TextField
+                  label="Enter password"
+                  placeholder="password"
+                  className={classes.textField}
+                  margin="normal"
+                  type="password"
+                  onChange={this.handleChange('password')}
+                />
+              </form>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose}>Cancel</Button>
+              <Button onClick={
+                () => {
+                  this.signup(
+                    {
+                      firstname: this.state.firstname,
+                      lastname: this.state.lastname,
+                      username: this.state.username,
+                      password: this.state.password
+                    }
+                  );
+                  this.handleClose();
+                }
+              }>Submit</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      )
+    } else {
+      return null
+    }
+  }
+}
+
+export default withStyles(styles)(Signup);
