@@ -24,7 +24,9 @@ const style = {
   striker: {
     background: 'linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%)',
     paddingTop: 20,
-    marginBottom: 20
+    marginBottom: 20,
+    position: 'relative',
+    height: 625
   },
   machine: {
     position: 'relative',
@@ -64,6 +66,25 @@ const style = {
     margin: 'auto',
     display: 'block',
     padding: 5
+  },
+  countdown: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    display: 'table',
+    width: '100%',
+    height: '100%',
+    background: 'rgba(0, 0, 0, 0.35)',
+    pointerEvents: 'none',
+    transition: 'all 0.25s linear',
+    opacity: 0
+  },
+  number: {
+    verticalAlign: 'middle',
+    textAlign: 'center',
+    display: 'table-cell',
+    fontSize: 180,
+    color: 'white'
   }
 }
 
@@ -74,16 +95,36 @@ class HighStriker extends React.Component {
     this.state = {
       status: 'stop',
       volume: 0,
-      confetti: false
+      confetti: false,
+      countdownNumber: null
     }
   }
 
   startRecording() {
-    var timeout = setTimeout(this.stopRecording.bind(this), 3000);
+    var countdown = (number) => {
+      this.setState({
+        countdownNumber: number
+      });
+      setTimeout(() => {
+        if (number === 1){
+          var timeout = setTimeout(this.stopRecording.bind(this), 3000);
+          this.setState({
+            status: 'start',
+            timeout,
+            countdownNumber: null
+          });
+          this.refs.countdown.style.opacity = 0;
+        } else {
+          countdown(number-1);
+        }
+      }, 1000);
+    }
+
+    this.refs.countdown.style.opacity = 1;
     this.setState({
-      status: 'start',
-      timeout
-    });
+      volume: 0
+    })
+    countdown(3);
   }
 
   stopRecording() {
@@ -127,8 +168,13 @@ class HighStriker extends React.Component {
           <input style={style.slider} type="range" min="0" max="100" value={this.state.volume} />
         </div>
         <Button onClick={this.startRecording.bind(this)} color="primary">
-          Start {this.props.currentScore}
+          Start
         </Button>
+        <div ref="countdown" style={style.countdown}>
+          <div style={style.number}>
+            {this.state.countdownNumber}
+          </div>
+        </div>
       </div>
     )
   }

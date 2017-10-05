@@ -116,7 +116,7 @@ button {
   outline: none;
   height: 30px;
   overflow: hidden;
-  cursor: pointer;
+  cursor: default;
 }
 .striker input[type='range'],
 .striker input[type='range']::-webkit-slider-runnable-track,
