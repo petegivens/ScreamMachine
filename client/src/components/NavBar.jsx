@@ -12,7 +12,7 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 
 const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
-  <AppBar position="absolute" className="navBar" square>
+  <AppBar position="absolute" >
     <Toolbar>
       <IconButton className="menuButton">
         <MenuIcon />
