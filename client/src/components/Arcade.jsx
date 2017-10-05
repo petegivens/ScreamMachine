@@ -3,6 +3,7 @@ import HighStriker from './HighStriker.jsx';
 import LevelEnd from './LevelEnd.jsx'
 import Scores from './Scores.jsx';
 import axios from 'axios';
+import Grid from 'material-ui/Grid';
 
 class Arcade extends React.Component {
   constructor(props) {
@@ -35,14 +36,15 @@ class Arcade extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <HighStriker setOpenLevelEnd={this.setOpenLevelEnd}/>
-          <Scores user={this.props.user} highScores={this.state.highScores} />
-        </div>
-        <br />
-        <div>
-          <LevelEnd open={this.state.openLevelEnd} payload={this.state.payload} />
-        </div>
+        <Grid container spacing={24}>
+          <Grid item xs={12} sm={4}>
+            <Scores user={this.props.user} highScores={this.state.highScores} />
+          </Grid>
+          <Grid item xs={12} sm={8}>
+              <HighStriker setOpenLevelEnd={this.setOpenLevelEnd}/>
+          </Grid>
+        </Grid>
+        <LevelEnd open={this.state.openLevelEnd} payload={this.state.payload} />
       </div>
     );
   }

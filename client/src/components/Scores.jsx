@@ -6,7 +6,7 @@ import HighScores from './HighScores.jsx'
 const style = {
   card: {
     backgroundColor: '#36bfc7',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   cardContent: {
     fontSize: '36px'
@@ -31,7 +31,7 @@ class Scores extends React.Component {
     return(
       <div>
         <Grid container spacing={24}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             {this.props.user ?
               <Card style={style.card}>
                 <CardHeader title="Your HIGHEST Score!"/>
@@ -44,7 +44,7 @@ class Scores extends React.Component {
               </Card>
             }
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <Card style={style.card}>
               <CardHeader title="Other Peoples High Score!"/>
               <CardContent>
