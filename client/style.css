@@ -135,7 +135,7 @@ button {
   height: 50px;
   width: 6px;
   margin-top: -20px;
-  background: red;
+  background: #ed1b24;
 }
 .striker input[type='range']::-webkit-slider-thumb::before {
   position: absolute;

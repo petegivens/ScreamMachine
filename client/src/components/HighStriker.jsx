@@ -26,15 +26,18 @@ const style = {
     paddingTop: 20,
     marginBottom: 20,
     position: 'relative',
-    height: 625
+    height: 625,
+    borderRadius: 2,
+    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
   },
   machine: {
     position: 'relative',
     display: 'block',
     height: 550,
-    backgroundColor: 'yellow',
+    backgroundColor: '#ffe401',
     width: 100,
-    margin: 'auto'
+    margin: 'auto',
+    borderRadius: 2
   },
   slider: {
     width: 400,
@@ -48,7 +51,7 @@ const style = {
   bell: {
     width: 120,
     height: 120,
-    backgroundColor: 'red',
+    backgroundColor: '#ed1b24',
     borderRadius: 100,
     marginLeft: -10,
     textAlign: 'center',
@@ -155,7 +158,7 @@ class HighStriker extends React.Component {
   }
 
   render() {
-    const sensitivity = 3 + (this.props.currentScore * 0.5);
+    const sensitivity = 3 + (this.props.currentScore * 0.1);
 
     return (
       <div className="striker" style={style.striker}>
