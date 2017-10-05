@@ -1,23 +1,15 @@
 import React from 'react';
 import Recorder from './Recorder.js';
-
 import Confetti from 'react-dom-confetti';
 import Button from 'material-ui/Button';
-
-// const confettiConfig = {
-//   angle: 90,
-//   spread: 146,
-//   startVelocity: 17,
-//   elementCount: 102,
-//   decay: 0.96
-// };
 
 const confettiConfig = {
   angle: 180,
   spread: 360,
   startVelocity: 31,
   elementCount: 200,
-  decay: 0.94
+  decay: 0.94,
+  ticks: 450
 };
 
 const style = {
@@ -96,37 +88,50 @@ class HighStriker extends React.Component {
     super(props);
 
     this.state = {
-      status: 'stop',
+      status: 'stop',  //controls the recorder
       volume: 0,
-      confetti: false,
+      confetti: false, //toggles the confetti
       countdownNumber: null
     }
   }
 
+  //triggered when 'Start' button is clicked
   startRecording() {
-    var countdown = (number) => {
-      this.setState({
-        countdownNumber: number
-      });
-      setTimeout(() => {
-        if (number === 1){
-          var timeout = setTimeout(this.stopRecording.bind(this), 3000);
-          this.setState({
-            status: 'start',
-            timeout,
-            countdownNumber: null
-          });
-          this.refs.countdown.style.opacity = 0;
-        } else {
-          countdown(number-1);
-        }
-      }, 1000);
-    }
-
+    //show the countdown container
     this.refs.countdown.style.opacity = 1;
+
+    //set the volume back to 0
     this.setState({
       volume: 0
     })
+
+    var countdown = (number) => {
+      //set the countdown number to display
+      this.setState({
+        countdownNumber: number
+      });
+
+      //if number is 0 then fade out the countdown container
+      if (number === 0) {
+        //set timeout to stop recording after 3 seconds
+        var timeout = setTimeout(this.stopRecording.bind(this), 3000);
+        //update state to start recording, save the timeout ref, and clear the countdown number
+        this.setState({
+          status: 'start',
+          timeout,
+          countdownNumber: null
+        });
+        //hide the countdown container
+        this.refs.countdown.style.opacity = 0;
+      } else {
+        //set a 1 second timeout to call 'countdown' on the number - 1
+        setTimeout(() => {
+          countdown(number-1);
+        }, 1000);
+      }
+    }
+
+    //start countdown at 3
     countdown(3);
   }
 
