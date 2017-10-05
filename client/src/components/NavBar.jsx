@@ -11,23 +11,6 @@ import LegacySwitch from './LegacySwitch.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 
-const styles = theme => ({
-  root: {
-    marginTop: theme.spacing.unit * 3,
-    width: '100%',
-  },
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  login: {
-    float: 'right'
-  }
-});
-
 const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
   <AppBar position="absolute" className="navBar" square>
     <Toolbar>
@@ -48,4 +31,4 @@ const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
   </AppBar>
 )
 
-export default withStyles(styles)(NavBar);
+export default NavBar;

@@ -27,7 +27,7 @@ class Scores extends React.Component {
 
     const styles = {
       card: {
-        backgroundColor: primary,
+        backgroundColor: accent,
         textAlign: 'center',
       },
       cardContent: {
