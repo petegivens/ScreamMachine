@@ -88,7 +88,7 @@ class App extends React.Component {
       } else {
         context.setState({
           isLoggedIn: true,
-          user: username
+          user: result.data
         });
         context.closeModal();
       }
@@ -109,7 +109,7 @@ class App extends React.Component {
         if(results.data.isLoggedIn !== status.state.isLoggedIn) {
           status.setState({
             isLoggedIn: true,
-            user: results.data.username
+            user: results.data
           });
         }
       });
