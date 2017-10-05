@@ -10,6 +10,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import green from 'material-ui/colors/green';
 import LegacySwitch from './LegacySwitch.jsx';
 import Login from './Login.jsx';
+import Signup from './Signup.jsx';
 
 const styles = theme => ({
   root: {
@@ -26,7 +27,7 @@ const styles = theme => ({
 
 });
 
-const NavBar = ({ showLegacy, login, logout, user, isLoggedIn }) => (
+const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
   <AppBar position="absolute" className="navBar">
     <Toolbar>
       <IconButton className="menuButton">
@@ -40,6 +41,7 @@ const NavBar = ({ showLegacy, login, logout, user, isLoggedIn }) => (
         logout={logout}
         isLoggedIn={isLoggedIn}
       />
+      <Signup signup={signup} isLoggedIn={isLoggedIn}/>
     </Toolbar>
   </AppBar>
 )

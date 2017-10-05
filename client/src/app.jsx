@@ -64,21 +64,17 @@ class App extends React.Component {
     });
   }
 
-  signup() {
-    let username = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
-    let firstname = document.getElementById('firstname').value;
-    let lastname = document.getElementById('lastname').value;
+  signup(user) {
     const userTaken = 'That username is already taken. Please choose a different username.'
     let context = this;
     axios({
       method: 'post',
       url: '/addUser',
       data: {
-        username: username,
-        password: password,
-        first_name: firstname,
-        last_name: lastname
+        username: user.username,
+        password: user.password,
+        first_name: user.firstname,
+        last_name: user.lastname
       }
     })
     .then(function(result) {
@@ -177,8 +173,8 @@ class App extends React.Component {
           page={this.state.page}
           login={this.login}
           logout={this.logout}
+          signup={this.signup}
         />
-        <Signup closeModal={this.closeModal} showSignup={this.state.showSignup} signup={this.signup}/>
         <div style={{marginTop:65}}>
           {page}
         </div>
