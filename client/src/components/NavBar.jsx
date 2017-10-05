@@ -23,10 +23,13 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
+  navBar: {
+    marginBottom: 100
+  }
 });
 
 const NavBar = ({ showLegacy }) => (
-  <AppBar position="fixed" >
+  <AppBar position="absolute" className="navBar">
     <Toolbar>
       <IconButton className="menuButton">
         <MenuIcon />
