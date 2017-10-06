@@ -22,6 +22,8 @@ const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 const GooglePlusIcon = generateShareIcon('google');
 
+import axios from 'axios';
+
 
 export default class LevelEnd extends React.Component {
   constructor(props) {
@@ -35,6 +37,7 @@ export default class LevelEnd extends React.Component {
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleNextLevel = this.handleNextLevel.bind(this)
+    this.handleScore = this.handleScore.bind(this)
   };
 
   handleOpen() {
@@ -52,7 +55,28 @@ export default class LevelEnd extends React.Component {
   handleNextLevel() {
     //change the state of HighStriker to go up to the next level
     this.props.nextLevel();
-    // this.handleClose();
+  }
+
+  handleScore() {
+    var personalBest = this.props.user.personalBest
+    const currentScore = this.props.currentScore
+    //check to see if user current score is greater than users high score
+      //if true post new high score to database
+    if (currentScore > personalBest) {
+      console.log('post high score')
+      axios({
+        method:'POST',
+        url:'/addScore',
+        data: {
+          user: this.props.user,
+          score: currentScore
+        }
+      }).then(function(result) {
+        console.log('result', result)
+      }).catch(function(err){
+        console.log(err)
+      })
+    }
   }
 
   handleStartOver() {
@@ -65,7 +89,7 @@ export default class LevelEnd extends React.Component {
       open: nextProps.open,
       payload: nextProps.payload
     })
-    console.log('will receive props', this.props)
+    console.log('will receive props', this.props.user)
   }
 
   render () {
@@ -75,7 +99,7 @@ export default class LevelEnd extends React.Component {
     const score = this.state.payload.score;
 
     const passed = (
-      <Dialog open={this.state.open} onRequestClose={this.handleClose}>
+      <Dialog open={this.state.open}>
         <DialogTitle>{"You've Passed Level "+currentScore+"!"}</DialogTitle>
         <DialogContent>
           <div className="score"> Score: {score} </div>
@@ -110,12 +134,17 @@ export default class LevelEnd extends React.Component {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleClose} color="primary">
-            I'm Finished
+        <Button onClick={() => {
+            this.handleClose();
+            this.handleScore();
+            }}
+            color="primary">
+            Try Again
           </Button>
           <Button onClick={
             () => {
               this.handleNextLevel();
+              this.handleScore();
               this.handleClose();
                 }}
               color="primary">
@@ -127,7 +156,7 @@ export default class LevelEnd extends React.Component {
 
 
     const failed = (
-      <Dialog open={this.state.open} onRequestClose={this.handleClose}>
+      <Dialog open={this.state.open}>
         <DialogTitle>{"You didn't pass this level"}</DialogTitle>
         <DialogContent>
           <div className="score"> Score: {score} </div>
@@ -165,11 +194,16 @@ export default class LevelEnd extends React.Component {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.handleClose} color="primary">
-            I'm Finished
+          <Button onClick={() => {
+              this.handleClose();
+              this.handleScore();
+              }}
+              color="primary">
+            Try Again
           </Button>
           <Button onClick={ () => {
               this.handleStartOver();
+              this.handleScore();
               this.handleClose();}
               }
               color="primary">

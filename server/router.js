@@ -241,6 +241,7 @@ app.post('/addAverages', function(req, res) {
 
 //
 app.post('/addScore', function(req, res) {
+	console.log('req body', req.body)
 	db.addScore(req.body.user, req.body.score)
 	.then(function(data) {
 		res.status(201).send(data);
