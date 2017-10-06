@@ -12,17 +12,24 @@ const styles = {
   media: {
     height: 100,
   },
+  typography: {
+    textAlign: 'center'
+  }
 };
 
 var Resources = () => {
   return (
-      <Card>
+      <Card style={styles.card}>
         <CardContent>
-          <Typography type="headline" component="h2">
-            Resources
-          </Typography>
-          <Typography type="body2">
+        <CardMedia
+          style={styles.media}
+          image="../models/relax.jpg"
+        />
+          <Typography type="headline" component="h2" style={styles.typography}>
             Chill Out
+          </Typography>
+          <Typography type="body2" style={styles.typography}>
+            Here Are Some Resources To Stay Calm
           </Typography>
         </CardContent>
         <CardActions>
