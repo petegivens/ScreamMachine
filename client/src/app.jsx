@@ -37,6 +37,7 @@ class App extends React.Component {
     this.logout = this.logout.bind(this);
     this.signup = this.signup.bind(this);
     this.showLegacy = this.showLegacy.bind(this);
+    this.goToProfile = this.goToProfile.bind(this);
     this.getLoginStatus();
   }
 
@@ -143,6 +144,7 @@ class App extends React.Component {
         this.setState({page: 'Profile'});
       } else if (eventKey === 'StressForm')  {
         //goes to daily stress form
+        console.log('hi')
         this.setState({page: 'StressForm'});
       }
     }
@@ -163,16 +165,20 @@ class App extends React.Component {
     })
   }
 
+  goToProfile() {
+    this.setState({page: 'Profile'});
+  }
+
   render() {
     var page;
     if (this.state.page === 'scream') {
       page = <Scream user={this.state.user}/>;
     } else if (this.state.page === 'Arcade') {
-      page = <Arcade user={this.state.user} />;
+      page = <Arcade user={this.state.user}/>;
     } else if (this.state.page === 'Profile') {
-      page = <Profile user={this.state.user} />;
+      page = <Profile />;
     } else if (this.state.page === 'StressForm') {
-      page = <StressForm user={this.state.user}/>;
+      page = <StressForm func={this.goToProfile}/>;
     } else {
       page = <div> Page did not load </div>
     }
@@ -187,6 +193,8 @@ class App extends React.Component {
             login={this.login}
             logout={this.logout}
             signup={this.signup}
+            navHandler={this.navClickHandler}
+            func={this.goToProfile}
           />
           <div style={{marginTop:65}}>
             {page}

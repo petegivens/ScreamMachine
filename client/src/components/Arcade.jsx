@@ -9,6 +9,7 @@ class Arcade extends React.Component {
   constructor(props) {
     super(props);
 
+    //user object is getting passed down by a prop
     this.state = {
       openLevelEnd: false,
       payload: {},
@@ -47,7 +48,7 @@ class Arcade extends React.Component {
     this.setState({
       currentScore: nextLevel,
       openLevelEnd: false
-    }, console.log(this.state.currentScore))
+    })
   }
 
   render() {
