@@ -62,7 +62,14 @@ app.get('/getStatus', function(req, res) {
 				res.send(sessionObj);
 			})
 		})
+	} else {
+		let sessionObj = {
+			isLoggedIn : false,
+			user: {}
+		}
+		res.send(sessionObj);
 	}
+
 });
 
 app.get('/getUsers', function(req, res) {
