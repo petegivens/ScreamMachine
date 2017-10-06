@@ -26,6 +26,7 @@ class Signup extends React.Component {
       firstname: '',
       lastname: '',
       username: '',
+      github_username: '',
       password: '',
       verifyPassword: ''
     }
@@ -61,12 +62,12 @@ class Signup extends React.Component {
             <DialogContent>
               <form>
                 <TextField
-                   label="First Name"
-                   placeholder="First Name"
-                   className={classes.textField}
-                   margin="normal"
-                   onChange={this.handleChange('firstname')}
-                 />
+                  label="First Name"
+                  placeholder="First Name"
+                  className={classes.textField}
+                  margin="normal"
+                  onChange={this.handleChange('firstname')}
+                />
                 <TextField
                   label="Last Name"
                   placeholder="Last Name"
@@ -75,14 +76,21 @@ class Signup extends React.Component {
                   onChange={this.handleChange('lastname')}
                 />
                 <TextField
-                   label="Enter username"
-                   placeholder="username"
-                   className={classes.textField}
-                   margin="normal"
-                   onChange={this.handleChange('username')}
-                 />
+                  label="Enter Github Username"
+                  placeholder="github username"
+                  className={classes.textField}
+                  margin="normal"
+                  onChange={this.handleChange('github_username')}
+                />
                 <TextField
-                  label="Enter password"
+                  label="Enter Username"
+                  placeholder="username"
+                  className={classes.textField}
+                  margin="normal"
+                  onChange={this.handleChange('username')}
+                />
+                <TextField
+                  label="Enter Password"
                   placeholder="password"
                   className={classes.textField}
                   margin="normal"
@@ -100,7 +108,8 @@ class Signup extends React.Component {
                       firstname: this.state.firstname,
                       lastname: this.state.lastname,
                       username: this.state.username,
-                      password: this.state.password
+                      password: this.state.password,
+                      github_username: this.state.github_username
                     }
                   );
                   this.handleClose();

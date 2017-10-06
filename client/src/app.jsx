@@ -85,7 +85,8 @@ class App extends React.Component {
         username: user.username,
         password: user.password,
         first_name: user.firstname,
-        last_name: user.lastname
+        last_name: user.lastname,
+        github_username: user.github_username
       }
     })
     .then(function(result) {

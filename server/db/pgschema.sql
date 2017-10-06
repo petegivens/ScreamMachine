@@ -4,6 +4,7 @@ CREATE TABLE users (
   password varchar(255),
   first_name varchar(255),
   last_name varchar(255),
+  github_username varchar(255),
   PRIMARY KEY (ID)
 );
 
