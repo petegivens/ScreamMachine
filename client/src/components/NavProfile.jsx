@@ -46,7 +46,7 @@ class NavProfile extends React.Component {
             onChange={this.handleChange}
           >
             <option>Select Page</option>
-            <option value="scream">Scream</option>
+            <option value="scream">Home</option>
             <option value="Profile">Your Graphs</option>
             <option value="StressForm">Stress Form</option>
           </Select>

@@ -146,7 +146,6 @@ class App extends React.Component {
         this.setState({page: 'Profile'});
       } else if (eventKey === 'StressForm')  {
         //goes to daily stress form
-        console.log('hi')
         this.setState({page: 'StressForm'});
       }
     }
