@@ -9,14 +9,14 @@ import Dialog, {
   DialogTitle
 } from 'material-ui/Dialog';
 
-const styles = theme => ({
+const styles = {
   textField: {
     marginLeft: 100,
     marginRight: 100,
     marginBottom: 15,
     display: "block"
   }
-});
+}
 
 class Signup extends React.Component {
   constructor(props) {

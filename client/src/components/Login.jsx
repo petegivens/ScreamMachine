@@ -9,12 +9,14 @@ import Dialog, {
   DialogTitle
 } from 'material-ui/Dialog';
 
-const styles = theme => ({
+const styles = {
   textField: {
-    margin: "auto",
+    marginLeft: 100,
+    marginRight: 100,
+    marginBottom: 15,
     display: "block"
   }
-});
+}
 
 
 class Login extends React.Component {
