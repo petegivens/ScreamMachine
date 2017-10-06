@@ -44,11 +44,25 @@ update state accordingly
 */
 app.get('/getStatus', function(req, res) {
 	// console.log('This is the current req session ',req.session.isLoggedIn);
-	let sessionObj = {
-		isLoggedIn : req.session.isLoggedIn || false,
-		username: req.session.username || undefined
+
+	if (req.session.username) {
+		db.getUserData({username: req.session.username})
+		.then(function(userObj){
+			return db.getHighScore(userObj)
+			.then((result) => {
+				if (result.length > 0) {
+					userObj.personalBest = result[0].score
+				} else {
+					userObj.personalBest = 1;
+				}
+				let sessionObj = {
+					isLoggedIn : req.session.isLoggedIn || false,
+					user: userObj
+				}
+				res.send(sessionObj);
+			})
+		})
 	}
-	res.send(sessionObj);
 });
 
 app.get('/getUsers', function(req, res) {

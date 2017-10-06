@@ -115,9 +115,10 @@ class App extends React.Component {
     axios.get('/getStatus')
       .then((results) => {
         if(results.data.isLoggedIn !== status.state.isLoggedIn) {
+          console.log('STATUS', results.data);
           status.setState({
             isLoggedIn: true,
-            user: results.data
+            user: results.data.user
           });
         }
       });
