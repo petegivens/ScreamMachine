@@ -10,12 +10,7 @@ import Paper from 'material-ui/Paper';
 class Scores extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userHighScore: 1,
-    }
   }
-
-
 
   render() {
     const { theme } = this.props;

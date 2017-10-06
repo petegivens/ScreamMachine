@@ -48,11 +48,11 @@ class Arcade extends React.Component {
     this.setState({
       currentScore: nextLevel,
       openLevelEnd: false
-    })
+    });
+    this.props.updateUserScore(this.state.currentScore);
   }
 
   render() {
-    console.log(this.props.user)
     return (
       <div>
         <Grid container spacing={24}>
