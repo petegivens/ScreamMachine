@@ -48,7 +48,7 @@ class Signup extends React.Component {
   handleChange(name) {
     return (event) => {
       this.setState({
-        [name]: event.target.value
+        [name]: event.target.value,handleSubmit
       });
     }
   }
@@ -97,6 +97,13 @@ class Signup extends React.Component {
                   onChange={this.handleChange('lastname')}
                 />
                 <TextField
+                  label="Github Username"
+                  placeholder="github username"
+                  className={classes.textField}
+                  margin="normal"
+                  onChange={this.handleChange('github_username')}
+                />
+                <TextField
                   label="Enter Username"
                   placeholder="username"
                   className={classes.textField}
@@ -110,13 +117,6 @@ class Signup extends React.Component {
                   margin="normal"
                   type="password"
                   onChange={this.handleChange('password')}
-                />
-                <TextField
-                label="Github username"
-                placeholder="github username"
-                className={classes.textField}
-                margin="normal"
-                onChange={this.handleChange('github_username')}
                 />
               </form>
             </DialogContent>
