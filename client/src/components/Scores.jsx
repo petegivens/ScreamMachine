@@ -40,7 +40,6 @@ class Scores extends React.Component {
         textAlign: 'center'
       },
       carnival: {
-        boxShadow: 'none',
         fontFamily: 'circusregular',
         fontSize: '44px',
         textAlign: 'center',

@@ -2,6 +2,7 @@ import React from 'react';
 import Recorder from './Recorder.js';
 import Confetti from 'react-dom-confetti';
 import Button from 'material-ui/Button';
+import { withTheme } from 'material-ui/styles';
 
 const confettiConfig = {
   angle: 180,
@@ -95,9 +96,11 @@ class HighStriker extends React.Component {
   }
 
   render() {
+    const background = this.props.theme.palette.secondary[200]
+
     const style = {
       striker: {
-        background: 'linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%)',
+        background: background,
         paddingTop: 20,
         marginBottom: 20,
         position: 'relative',
@@ -191,4 +194,4 @@ class HighStriker extends React.Component {
   }
 }
 
-export default HighStriker;
+export default withTheme()(HighStriker);
