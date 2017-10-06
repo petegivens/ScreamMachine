@@ -4,6 +4,12 @@ import Avatar from 'material-ui/Avatar';
 import List, { ListItem, ListItemText, ListItemAvatar } from 'material-ui/List';
 import axios from 'axios';
 import Divider from 'material-ui/Divider';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 
 const style = {
   chip: {
@@ -21,9 +27,12 @@ class HighScores extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      open: false
     }
     this.randomPicGenerator = this.randomPicGenerator.bind(this)
+    this.handleRequestClose = this.handleRequestClose.bind(this)
+    this.handleClickOpen = this.handleClickOpen.bind(this)
+
   }
 
   componentWillMount() {
@@ -37,9 +46,15 @@ class HighScores extends React.Component {
     })
   }
 
-  onClick() {
-    console.log('clicked')
-  }
+
+
+  handleClickOpen() {
+    this.setState({ open: true });
+  };
+
+  handleRequestClose() {
+    this.setState({ open: false });
+  };
 
 
   randomPicGenerator() {
@@ -66,7 +81,16 @@ class HighScores extends React.Component {
   render() {
     return(
       <div>
-        <ListItem button onClick={this.onClick}>
+        <ListItem button onClick={this.handleClickOpen}>
+          <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
+            <DialogTitle>Check out {this.props.highScore.first_name}'s Github!</DialogTitle>
+              <ListItem >
+                <ListItemAvatar>
+                  <Avatar size={60} src={this.state.userPic}></Avatar>
+                  </ListItemAvatar>
+                 <ListItemText primary={`github.com/${this.props.highScore.github_username}`} />
+              </ListItem>
+            </Dialog>
           <ListItemAvatar>
             <Avatar  size={30} src={this.state.userPic} />
           </ListItemAvatar>
@@ -77,5 +101,7 @@ class HighScores extends React.Component {
     );
   };
 };
+
+                    // <ListItemText primary= {`github.com/${this.props.highScore.username}`} />
 
 export default HighScores;
