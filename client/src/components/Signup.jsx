@@ -97,6 +97,16 @@ class Signup extends React.Component {
                   onChange={this.handleChange('lastname')}
                 />
                 <TextField
+<<<<<<< HEAD
+=======
+                  label="Github Username"
+                  placeholder="github username"
+                  className={classes.textField}
+                  margin="normal"
+                  onChange={this.handleChange('github_username')}
+                />
+                <TextField
+>>>>>>> change github username label on signup form
                   label="Enter Username"
                   placeholder="username"
                   className={classes.textField}
