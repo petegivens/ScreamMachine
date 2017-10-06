@@ -11,7 +11,6 @@ import LegacySwitch from './LegacySwitch.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import { withTheme } from 'material-ui/styles';
-import white from 'material-ui/colors';
 
 const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
   <AppBar position="absolute" >
