@@ -43,7 +43,7 @@ class Scores extends React.Component {
         lineHeight: '38px'
       }
     }
-
+  
     return(
       <div>
         <Grid container spacing={24}>
