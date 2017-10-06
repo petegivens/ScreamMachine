@@ -173,10 +173,10 @@ class App extends React.Component {
 
   updateUserScore(score) {
     if (score > this.state.user.personalBest){
+      var user = this.state.user;
+      user.personalBest = score;
       this.setState({
-        user: {
-          personalBest: score
-        }
+        user: user
       })
     }
   }
