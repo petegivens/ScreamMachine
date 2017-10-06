@@ -24,6 +24,7 @@ class NavProfile extends React.Component {
     this.state = {
       value: ''
     }
+
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -32,10 +33,9 @@ class NavProfile extends React.Component {
     this.setState({
       value: newValue
     })
-
-    console.log(this.props)
-
+    
     this.props.navHandler(newValue)
+
   }
 
   render (){

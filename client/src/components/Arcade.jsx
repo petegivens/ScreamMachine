@@ -68,7 +68,9 @@ class Arcade extends React.Component {
           startOver={this.startOverLevel}
           nextLevel={this.nextLevel}
           open={this.state.openLevelEnd}
-          payload={this.state.payload} />
+          payload={this.state.payload}
+          user={this.props.user}
+           />
       </div>
     );
   }
