@@ -14,6 +14,7 @@ export default class LegacySwitch extends React.Component {
   }
 
   render() {
+    const { page } = this.props;
     return (
       <FormControlLabel
         control={
@@ -26,7 +27,7 @@ export default class LegacySwitch extends React.Component {
             }
           />
         }
-        label="LEGACY APP"
+        label='LEGACY MODE'
       />
     )
   }

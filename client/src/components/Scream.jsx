@@ -4,6 +4,7 @@ import ScreamButton from './ScreamButton.jsx';
 import Images from './Images.jsx';
 import Grid from 'material-ui/Grid';
 import Button from 'material-ui/Button';
+import Paper from 'material-ui/Paper';
 import Resources from './Resources.jsx';
 import axios from 'axios';
 import P5Wrapper from 'react-p5-wrapper';
@@ -146,7 +147,9 @@ class Scream extends React.Component {
           </Grid>
         </div>
           <Grid item xs={12} justify={'center'} container={true} id='ScreamMeter'>
-            <P5Wrapper sketch={sketch} />
+            <Paper elevation={8}>
+              <P5Wrapper sketch={sketch} />
+            </Paper>
           </Grid>
       </div>
 
