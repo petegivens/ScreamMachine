@@ -9,14 +9,14 @@ import Dialog, {
   DialogTitle
 } from 'material-ui/Dialog';
 
-const styles = theme => ({
+const styles = {
   textField: {
     marginLeft: 100,
     marginRight: 100,
     marginBottom: 15,
     display: "block"
   }
-});
+}
 
 class Signup extends React.Component {
   constructor(props) {
@@ -32,6 +32,8 @@ class Signup extends React.Component {
     }
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.signup = props.signup;
   }
 
@@ -46,8 +48,26 @@ class Signup extends React.Component {
   handleChange(name) {
     return (event) => {
       this.setState({
-        [name]: event.target.value,
+        [name]: event.target.value,handleSubmit
       });
+    }
+  }
+
+  handleSubmit() {
+    this.signup(
+      {
+        firstname: this.state.firstname,
+        lastname: this.state.lastname,
+        username: this.state.username,
+        password: this.state.password
+      }
+    );
+    this.handleClose();
+  }
+
+  handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      this.handleSubmit();
     }
   }
 
@@ -60,7 +80,7 @@ class Signup extends React.Component {
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
             <DialogTitle>{'Sign Up'}</DialogTitle>
             <DialogContent>
-              <form>
+              <form onKeyPress={this.handleKeyPress}>
                 <TextField
                   label="First Name"
                   placeholder="First Name"
@@ -101,20 +121,7 @@ class Signup extends React.Component {
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose}>Cancel</Button>
-              <Button onClick={
-                () => {
-                  this.signup(
-                    {
-                      firstname: this.state.firstname,
-                      lastname: this.state.lastname,
-                      username: this.state.username,
-                      password: this.state.password,
-                      github_username: this.state.github_username
-                    }
-                  );
-                  this.handleClose();
-                }
-              }>Submit</Button>
+              <Button onClick={this.handleSubmit}>Submit</Button>
             </DialogActions>
           </Dialog>
         </div>
