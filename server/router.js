@@ -113,6 +113,11 @@ app.get('/getHighScores', function(req, res) {
     })
 });
 
+app.get('/logout', function(req, res) {
+	req.session.destroy()
+	res.send('Logged out');
+})
+
 /**************************************************
  *
  *  POST Requests:
