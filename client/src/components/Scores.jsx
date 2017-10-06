@@ -9,16 +9,7 @@ import Chip from 'material-ui/Chip';
 class Scores extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userHighScore: 1,
-    }
   }
-
-  // changeScore() {
-  //   this.setState({
-  //     userHighScore: //something??d
-  //   });
-  // }
 
   render() {
     const { theme } = this.props;
