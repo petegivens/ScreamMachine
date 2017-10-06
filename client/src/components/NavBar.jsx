@@ -17,12 +17,12 @@ const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup, page, nav
     return (
       <AppBar position="absolute" color={background}>
         <Toolbar>
-          {(page === 'scream' || page === 'Profile' || page === 'StressForm') &&
-            <NavProfile navHandler={navHandler}/>
-          }
           <div style={{ flex: 1 }}>
             <LegacySwitch showLegacy={showLegacy} page={page}/>
           </div>
+          {(page === 'scream' || page === 'Profile' || page === 'StressForm') &&
+          <NavProfile navHandler={navHandler}/>
+          }
           <Signup signup={signup} isLoggedIn={isLoggedIn}/>
           <Login
           user={user}

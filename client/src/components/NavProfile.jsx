@@ -33,7 +33,7 @@ class NavProfile extends React.Component {
     this.setState({
       value: newValue
     })
-    
+
     this.props.navHandler(newValue)
 
   }
@@ -45,7 +45,8 @@ class NavProfile extends React.Component {
             value={this.state.value}
             onChange={this.handleChange}
           >
-            <option> Info </option>
+            <option>Select Page</option>
+            <option value="scream">Scream</option>
             <option value="Profile">Your Graphs</option>
             <option value="StressForm">Stress Form</option>
           </Select>
