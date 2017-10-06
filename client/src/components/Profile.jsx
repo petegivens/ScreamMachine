@@ -21,7 +21,7 @@ class Profile extends React.Component {
   getScreams() {
     axios.get('/getScream', {
       params: {
-	user: this.props.user
+	       user: this.props.user
       }
     })
       .then( (screams) => {
@@ -91,7 +91,7 @@ class Profile extends React.Component {
     // have to hard code top
     return (
       <Grid>
-      	<Row> <h1> Hi {this.props.user} </h1> </Row>
+      	<Row> <h1> Hi {this.props.user.username} </h1> </Row>
       	<Row> Your average stress level is {this.state.stressLevel} </Row>
       	<Row> We have analzyed your data and think your top stressors are hanging out with <b> {this.state.top.people} </b> and  going to <b>{this.state.top.places}</b> </Row>
       	<Row>

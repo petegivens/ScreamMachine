@@ -63,7 +63,6 @@ export default class LevelEnd extends React.Component {
     //check to see if user current score is greater than users high score
       //if true post new high score to database
     if (currentScore > personalBest) {
-      console.log('post high score')
       axios({
         method:'POST',
         url:'/addScore',
@@ -72,9 +71,6 @@ export default class LevelEnd extends React.Component {
           score: currentScore
         }
       }).then(function(result) {
-        console.log('result', result)
-      }).catch(function(err){
-        console.log(err)
       })
     }
   }
@@ -89,7 +85,6 @@ export default class LevelEnd extends React.Component {
       open: nextProps.open,
       payload: nextProps.payload
     })
-    // console.log('will receive props', this.props.user)
   }
 
   render () {
@@ -116,7 +111,7 @@ export default class LevelEnd extends React.Component {
           <div className="sharebutton">
             <TwitterShareButton
               url={url}
-              quote={quote}>
+              title={quote}>
               <TwitterIcon
                 size={32}
               square />
@@ -173,7 +168,7 @@ export default class LevelEnd extends React.Component {
           <div className="sharebutton">
             <TwitterShareButton
               url={url}
-              quote={quote}>
+              title={quote}>
               <TwitterIcon
                 size={32}
               square />
