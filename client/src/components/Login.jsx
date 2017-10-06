@@ -29,9 +29,10 @@ class Login extends React.Component {
     }
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.login = props.login;
     this.logout = props.logout;
-
   }
 
   handleOpen() {
@@ -50,6 +51,18 @@ class Login extends React.Component {
     }
   }
 
+  handleSubmit() {
+    this.login({ username: this.state.username, password: this.state.password });
+    this.handleClose();
+  }
+
+  handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      alert('key pressed');
+      this.handleSubmit();
+    }
+  }
+
   render() {
     const { classes, user, isLoggedIn } = this.props;
     if (!isLoggedIn) {
@@ -59,7 +72,7 @@ class Login extends React.Component {
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
             <DialogTitle>{'Login'}</DialogTitle>
             <DialogContent>
-              <form>
+              <form onKeyPress={this.handleKeyPress}>
                 <TextField
                    label="Enter username"
                    placeholder="username"
@@ -79,12 +92,7 @@ class Login extends React.Component {
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleClose}>Cancel</Button>
-              <Button onClick={
-                () => {
-                  this.login({ username: this.state.username, password: this.state.password });
-                  this.handleClose();
-                }
-              }>Submit</Button>
+              <Button onClick={this.handleSubmit}>Submit</Button>
             </DialogActions>
           </Dialog>
         </div>
