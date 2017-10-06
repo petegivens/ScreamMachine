@@ -23,7 +23,7 @@ class Scores extends React.Component {
   render() {
     const { theme } = this.props;
     const primary = theme.palette.primary[500];
-    const accent = theme.palette.secondary[500];
+    const accent = theme.palette.secondary[200];
 
     const styles = {
       card: {
@@ -43,7 +43,8 @@ class Scores extends React.Component {
         boxShadow: 'none',
         fontFamily: 'circusregular',
         fontSize: '44px',
-        textAlign: 'center'
+        textAlign: 'center',
+        backgroundColor: accent
       },
       title: {
         color: theme.palette.primary[500],

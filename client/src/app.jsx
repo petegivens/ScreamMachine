@@ -9,13 +9,13 @@ import StressForm from './components/StressForm.jsx';
 import {Row,Grid,Col,Button} from 'react-bootstrap';
 import axios from 'axios';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import { cyan, red, yellow } from 'material-ui/colors';
+import { lightBlue, red } from 'material-ui/colors';
 
 const theme = createMuiTheme({
   palette: {
     primary: red,
-    secondary: cyan,
-    error: yellow
+    secondary: lightBlue,
+    error: red
   }
 });
 
