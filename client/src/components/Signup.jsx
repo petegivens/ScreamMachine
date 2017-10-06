@@ -97,11 +97,6 @@ class Signup extends React.Component {
                   onChange={this.handleChange('lastname')}
                 />
                 <TextField
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 5e70df5ee3109769dd407cf9add714532aeeee3c
                   label="Github Username"
                   placeholder="github username"
                   className={classes.textField}
@@ -109,10 +104,6 @@ class Signup extends React.Component {
                   onChange={this.handleChange('github_username')}
                 />
                 <TextField
-<<<<<<< HEAD
->>>>>>> change github username label on signup form
-=======
->>>>>>> 5e70df5ee3109769dd407cf9add714532aeeee3c
                   label="Enter Username"
                   placeholder="username"
                   className={classes.textField}
