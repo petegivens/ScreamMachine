@@ -44,6 +44,10 @@ class Scores extends React.Component {
         fontFamily: 'circusregular',
         fontSize: '44px',
         textAlign: 'center'
+      },
+      title: {
+        color: theme.palette.primary[500],
+        lineHeight: '38px'
       }
     }
 
@@ -51,11 +55,11 @@ class Scores extends React.Component {
       <div>
         <Grid container spacing={24}>
           <Grid item xs={12} sm={12}>
-          <Card style={styles.carnival} >
-            <CardContent>
-                CARNIVAL SCREAM MACHINE
-            </CardContent>
-          </Card>
+            <Card style={styles.carnival} >
+              <CardContent>
+                <span style={styles.title}>CARNIVAL SCREAM MACHINE</span>
+              </CardContent>
+            </Card>
           </Grid>
           <Grid item xs={12} sm={12}>
             {this.props.user ?
@@ -71,11 +75,11 @@ class Scores extends React.Component {
                   </Grid>
                 </Grid>
               </Card>
-              :
-              <Card style={styles.card}>
-                <CardHeader title="Your Current Score!"/>
-                <CardContent style={styles.cardContent}>{this.props.currentScore}</CardContent>
-              </Card>
+            :
+            <Card style={styles.card}>
+              <CardHeader title="Your Current Score!"/>
+              <CardContent style={styles.cardContent}>{this.props.currentScore}</CardContent>
+            </Card>
             }
           </Grid>
           <Grid item xs={12} sm={12}>
@@ -83,7 +87,7 @@ class Scores extends React.Component {
               <CardHeader title="HIGH SCORES"/>
               <CardContent>
                 {this.props.highScores.map((highScore, i) => (
-                <HighScores key={i} highScore={highScore}/>
+                  <HighScores key={i} highScore={highScore}/>
                 ))}
               </CardContent>
             </Card>
