@@ -21,8 +21,8 @@ var Resources = () => {
           <Typography type="headline" component="h2">
             Resources
           </Typography>
-          <Typography component="p">
-            Here are some resources to relax
+          <Typography type="body2">
+            Chill Out
           </Typography>
         </CardContent>
         <CardActions>
