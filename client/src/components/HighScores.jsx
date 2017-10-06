@@ -3,6 +3,8 @@ import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
 import List, { ListItem, ListItemText, ListItemAvatar } from 'material-ui/List';
 import axios from 'axios';
+import Divider from 'material-ui/Divider';
+
 const style = {
   chip: {
     fontSize: '18px',
@@ -51,14 +53,17 @@ class HighScores extends React.Component {
 
 
   render() {
+    console.log(this.state)
     return(
-
+      <div>
         <ListItem >
           <ListItemAvatar>
-            <Avatar src={this.state.userPic} />
+            <Avatar  size={30} src={this.state.userPic} />
           </ListItemAvatar>
           <ListItemText primary={this.props.highScore.score} />
         </ListItem>
+        <Divider />
+      </div>
     );
   };
 };

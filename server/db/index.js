@@ -120,7 +120,7 @@ module.exports = {
 
   getHighScores: function() {
     //return top five scores from database with the users associated
-    return pool.query("SELECT user_scores.score, users.first_name, users.last_name FROM user_scores INNER JOIN users ON user_scores.user_id = users.id ORDER BY user_scores.score DESC limit 5")
+    return pool.query("SELECT user_scores.score, users.first_name, users.last_name, users.github_username FROM user_scores INNER JOIN users ON user_scores.user_id = users.id ORDER BY user_scores.score DESC limit 5")
     .then(function(result){
       return result.rows;
     })
@@ -172,9 +172,9 @@ module.exports = {
         user.password = hash;
 
         // changed query from obj to string
-        let query = 'INSERT INTO users(username, password, first_name, last_name) VALUES($1, $2, $3, $4)';
+        let query = 'INSERT INTO users(username, password, first_name, last_name, github_username) VALUES($1, $2, $3, $4, $5)';
 
-        return pool.query(query, [ user.username, user.password, user.first_name, user.last_name ])
+        return pool.query(query, [ user.username, user.password, user.first_name, user.last_name, user.github_username ])
           .then(function(result) {
             console.log('db.index.js, succcess: ', result.rows);
             return result.rows;

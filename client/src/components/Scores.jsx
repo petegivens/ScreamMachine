@@ -14,11 +14,7 @@ class Scores extends React.Component {
     }
   }
 
-  // changeScore() {
-  //   this.setState({
-  //     userHighScore: //something??d
-  //   });
-  // }
+
 
   render() {
     const { theme } = this.props;
@@ -37,7 +33,8 @@ class Scores extends React.Component {
         fontSize: '18px',
         fontWeight: 'bold',
         margin: '2px',
-        textAlign: 'center'
+        textAlign: 'center',
+        margin: 'auto'
       },
       carnival: {
         fontFamily: 'circusregular',
@@ -50,7 +47,7 @@ class Scores extends React.Component {
         lineHeight: '38px'
       }
     }
-
+    console.log(this.props)
     return(
       <div>
         <Grid container spacing={24}>
@@ -66,11 +63,11 @@ class Scores extends React.Component {
               <Card style={styles.card}>
                 <Grid container spacing={24}>
                   <Grid item xs>
-                    <CardHeader title="Your Current Score!"/>
+                    <CardHeader title="Current Level"/>
                     <Chip style={styles.chip} label={this.props.currentScore} />
                   </Grid>
                   <Grid item xs>
-                    <CardHeader title="Your Highest Score!"/>
+                    <CardHeader title="Highest Level"/>
                     <Chip style={styles.chip} label={this.props.user.personalBest} />
                   </Grid>
                 </Grid>
@@ -78,7 +75,7 @@ class Scores extends React.Component {
             :
             <Card style={styles.card}>
               <CardHeader title="Your Current Score!"/>
-              <CardContent style={styles.cardContent}>{this.props.currentScore}</CardContent>
+              <Chip style={styles.chip} label={this.props.currentScore} />
             </Card>
             }
           </Grid>
