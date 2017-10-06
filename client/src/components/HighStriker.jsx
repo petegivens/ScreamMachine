@@ -146,7 +146,8 @@ class HighStriker extends React.Component {
         fontSize: 25,
         margin: 'auto',
         display: 'block',
-        padding: 5
+        padding: 5,
+        width: 100
       },
       countdown: {
         position: 'absolute',
@@ -181,7 +182,7 @@ class HighStriker extends React.Component {
           </div>
           <input style={style.slider} type="range" min="0" max="100" value={this.state.volume} />
         </div>
-        <Button raised color="primary" onClick={this.startRecording.bind(this)}>
+        <Button raised color="primary" style={style.startBtn} onClick={this.startRecording.bind(this)}>
           Start
         </Button>
         <div ref="countdown" style={style.countdown}>

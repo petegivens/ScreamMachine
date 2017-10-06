@@ -159,9 +159,12 @@ class App extends React.Component {
   }
 
   logout() {
-    this.setState({
-      user: null,
-      isLoggedIn: false
+    axios.get('/logout')
+    .then( () => {
+      this.setState({
+        user: null,
+        isLoggedIn: false
+      })
     })
   }
 
