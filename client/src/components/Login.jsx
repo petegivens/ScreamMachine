@@ -58,7 +58,6 @@ class Login extends React.Component {
 
   handleKeyPress(event) {
     if (event.key === 'Enter') {
-      alert('key pressed');
       this.handleSubmit();
     }
   }
