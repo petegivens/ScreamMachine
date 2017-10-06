@@ -12,77 +12,6 @@ const confettiConfig = {
   ticks: 450
 };
 
-const style = {
-  striker: {
-    background: 'linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%)',
-    paddingTop: 20,
-    marginBottom: 20,
-    position: 'relative',
-    height: 625,
-    borderRadius: 2,
-    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
-  },
-  machine: {
-    position: 'relative',
-    display: 'block',
-    height: 550,
-    backgroundColor: '#ffe401',
-    width: 100,
-    margin: 'auto',
-    borderRadius: 2
-  },
-  slider: {
-    width: 400,
-    transformOrigin: '200px 200px',
-    transform: 'rotate(-90deg)',
-    position: 'relative',
-    top: 0,
-    left: 35,
-    backgroundColor: 'transparent'
-  },
-  bell: {
-    width: 120,
-    height: 120,
-    backgroundColor: '#ed1b24',
-    borderRadius: 100,
-    marginLeft: -10,
-    textAlign: 'center',
-    display: 'block',
-    boxShadow: 'rgba(247, 10, 10, 0.2) 0px 2px 4px 2px'
-  },
-  volume: {
-    color: 'white',
-    fontSize: 30,
-    position: 'relative',
-    top: 'calc(50% - 20px)'
-  },
-  startBtn: {
-    fontSize: 25,
-    margin: 'auto',
-    display: 'block',
-    padding: 5
-  },
-  countdown: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    display: 'table',
-    width: '100%',
-    height: '100%',
-    background: 'rgba(0, 0, 0, 0.35)',
-    pointerEvents: 'none',
-    transition: 'all 0.25s linear',
-    opacity: 0
-  },
-  number: {
-    verticalAlign: 'middle',
-    textAlign: 'center',
-    display: 'table-cell',
-    fontSize: 180,
-    color: 'white'
-  }
-}
-
 class HighStriker extends React.Component {
   constructor(props) {
     super(props);
@@ -166,6 +95,76 @@ class HighStriker extends React.Component {
   }
 
   render() {
+    const style = {
+      striker: {
+        background: 'linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%)',
+        paddingTop: 20,
+        marginBottom: 20,
+        position: 'relative',
+        height: 625,
+        borderRadius: 2,
+        boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)'
+      },
+      machine: {
+        position: 'relative',
+        display: 'block',
+        height: 550,
+        backgroundColor: '#ffe401',
+        width: 100,
+        margin: 'auto',
+        borderRadius: 2
+      },
+      slider: {
+        width: 400,
+        transformOrigin: '200px 200px',
+        transform: 'rotate(-90deg)',
+        position: 'relative',
+        top: 0,
+        left: 35,
+        backgroundColor: 'transparent'
+      },
+      bell: {
+        width: 120,
+        height: 120,
+        backgroundColor: '#ed1b24',
+        borderRadius: 100,
+        marginLeft: -10,
+        textAlign: 'center',
+        display: 'block',
+        boxShadow: 'rgba(247, 10, 10, 0.2) 0px 2px 4px 2px'
+      },
+      volume: {
+        color: 'white',
+        fontSize: 30,
+        position: 'relative',
+        top: 'calc(50% - 20px)'
+      },
+      startBtn: {
+        fontSize: 25,
+        margin: 'auto',
+        display: 'block',
+        padding: 5
+      },
+      countdown: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        display: 'table',
+        width: '100%',
+        height: '100%',
+        background: 'rgba(0, 0, 0, 0.35)',
+        pointerEvents: 'none',
+        transition: 'all 0.25s linear',
+        opacity: 0
+      },
+      number: {
+        verticalAlign: 'middle',
+        textAlign: 'center',
+        display: 'table-cell',
+        fontSize: 180,
+        color: 'white'
+      }
+    }
     //set the sensitivity based on the level/currentScore
     const sensitivity = 3 + (this.props.currentScore * 0.1);
 

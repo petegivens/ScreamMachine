@@ -53,7 +53,7 @@ class Login extends React.Component {
     if (!isLoggedIn) {
       return (
         <div className="loginButton">
-          <Button onClick={this.handleOpen}>Login</Button>
+          <Button raised color='accent' onClick={this.handleOpen}>Login</Button>
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
             <DialogTitle>{'Login'}</DialogTitle>
             <DialogContent>

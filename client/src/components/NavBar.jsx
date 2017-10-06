@@ -10,23 +10,26 @@ import MenuIcon from 'material-ui-icons/Menu';
 import LegacySwitch from './LegacySwitch.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
-import { withTheme } from 'material-ui/styles';
 
-const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup }) => (
-  <AppBar position="absolute" >
-    <Toolbar>
-      <Typography type="title" style={{ flex: 1 }}>SCREAM MACHINE</Typography>
-      <LegacySwitch showLegacy={showLegacy}/>
-      <Login
-        user={user}
-        login={login}
-        logout={logout}
-        isLoggedIn={isLoggedIn}
-        className="login"
-      />
-      <Signup signup={signup} isLoggedIn={isLoggedIn}/>
-    </Toolbar>
-  </AppBar>
-)
+const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup, page}) => {
+    const background = page === 'Arcade' ? 'primary' : 'default';
+    return (
+      <AppBar position="absolute" color={background}>
+        <Toolbar>
+          <div style={{ flex: 1 }}>
+            <LegacySwitch showLegacy={showLegacy} page={page}/>
+          </div>
+          <Signup signup={signup} isLoggedIn={isLoggedIn}/>
+          <Login
+          user={user}
+          login={login}
+          logout={logout}
+          isLoggedIn={isLoggedIn}
+          className="login"
+          />
+        </Toolbar>
+      </AppBar>
+    )
+}
 
 export default NavBar;

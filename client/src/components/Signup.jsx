@@ -11,8 +11,10 @@ import Dialog, {
 
 const styles = theme => ({
   textField: {
-    margin: "auto",
-    width: 200
+    marginLeft: 100,
+    marginRight: 100,
+    marginBottom: 15,
+    display: "block"
   }
 });
 
@@ -53,7 +55,7 @@ class Signup extends React.Component {
     if (!isLoggedIn) {
       return (
         <div className="signupButton">
-          <Button onClick={this.handleOpen}>Sign Up</Button>
+          <Button raised color='accent' onClick={this.handleOpen}>Sign Up</Button>
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
             <DialogTitle>{'Sign Up'}</DialogTitle>
             <DialogContent>
