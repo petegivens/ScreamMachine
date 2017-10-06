@@ -12,7 +12,7 @@ import Dialog, {
 const styles = theme => ({
   textField: {
     margin: "auto",
-    width: 200
+    display: "block"
   }
 });
 
