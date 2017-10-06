@@ -26,6 +26,7 @@ class Signup extends React.Component {
       firstname: '',
       lastname: '',
       username: '',
+      github_username: '',
       password: '',
       verifyPassword: ''
     }
@@ -81,12 +82,12 @@ class Signup extends React.Component {
             <DialogContent>
               <form onKeyPress={this.handleKeyPress}>
                 <TextField
-                   label="First Name"
-                   placeholder="First Name"
-                   className={classes.textField}
-                   margin="normal"
-                   onChange={this.handleChange('firstname')}
-                 />
+                  label="First Name"
+                  placeholder="First Name"
+                  className={classes.textField}
+                  margin="normal"
+                  onChange={this.handleChange('firstname')}
+                />
                 <TextField
                   label="Last Name"
                   placeholder="Last Name"
@@ -95,14 +96,21 @@ class Signup extends React.Component {
                   onChange={this.handleChange('lastname')}
                 />
                 <TextField
-                   label="Enter username"
-                   placeholder="username"
-                   className={classes.textField}
-                   margin="normal"
-                   onChange={this.handleChange('username')}
-                 />
+                  label="Enter Github Username"
+                  placeholder="github username"
+                  className={classes.textField}
+                  margin="normal"
+                  onChange={this.handleChange('github_username')}
+                />
                 <TextField
-                  label="Enter password"
+                  label="Enter Username"
+                  placeholder="username"
+                  className={classes.textField}
+                  margin="normal"
+                  onChange={this.handleChange('username')}
+                />
+                <TextField
+                  label="Enter Password"
                   placeholder="password"
                   className={classes.textField}
                   margin="normal"
