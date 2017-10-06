@@ -5,6 +5,7 @@ import { withTheme } from 'material-ui/styles';
 import HighScores from './HighScores.jsx';
 import Typography from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';
+import Paper from 'material-ui/Paper';
 
 class Scores extends React.Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class Scores extends React.Component {
         lineHeight: '38px'
       }
     }
-    console.log(this.props)
+  
     return(
       <div>
         <Grid container spacing={24}>
@@ -83,9 +84,11 @@ class Scores extends React.Component {
             <Card style={styles.card}>
               <CardHeader title="HIGH SCORES"/>
               <CardContent>
-                {this.props.highScores.map((highScore, i) => (
-                  <HighScores key={i} highScore={highScore}/>
-                ))}
+                <Paper>
+                  {this.props.highScores.map((highScore, i) => (
+                    <HighScores key={i} highScore={highScore}/>
+                  ))}
+                </Paper>
               </CardContent>
             </Card>
           </Grid>

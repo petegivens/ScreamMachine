@@ -39,7 +39,7 @@ const pool = new Pool(config['heroku']);
 
 module.exports = {
   getUsers: function () {
-    return pool.query("SELECT username, first_name, last_name FROM users")
+    return pool.query("SELECT * FROM users")
       .then(function(result) {
         return result.rows;
       })
