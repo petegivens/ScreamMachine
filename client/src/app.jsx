@@ -114,12 +114,10 @@ class App extends React.Component {
     let status = this;
     axios.get('/getStatus')
       .then((results) => {
-        if(results.data.isLoggedIn !== status.state.isLoggedIn) {
           status.setState({
-            isLoggedIn: true,
+            isLoggedIn: results.isLoggedIn,
             user: results.data.user
           });
-        }
       });
   }
 
@@ -173,12 +171,22 @@ class App extends React.Component {
     this.setState({page: 'Profile'});
   }
 
+  updateUserScore(score) {
+    if (score > this.state.user.personalBest){
+      this.setState({
+        user: {
+          personalBest: score
+        }
+      })
+    }
+  }
+
   render() {
     var page;
     if (this.state.page === 'scream') {
       page = <Scream user={this.state.user}/>;
     } else if (this.state.page === 'Arcade') {
-      page = <Arcade user={this.state.user}/>;
+      page = <Arcade user={this.state.user} updateUserScore={this.updateUserScore.bind(this)}/>;
     } else if (this.state.page === 'Profile') {
       page = <Profile />;
     } else if (this.state.page === 'StressForm') {

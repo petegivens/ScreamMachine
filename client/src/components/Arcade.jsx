@@ -48,7 +48,8 @@ class Arcade extends React.Component {
     this.setState({
       currentScore: nextLevel,
       openLevelEnd: false
-    })
+    });
+    this.props.updateUserScore(this.state.currentScore);
   }
 
   render() {
