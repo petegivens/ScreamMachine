@@ -5,6 +5,7 @@ import { withTheme } from 'material-ui/styles';
 import HighScores from './HighScores.jsx';
 import Typography from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';
+import Paper from 'material-ui/Paper';
 
 class Scores extends React.Component {
   constructor(props) {
@@ -28,7 +29,8 @@ class Scores extends React.Component {
         fontSize: '18px',
         fontWeight: 'bold',
         margin: '2px',
-        textAlign: 'center'
+        textAlign: 'center',
+        margin: 'auto'
       },
       carnival: {
         fontFamily: 'circusregular',
@@ -41,7 +43,7 @@ class Scores extends React.Component {
         lineHeight: '38px'
       }
     }
-
+  
     return(
       <div>
         <Grid container spacing={24}>
@@ -57,11 +59,11 @@ class Scores extends React.Component {
               <Card style={styles.card}>
                 <Grid container spacing={24}>
                   <Grid item xs>
-                    <CardHeader title="Your Current Score!"/>
+                    <CardHeader title="Current Level"/>
                     <Chip style={styles.chip} label={this.props.currentScore} />
                   </Grid>
                   <Grid item xs>
-                    <CardHeader title="Your Highest Score!"/>
+                    <CardHeader title="Highest Level"/>
                     <Chip style={styles.chip} label={this.props.user.personalBest} />
                   </Grid>
                 </Grid>
@@ -69,7 +71,7 @@ class Scores extends React.Component {
             :
             <Card style={styles.card}>
               <CardHeader title="Your Current Score!"/>
-              <CardContent style={styles.cardContent}>{this.props.currentScore}</CardContent>
+              <Chip style={styles.chip} label={this.props.currentScore} />
             </Card>
             }
           </Grid>
@@ -77,9 +79,11 @@ class Scores extends React.Component {
             <Card style={styles.card}>
               <CardHeader title="HIGH SCORES"/>
               <CardContent>
-                {this.props.highScores.map((highScore, i) => (
-                  <HighScores key={i} highScore={highScore}/>
-                ))}
+                <Paper>
+                  {this.props.highScores.map((highScore, i) => (
+                    <HighScores key={i} highScore={highScore}/>
+                  ))}
+                </Paper>
               </CardContent>
             </Card>
           </Grid>
