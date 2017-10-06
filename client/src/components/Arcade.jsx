@@ -51,6 +51,7 @@ class Arcade extends React.Component {
   }
 
   render() {
+    console.log(this.props.user)
     return (
       <div>
         <Grid container spacing={24}>
