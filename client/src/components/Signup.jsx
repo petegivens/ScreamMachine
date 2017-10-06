@@ -81,7 +81,7 @@ class Signup extends React.Component {
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
             <DialogTitle>{'Sign Up'}</DialogTitle>
             <DialogContent>
-              <form>
+              <form onKeyPress={this.handleKeyPress}>
                 <TextField
                   label="First Name"
                   placeholder="First Name"
