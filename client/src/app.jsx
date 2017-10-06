@@ -188,9 +188,9 @@ class App extends React.Component {
     } else if (this.state.page === 'Arcade') {
       page = <Arcade user={this.state.user} updateUserScore={this.updateUserScore.bind(this)}/>;
     } else if (this.state.page === 'Profile') {
-      page = <Profile />;
+      page = <Profile user={this.state.user}/>;
     } else if (this.state.page === 'StressForm') {
-      page = <StressForm func={this.goToProfile}/>;
+      page = <StressForm user={this.state.user} func={this.goToProfile}/>;
     } else {
       page = <div> Page did not load </div>
     }

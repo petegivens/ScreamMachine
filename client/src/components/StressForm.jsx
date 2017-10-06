@@ -43,10 +43,11 @@ class StressForm extends React.Component {
 		var isFirst = false;
 		// make request to get data from database
 		// if no data create empty one
+
 		var stressors = JSON.stringify(this.state.selectedOptions);
 		axios.post('/addForm', {
 			params: {
-				username: this.props.user,
+				username: this.props.user.username,
 				stress_level: this.state.stressLevel,
 				stressors: stressors
 			}
@@ -92,7 +93,7 @@ class StressForm extends React.Component {
 					var newStress = (this.state.stressLevel + avgStress)/2;
 					axios.post('/addAverages', {
 						params: {
-							username: this.props.user,
+							username: this.props.user.username,
 							stress_level: newStress,
 							form_data: JSON.stringify(newAvg),
 							isFirst: isFirst

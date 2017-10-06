@@ -266,6 +266,7 @@ module.exports = {
      *
      */
     // changed query from obj to string
+    console.log('data in db averages:', data)
     if (data.isFirst) {
       var query = 'INSERT INTO averages (user_id, stress_level, form_data) VALUES ( (SELECT id from users WHERE username=$3), $1, $2)';
     } else {

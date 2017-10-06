@@ -191,7 +191,6 @@ app.post('/login', function(req, res) {
 
 // Endpoint /addUser is used for signup
 app.post('/addUser', function(req, res) {
-  console.log('/addUser, req.body: ', req.body);
 
   var user = req.body;
 
