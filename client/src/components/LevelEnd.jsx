@@ -111,7 +111,7 @@ export default class LevelEnd extends React.Component {
           <div className="sharebutton">
             <TwitterShareButton
               url={url}
-              quote={quote}>
+              title={quote}>
               <TwitterIcon
                 size={32}
               square />
@@ -168,7 +168,7 @@ export default class LevelEnd extends React.Component {
           <div className="sharebutton">
             <TwitterShareButton
               url={url}
-              quote={quote}>
+              title={quote}>
               <TwitterIcon
                 size={32}
               square />
