@@ -24,9 +24,8 @@ class HighScores extends React.Component {
   }
 
   componentWillMount() {
-    let first = this.props.highScore.first_name;
-    let last = this.props.highScore.last_name;
-    axios.get('https://api.github.com/users/' + first + last)
+    let github_username = this.props.highScore.github_username;
+    axios.get('https://api.github.com/users/' + github_username)
     .then( (user) => {
       this.setState({ userPic: user.data.avatar_url } )
     })
