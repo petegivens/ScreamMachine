@@ -89,7 +89,7 @@ export default class LevelEnd extends React.Component {
       open: nextProps.open,
       payload: nextProps.payload
     })
-    console.log('will receive props', this.props.user)
+    // console.log('will receive props', this.props.user)
   }
 
   render () {
