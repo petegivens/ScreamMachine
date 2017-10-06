@@ -7,29 +7,34 @@ import Typography from 'material-ui/Typography';
 
 const styles = {
   card: {
-    maxWidth: 300,
+    width: 250,
   },
   media: {
     height: 100,
   },
-  typography: {
+  title: {
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  body: {
     textAlign: 'center'
   }
+
 };
 
 var Resources = () => {
   return (
       <Card style={styles.card}>
         <CardContent>
-        <CardMedia
-          style={styles.media}
-          image="../models/relax.jpg"
-        />
-          <Typography type="headline" component="h2" style={styles.typography}>
+          <CardMedia
+            style={styles.media}
+            image="../models/relax.jpg"
+          />
+          <Typography type="headline" component="h2" style={styles.title}>
             Chill Out
           </Typography>
-          <Typography type="body2" style={styles.typography}>
-            Here Are Some Resources To Stay Calm
+          <Typography type="body2" style={styles.body}>
+            Here Are Some Resources To Staying Calm
           </Typography>
         </CardContent>
         <CardActions>
