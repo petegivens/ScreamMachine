@@ -52,13 +52,13 @@ class CurrentScore extends React.Component {
               </CardContent>
             </div>
             <Grid container spacing={24}>
-              <Grid item xs>
-              <CardHeader title="Current Level"/>
+              <Grid item sm>
+                <CardHeader title="CURRENT LEVEL"/>
                 <Chip style={styles.chip} label={this.props.currentScore} />
-            </Grid>
-            <Grid item xs>
-            <CardHeader title="Highest Level"/>
-              <Chip style={styles.chip} label={this.props.user.personalBest} />
+              </Grid>
+              <Grid item sm>
+                <CardHeader title="HIGHEST LEVEL"/>
+                <Chip style={styles.chip} label={this.props.user.personalBest} />
               </Grid>
             </Grid>
           </Card>
