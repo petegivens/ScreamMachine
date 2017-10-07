@@ -3,6 +3,7 @@ import {LineChart} from 'react-d3-basic';
 import axios from 'axios';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 const styles = {
   title: {
@@ -12,6 +13,19 @@ const styles = {
   body: {
     textAlign: 'center',
     fontSize: 16
+  },
+  card: {
+    maxWidth: 450,
+  },
+  cardTitle: {
+    textAlign: 'center',
+    fontSize: 22,
+    textDecoration: 'underline',
+    paddingBottom: 5
+  },
+  cardBody: {
+    textAlign: 'center',
+    fontSize: 14
   },
   highStress: {
     fontWeight: 'bold',
@@ -95,7 +109,7 @@ class Profile extends React.Component {
       {
       	field: 'lowfreq',
       	name: 'Low Frequency',
-      	color: '#cabb6e'
+      	color: '#bfbe1a'
       },
       {
       	field: 'midfreq',
@@ -120,10 +134,25 @@ class Profile extends React.Component {
       	<Grid item xs={12}><Typography type="title" style={styles.title}>Hi {this.props.user.username}!</Typography></Grid>
       	<Grid item xs={12}><Typography type="body1" style={styles.body}>Your average stress level is <b style={stressLevel}>{this.state.stressLevel}</b></Typography></Grid>
       	<Grid item xs={12}><Typography type="body1" style={styles.body}>We have analzyed your data and think your top stressors are hanging out with <b> {this.state.top.people} </b> and  going to <b>{this.state.top.places}</b> </Typography></Grid>
-      	<Grid item xs={12} container justify={'center'}>
+        <Grid item xs={12} container justify={'center'}>
+          <Card style={styles.card}>
+            <CardContent>
+              <Typography type="headline" component="h2" style={styles.cardTitle}>
+                Your Highest Stress Factors
+              </Typography>
+              <Typography type="body1" style={styles.cardBody}>
+                {this.state.top.people}
+              </Typography>
+              <Typography type="body1" style={styles.cardBody}>
+                {this.state.top.places}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      	<Grid item xs={12} container justify={'center'} style={{paddingTop: 45}}>
       	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Volumes'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries1} x={x} />
       	</Grid>
-      	<Grid item xs={12} container justify={'center'}>
+      	<Grid item xs={12} container justify={'center'} style={{paddingTop: 45}}>
       	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Frequency'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries2} x={x} />
       	</Grid>
       </Grid>
