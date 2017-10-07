@@ -35,6 +35,9 @@ class NavProfile extends React.Component {
     })
 
     this.props.navHandler(newValue)
+    this.setState({
+      value: ''
+    })
 
   }
 
