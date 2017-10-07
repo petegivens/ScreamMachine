@@ -47,7 +47,7 @@ const styles = {
     fontWeight: 'bold',
     fontSize: 30,
     color: 'rgb(115, 187, 5)',
-    paddingTop: 55
+    paddingTop: 5
   }
 }
 
@@ -137,7 +137,7 @@ class Profile extends React.Component {
       return d.id;
     };
     // have to hard code top
-    const stressLevel = this.state.stressLevel >=8  ? styles.highStress : (this.state.stressLevel > 5 && this.state.stressLevel <8) ? styles.averageStress : styles.lowStress;
+    const stressLevel = this.state.stressLevel >=8  ? styles.highStress : (this.state.stressLevel > 5.5 && this.state.stressLevel <8) ? styles.averageStress : styles.lowStress;
 
     return (
       <Grid container spacing={24}>
@@ -145,7 +145,7 @@ class Profile extends React.Component {
         <Grid item xs={12}>
           <Grid item container justify={'center'} spacing={16}>
             <Grid item>
-              <Card style={styles.card}>
+              <Card style={styles.card} raised={true}>
                 <CardContent>
                   <Typography type="headline" component="h2" style={styles.cardTitle}>
                     Top Stress Factors
@@ -160,7 +160,7 @@ class Profile extends React.Component {
               </Card>
             </Grid>
             <Grid item>
-              <Card style={styles.card}>
+              <Card style={styles.card} raised={true}>
                 <CardContent>
                   <Typography type="headline" component="h2" style={styles.cardTitle}>
                     Stress Score
