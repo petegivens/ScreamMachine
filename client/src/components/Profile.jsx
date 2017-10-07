@@ -1,7 +1,31 @@
 import React, {Componenet} from 'react';
 import {LineChart} from 'react-d3-basic';
 import axios from 'axios';
-import {Grid, Row, Col} from 'react-bootstrap';
+import Grid from 'material-ui/Grid';
+import Typography from 'material-ui/Typography';
+
+const styles = {
+  title: {
+    textAlign: 'center',
+    fontSize: 32
+  },
+  body: {
+    textAlign: 'center',
+    fontSize: 16
+  },
+  highStress: {
+    fontWeight: 'bold',
+    color: 'rgb(250, 72, 4)'
+  },
+  averageStress: {
+    fontWeight: 'bold',
+    color: 'rgb(222, 227, 2)'
+  },
+  lowStress: {
+    fontWeight: 'bold',
+    color: 'rgb(115, 187, 5)'
+  }
+}
 
 
 class Profile extends React.Component {
@@ -55,7 +79,6 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log('scream data', this.state.screams)
     // chart series,
     // field: is what field your data want to be selected
     // name: the name of the field that display in legend
@@ -90,21 +113,19 @@ class Profile extends React.Component {
       return d.id;
     };
     // have to hard code top
+    const stressLevel = this.state.stressLevel >=8  ? styles.highStress : (this.state.stressLevel > 5 && this.state.stressLevel <8) ? styles.averageStress : styles.lowStress;
+
     return (
-      <Grid>
-      	<Row> <h1> Hi {this.props.user.username} </h1> </Row>
-      	<Row> Your average stress level is {this.state.stressLevel} </Row>
-      	<Row> We have analzyed your data and think your top stressors are hanging out with <b> {this.state.top.people} </b> and  going to <b>{this.state.top.places}</b> </Row>
-      	<Row>
-      	  <Col md={8} mdOffset={2}>
+      <Grid container spacing={24}>
+      	<Grid item xs={12}><Typography type="title" style={styles.title}>Hi {this.props.user.username}!</Typography></Grid>
+      	<Grid item xs={12}><Typography type="body1" style={styles.body}>Your average stress level is <b style={stressLevel}>{this.state.stressLevel}</b></Typography></Grid>
+      	<Grid item xs={12}><Typography type="body1" style={styles.body}>We have analzyed your data and think your top stressors are hanging out with <b> {this.state.top.people} </b> and  going to <b>{this.state.top.places}</b> </Typography></Grid>
+      	<Grid item xs={12} container justify={'center'}>
       	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Volumes'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries1} x={x} />
-      	  </Col>
-      	</Row>
-      	<Row>
-      	  <Col md={8} mdOffset={2}>
+      	</Grid>
+      	<Grid item xs={12} container justify={'center'}>
       	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Frequency'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries2} x={x} />
-      	  </Col>
-      	</Row>
+      	</Grid>
       </Grid>
     );
   }
