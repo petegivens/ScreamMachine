@@ -1,20 +1,21 @@
 import React from 'react';
 import Card, {CardHeader, CardContent, CardMedia} from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
-import { withTheme } from 'material-ui/styles';
-import HighScores from './HighScores.jsx';
-import Typography from 'material-ui/Typography';
 import Chip from 'material-ui/Chip';
-import Paper from 'material-ui/Paper';
 import Title from './Title.jsx';
-import CurrentScore from './CurrentScore.jsx';
+import { withTheme } from 'material-ui/styles';
 
-class Scores extends React.Component {
+
+
+
+class CurrentScore extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
+
   }
 
   render() {
+
     const { theme } = this.props;
     const primary = theme.palette.primary[500];
     const accent = theme.palette.secondary[200];
@@ -39,29 +40,35 @@ class Scores extends React.Component {
         fontSize: '44px',
         textAlign: 'center',
         backgroundColor: accent
-      },
-      title: {
-        color: theme.palette.primary[500],
-        lineHeight: '38px'
       }
     }
 
+
     return (
       <div>
-        <Grid container spacing={24}>
-          <Grid item xs={12} sm={12}>
-            <Title />
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            <CurrentScore user={this.props.user} currentScore={this.props.currentScore}/>
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            <HighScores highScores={this.props.highScores}/>
-          </Grid>
-        </Grid>
+        {this.props.user ?
+          <Card style={styles.card}>
+            <Grid container spacing={24}>
+              <Grid item xs>
+              <CardHeader title="Current Level"/>
+                <Chip style={styles.chip} label={this.props.currentScore} />
+            </Grid>
+            <Grid item xs>
+            <CardHeader title="Highest Level"/>
+              <Chip style={styles.chip} label={this.props.user.personalBest} />
+              </Grid>
+            </Grid>
+          </Card>
+          :
+          <Card style={styles.card}>
+            <CardHeader title="Your Current Score!"/>
+            <Chip style={styles.chip} label={this.props.currentScore} />
+          </Card>
+        }
       </div>
     )
   };
 };
 
-export default withTheme()(Scores);
+
+export default withTheme()(CurrentScore)
