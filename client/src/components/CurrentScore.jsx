@@ -27,7 +27,7 @@ class CurrentScore extends React.Component {
         fontSize: '18px',
         fontWeight: 'bold',
         margin: 'auto',
-        textAlign: 'center',
+        textAlign: 'center'
       },
       title: {
         color: theme.palette.primary[500],
@@ -43,24 +43,21 @@ class CurrentScore extends React.Component {
     }
 
     return (
+      console.log('CURRENT SCORE PROPS: ', this.props),
       <div>
+        <Card style={styles.card}>
+          <div style={styles.carnival} >
+            <CardContent>
+              <span style={styles.title}>CARNIVAL SCREAM MACHINE</span>
+            </CardContent>
+          </div>
+        </Card>
         {this.props.user ?
           <Card style={styles.card}>
-            <div style={styles.carnival} >
-              <CardContent>
-                <span style={styles.title}>CARNIVAL SCREAM MACHINE</span>
-              </CardContent>
-            </div>
-            <Grid container spacing={24}>
-              <Grid item sm>
-                <CardHeader title="CURRENT LEVEL"/>
-                <Chip style={styles.chip} label={this.props.currentScore} />
-              </Grid>
-              <Grid item sm>
-                <CardHeader title="HIGHEST LEVEL"/>
-                <Chip style={styles.chip} label={this.props.user.personalBest} />
-              </Grid>
-            </Grid>
+            <CardHeader title="CURRENT LEVEL"/>
+              <Chip style={styles.chip} label={this.props.currentScore} />
+            <CardHeader title="HIGHEST LEVEL"/>
+              <Chip style={styles.chip} label={this.props.user.personalBest} />
           </Card>
           :
           <Card style={styles.card}>
