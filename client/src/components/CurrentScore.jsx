@@ -19,6 +19,7 @@ class CurrentScore extends React.Component {
     const { theme } = this.props;
     const primary = theme.palette.primary[500];
     const accent = theme.palette.secondary[200];
+    const accentDarker = theme.palette.secondary[600];
 
 
     const styles = {
@@ -34,8 +35,8 @@ class CurrentScore extends React.Component {
         textAlign: 'center'
       },
       title: {
-        color: accent,
-        lineHeight: '38px',
+        color: accentDarker,
+        lineHeight: '50px',
         /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
       },
       titleContent: {
@@ -57,7 +58,8 @@ class CurrentScore extends React.Component {
       },
       scores: {
         backgroundColor: primary,
-        height: 425
+        height: 425,
+        padding: 20
       },
       paper: {
         backgroundColor:  yellow[500]
