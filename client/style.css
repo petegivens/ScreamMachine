@@ -185,3 +185,7 @@ button {
   text-align: center;
   padding-bottom: 15;
 }
+
+.float-container {
+  z-index: -1;
+}
