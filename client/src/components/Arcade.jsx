@@ -24,7 +24,7 @@ class Arcade extends React.Component {
     this.nextLevel = this.nextLevel.bind(this);
 
     floating({
-      content: "<img src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+      content: "<img src='models/red-balloon.png' />",
       number: 4,
       duration: 12,
       size: 10
@@ -32,7 +32,7 @@ class Arcade extends React.Component {
 
     setTimeout(() => {
       floating({
-        content: "<img src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+        content: "<img src='models/red-balloon.png' />",
         number: 4,
         duration: 12,
         size: 10
@@ -41,7 +41,7 @@ class Arcade extends React.Component {
 
     setTimeout(() => {
       floating({
-        content: "<img style='filter: hue-rotate(210deg);' src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+        content: "<img src='models/blue-balloon.png' />",
         number: 3,
         duration: 16,
         size: 12
@@ -50,9 +50,9 @@ class Arcade extends React.Component {
 
     setTimeout(() => {
       floating({
-        content: "<img style='filter: hue-rotate(120deg);' src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
-        number: 2,
-        duration: 22,
+        content: "<img src='models/yellow-balloon.png' />",
+        number: 3,
+        duration: 20,
         size: 14
       });
     }, 2000);
