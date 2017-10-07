@@ -55,6 +55,7 @@ class Profile extends React.Component {
   }
 
   render() {
+    console.log('scream data', this.state.screams)
     // chart series,
     // field: is what field your data want to be selected
     // name: the name of the field that display in legend
