@@ -21,11 +21,11 @@ class Profile extends React.Component {
   getScreams() {
     axios.get('/getScream', {
       params: {
-	       user: this.props.user
+	       user: this.props.user.username
       }
     })
       .then( (screams) => {
-	this.setState({screams: screams.data});
+	       this.setState({screams: screams.data});
       })
   }
 
