@@ -1,9 +1,11 @@
 import React from 'react';
-import HighStriker from './HighStriker.jsx';
-import LevelEnd from './LevelEnd.jsx'
-import Scores from './Scores.jsx';
 import axios from 'axios';
 import Grid from 'material-ui/Grid';
+import HighStriker from './HighStriker.jsx';
+import LevelEnd from './LevelEnd.jsx'
+import HighScores from './HighScores.jsx';
+import CurrentScore from './CurrentScore.jsx';
+import Title from './Title.jsx';
 
 class Arcade extends React.Component {
   constructor(props) {
@@ -57,13 +59,14 @@ class Arcade extends React.Component {
       <div>
         <Grid container spacing={24}>
           <Grid item xs={12} sm={4}>
-            <Scores user={this.props.user} currentScore={this.state.currentScore} highScores={this.state.highScores} />
+            <Title />
+            <CurrentScore user={this.props.user} currentScore={this.props.currentScore}/>
           </Grid>
           <Grid item xs={12} sm={4}>
             <HighStriker setOpenLevelEnd={this.setOpenLevelEnd} currentScore={this.state.currentScore} />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <div> High Scores here </div>
+            <HighScores highScores={this.state.highScores}/>
           </Grid>
         </Grid>
         <LevelEnd
