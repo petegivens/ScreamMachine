@@ -34,7 +34,8 @@ class CurrentScore extends React.Component {
       },
       title: {
         color: accent,
-        lineHeight: '38px'
+        lineHeight: '38px',
+        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
       },
       carnival: {
         fontFamily: 'circusregular',
