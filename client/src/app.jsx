@@ -181,6 +181,7 @@ class App extends React.Component {
     } else {
       page = <div> Page did not load </div>
     }
+
     return (
       <MuiThemeProvider theme={theme}>
         <div>

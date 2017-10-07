@@ -23,6 +23,8 @@ class Arcade extends React.Component {
     this.startOverLevel = this.startOverLevel.bind(this);
     this.nextLevel = this.nextLevel.bind(this);
 
+    this.timeouts = []
+
     floating({
       content: "<img src='models/red-balloon.png' />",
       number: 4,
@@ -30,7 +32,7 @@ class Arcade extends React.Component {
       size: 10
     });
 
-    setTimeout(() => {
+    this.timeouts[0] = setTimeout(() => {
       floating({
         content: "<img src='models/red-balloon.png' />",
         number: 4,
@@ -39,7 +41,7 @@ class Arcade extends React.Component {
       });
     }, 9000);
 
-    setTimeout(() => {
+    this.timeouts[1] = setTimeout(() => {
       floating({
         content: "<img src='models/blue-balloon.png' />",
         number: 3,
@@ -48,7 +50,7 @@ class Arcade extends React.Component {
       });
     }, 1000);
 
-    setTimeout(() => {
+    this.timeouts[2] = setTimeout(() => {
       floating({
         content: "<img src='models/yellow-balloon.png' />",
         number: 3,
@@ -56,6 +58,14 @@ class Arcade extends React.Component {
         size: 14
       });
     }, 2000);
+  }
+
+  componentWillUnmount() {
+    this.timeouts.forEach((timeout) => {
+      clearTimeout(timeout);
+    })
+    const elements = document.getElementsByClassName("float-container");
+    while (elements.length > 0) elements[0].remove();
   }
 
   componentWillMount() {
