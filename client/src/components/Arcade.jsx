@@ -5,6 +5,7 @@ import HighStriker from './HighStriker.jsx';
 import LevelEnd from './LevelEnd.jsx';
 import HighScores from './HighScores.jsx';
 import CurrentScore from './CurrentScore.jsx';
+import floating from 'floating.js';
 
 class Arcade extends React.Component {
   constructor(props) {
@@ -21,6 +22,40 @@ class Arcade extends React.Component {
     this.setOpenLevelEnd = this.setOpenLevelEnd.bind(this);
     this.startOverLevel = this.startOverLevel.bind(this);
     this.nextLevel = this.nextLevel.bind(this);
+
+    floating({
+      content: "<img src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+      number: 4,
+      duration: 12,
+      size: 10
+    });
+
+    setTimeout(() => {
+      floating({
+        content: "<img src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+        number: 4,
+        duration: 12,
+        size: 10
+      });
+    }, 9000);
+
+    setTimeout(() => {
+      floating({
+        content: "<img style='filter: hue-rotate(210deg);' src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+        number: 3,
+        duration: 16,
+        size: 12
+      });
+    }, 1000);
+
+    setTimeout(() => {
+      floating({
+        content: "<img style='filter: hue-rotate(120deg);' src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+        number: 2,
+        duration: 22,
+        size: 14
+      });
+    }, 2000);
   }
 
   componentWillMount() {
