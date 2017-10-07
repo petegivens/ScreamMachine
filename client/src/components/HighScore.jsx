@@ -20,7 +20,15 @@ const style = {
   },
   listItem: {
     'float': 'left'
-  }
+  },
+  a: {
+    fontSize: '24px',
+    textAlign: 'center'
+  },
+  container: {
+  width: '100%',
+  textAlign: 'center'
+}
 }
 
 class HighScores extends React.Component {
@@ -79,18 +87,33 @@ class HighScores extends React.Component {
 
 
   render() {
+    var username = this.props.highScore.github_username
     return(
       <div>
         <ListItem button onClick={this.handleClickOpen}>
-          <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-            <DialogTitle>Check out {this.props.highScore.first_name}'s Github!</DialogTitle>
-              <ListItem >
-                <ListItemAvatar>
-                  <Avatar size={60} src={this.state.userPic}></Avatar>
+            {username ?
+            <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
+              <DialogTitle>Check out {this.props.highScore.first_name}'s Github</DialogTitle>
+                <ListItem >
+                  <ListItemAvatar>
+                    <Avatar size={60} src={this.state.userPic}></Avatar>
                   </ListItemAvatar>
-                 <ListItemText primary={`github.com/${this.props.highScore.github_username}`} />
-              </ListItem>
-            </Dialog>
+                  <div style={style.container}>
+                   <a style={style.a} href={`https://www.github.com/${username}`}>Click Here!</a>
+                  </div>
+                </ListItem>
+              </Dialog>
+            :
+            <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
+              <DialogTitle>Check out {this.props.highScore.first_name}'s Github!</DialogTitle>
+                <ListItem >
+                  <ListItemAvatar>
+                    <Avatar size={60} src={this.state.userPic}></Avatar>
+                    </ListItemAvatar>
+                   <ListItemText primary={'It looks like this user doesn\'t have a github profile'} />
+                </ListItem>
+              </Dialog>
+            }
           <ListItemAvatar>
             <Avatar  size={30} src={this.state.userPic} />
           </ListItemAvatar>
