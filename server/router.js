@@ -65,7 +65,7 @@ app.get('/getStatus', function(req, res) {
 	} else {
 		let sessionObj = {
 			isLoggedIn : false,
-			user: {}
+			user: null
 		}
 		res.send(sessionObj);
 	}
