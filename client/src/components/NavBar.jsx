@@ -20,8 +20,8 @@ const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup, page, nav
           <div style={{ flex: 1 }}>
             <LegacySwitch showLegacy={showLegacy} page={page}/>
           </div>
-          {((page === 'scream' || page === 'Profile' || page === 'StressForm') && isLoggedIn) &&
-          <NavProfile navHandler={navHandler}/>
+          {((page === 'Legacy' || page === 'Profile' || page === 'StressForm') && isLoggedIn) &&
+            <NavProfile navHandler={navHandler}/>
           }
           <Signup signup={signup} isLoggedIn={isLoggedIn} page={page}/>
           <Login

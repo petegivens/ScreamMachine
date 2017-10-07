@@ -229,7 +229,6 @@ app.post('/addScream', function(req, res) {
   // auth management is being handled in front end
 
   var screamData = req.body.params;
-  console.log('router.js, req.body: ', req.body.params);
 
   db.addScream(screamData)
     .then(function(result) {
