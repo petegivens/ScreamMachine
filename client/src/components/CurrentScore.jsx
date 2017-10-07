@@ -38,6 +38,9 @@ class CurrentScore extends React.Component {
         lineHeight: '38px',
         /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
       },
+      titleContent: {
+        backgroundColor: yellow[500]
+      },
       // carnival: {
       //   fontFamily: 'carnevalee',
       //   fontSize: '52px',
@@ -46,7 +49,7 @@ class CurrentScore extends React.Component {
       //   // margin: 20
       // },
       logo: {
-        backgroundColor: yellow[500],
+        backgroundColor: primary,
         height: 200,
         fontFamily: 'carnevalee',
         fontSize: '52px',
@@ -57,8 +60,7 @@ class CurrentScore extends React.Component {
         height: 425
       },
       paper: {
-        backgroundColor:  yellow[500],
-        margin: '20px'
+        backgroundColor:  yellow[500]
       }
     }
 
@@ -66,7 +68,7 @@ class CurrentScore extends React.Component {
       <div>
         <Card style={styles.card} >
           <Card style={styles.logo}>
-            <CardContent>
+            <CardContent style={styles.titleContent}>
               <span style={styles.title}>CARNIVAL SCREAM MACHINE</span>
             </CardContent>
           </Card>
