@@ -6,6 +6,7 @@ import { withTheme } from 'material-ui/styles';
 import { yellow } from 'material-ui/colors';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
+import List, {ListItem} from 'material-ui/List';
 
 class CurrentScore extends React.Component {
   constructor(props) {
@@ -34,25 +35,32 @@ class CurrentScore extends React.Component {
       },
       title: {
         color: accent,
-        lineHeight: '38px'
+        lineHeight: '38px',
+        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
       },
-      carnival: {
-        fontFamily: 'circusregular',
-        fontSize: '44px',
-        textAlign: 'center',
+      titleContent: {
         backgroundColor: yellow[500]
-        // margin: 20
       },
+      // carnival: {
+      //   fontFamily: 'carnevalee',
+      //   fontSize: '52px',
+      //   textAlign: 'center',
+      //   // backgroundColor: yellow[500]
+      //   // margin: 20
+      // },
       logo: {
-        backgroundColor: 'transparent',
-        height: 200
+        backgroundColor: primary,
+        height: 200,
+        fontFamily: 'carnevalee',
+        fontSize: '52px',
+        textAlign: 'center',
       },
       scores: {
         backgroundColor: primary,
         height: 425
       },
       paper: {
-        backgroundColor:  yellow[500],
+        backgroundColor:  yellow[500]
       }
     }
 
@@ -60,26 +68,38 @@ class CurrentScore extends React.Component {
       <div>
         <Card style={styles.card} >
           <Card style={styles.logo}>
-            <div style={styles.carnival} >
-              <CardContent>
-                <span style={styles.title}>CARNIVAL SCREAM MACHINE</span>
-              </CardContent>
-            </div>
+            <CardContent style={styles.titleContent}>
+              <span style={styles.title}>CARNIVAL SCREAM MACHINE</span>
+            </CardContent>
           </Card>
           {this.props.user ?
             <Card style={styles.scores}>
               <Paper style={styles.paper}>
-                <CardHeader title="CURRENT LEVEL"/>
-                  <Chip style={styles.chip} label={this.props.currentScore} />
+                <List>
+                  <div>
+                    <ListItem >
+                      <CardHeader title="CURRENT LEVEL"/>
+                      <CardContent >
+                        <Chip style={styles.chip} label={this.props.currentScore} />
+                      </CardContent>
+                    </ListItem>
+                  </div>
                 <Divider />
-                <CardHeader title="HIGHEST LEVEL"/>
-                  <Chip style={styles.chip} label={this.props.user.personalBest} />
+                  <div>
+                    <ListItem>
+                      <CardHeader title="HIGHEST LEVEL"/>
+                      <CardContent>
+                        <Chip style={styles.chip} label={this.props.user.personalBest} />
+                      </CardContent>
+                    </ListItem>
+                  </div>
+                </List>
               </Paper>
             </Card>
             :
             <Card style={styles.scores}>
               <Paper style={styles.paper}>
-                <CardHeader title="Your Current Score!"/>
+                <CardHeader title="Your Current LEVEL!"/>
                 <Chip style={styles.chip} label={this.props.currentScore} />
               </Paper>
             </Card>

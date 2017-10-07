@@ -99,7 +99,6 @@ class Arcade extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Grid container spacing={24}>
