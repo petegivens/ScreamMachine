@@ -42,7 +42,8 @@ class Scores extends React.Component {
       },
       title: {
         color: theme.palette.primary[500],
-        lineHeight: '38px'
+        fontSize: '3vw',
+        textAlign: 'middle'
       }
     }
 
