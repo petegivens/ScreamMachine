@@ -21,7 +21,8 @@ class CurrentScore extends React.Component {
     const styles = {
       card: {
         backgroundColor: primary,
-        textAlign: 'center'
+        textAlign: 'center',
+        height: 625
       },
       chip: {
         fontSize: '18px',
@@ -30,41 +31,51 @@ class CurrentScore extends React.Component {
         textAlign: 'center'
       },
       title: {
-        color: theme.palette.primary[500],
+        color: accent,
         lineHeight: '38px'
       },
       carnival: {
         fontFamily: 'circusregular',
         fontSize: '44px',
         textAlign: 'center',
-        backgroundColor: yellow[500],
+        backgroundColor: yellow[500]
         // margin: 20
+      },
+      logo: {
+        backgroundColor: 'transparent',
+        height: 200
+      },
+      scores: {
+        backgroundColor: primary,
+        height: 425
       }
     }
 
     return (
       console.log('CURRENT SCORE PROPS: ', this.props),
       <div>
-        <Card style={styles.card}>
-          <div style={styles.carnival} >
-            <CardContent>
-              <span style={styles.title}>CARNIVAL SCREAM MACHINE</span>
-            </CardContent>
-          </div>
-        </Card>
-        {this.props.user ?
-          <Card style={styles.card}>
-            <CardHeader title="CURRENT LEVEL"/>
+        <Card style={styles.card} >
+          <Card style={styles.logo}>
+            <div style={styles.carnival} >
+              <CardContent>
+                <span style={styles.title}>CARNIVAL SCREAM MACHINE</span>
+              </CardContent>
+            </div>
+          </Card>
+          {this.props.user ?
+            <Card style={styles.scores}>
+              <CardHeader title="CURRENT LEVEL"/>
+                <Chip style={styles.chip} label={this.props.currentScore} />
+              <CardHeader title="HIGHEST LEVEL"/>
+                <Chip style={styles.chip} label={this.props.user.personalBest} />
+            </Card>
+            :
+            <Card style={styles.scores}>
+              <CardHeader title="Your Current Score!"/>
               <Chip style={styles.chip} label={this.props.currentScore} />
-            <CardHeader title="HIGHEST LEVEL"/>
-              <Chip style={styles.chip} label={this.props.user.personalBest} />
-          </Card>
-          :
-          <Card style={styles.card}>
-            <CardHeader title="Your Current Score!"/>
-            <Chip style={styles.chip} label={this.props.currentScore} />
-          </Card>
-        }
+            </Card>
+          }
+        </Card>
       </div>
     )
   };

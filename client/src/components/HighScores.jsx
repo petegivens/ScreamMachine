@@ -21,7 +21,8 @@ class HighScores extends React.Component {
     const styles = {
       card: {
         backgroundColor: primary,
-        textAlign: 'center'
+        textAlign: 'center',
+        height: 625
       }
     }
 
