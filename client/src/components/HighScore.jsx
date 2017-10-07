@@ -48,7 +48,7 @@ class HighScores extends React.Component {
 
   componentWillMount() {
     let github_username = this.props.highScore.github_username || 'a;sldkjfa;lsdfja;';
-    axios.get('https://api.github.com/users/' + github_username)
+    axios.get('https://api.github.com/users/' + github_username + '?access_token=633040c37db3c215b031e9396fcba1db58927ea2')
     .then( (user) => {
       this.setState({ userPic: user.data.avatar_url } )
     })
