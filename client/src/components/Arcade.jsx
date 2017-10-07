@@ -23,39 +23,49 @@ class Arcade extends React.Component {
     this.startOverLevel = this.startOverLevel.bind(this);
     this.nextLevel = this.nextLevel.bind(this);
 
+    this.timeouts = []
+
     floating({
-      content: "<img src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+      content: "<img src='models/red-balloon.png' />",
       number: 4,
       duration: 12,
-      size: 10
+      size: 16
     });
 
-    setTimeout(() => {
+    this.timeouts[0] = setTimeout(() => {
       floating({
-        content: "<img src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+        content: "<img src='models/red-balloon.png' />",
         number: 4,
         duration: 12,
-        size: 10
+        size: 16
       });
     }, 9000);
 
-    setTimeout(() => {
+    this.timeouts[1] = setTimeout(() => {
       floating({
-        content: "<img style='filter: hue-rotate(210deg);' src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
+        content: "<img src='models/blue-balloon.png' />",
         number: 3,
         duration: 16,
-        size: 12
+        size: 18
       });
     }, 1000);
 
-    setTimeout(() => {
+    this.timeouts[2] = setTimeout(() => {
       floating({
-        content: "<img style='filter: hue-rotate(120deg);' src='https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/96/balloon_1f388.png' />",
-        number: 2,
-        duration: 22,
-        size: 14
+        content: "<img src='models/yellow-balloon.png' />",
+        number: 3,
+        duration: 20,
+        size: 20
       });
     }, 2000);
+  }
+
+  componentWillUnmount() {
+    this.timeouts.forEach((timeout) => {
+      clearTimeout(timeout);
+    })
+    const elements = document.getElementsByClassName("float-container");
+    while (elements.length > 0) elements[0].remove();
   }
 
   componentWillMount() {
