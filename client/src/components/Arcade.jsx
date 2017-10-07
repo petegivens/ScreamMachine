@@ -29,7 +29,7 @@ class Arcade extends React.Component {
       content: "<img src='models/red-balloon.png' />",
       number: 4,
       duration: 12,
-      size: 10
+      size: 16
     });
 
     this.timeouts[0] = setTimeout(() => {
@@ -37,7 +37,7 @@ class Arcade extends React.Component {
         content: "<img src='models/red-balloon.png' />",
         number: 4,
         duration: 12,
-        size: 10
+        size: 16
       });
     }, 9000);
 
@@ -46,7 +46,7 @@ class Arcade extends React.Component {
         content: "<img src='models/blue-balloon.png' />",
         number: 3,
         duration: 16,
-        size: 12
+        size: 18
       });
     }, 1000);
 
@@ -55,7 +55,7 @@ class Arcade extends React.Component {
         content: "<img src='models/yellow-balloon.png' />",
         number: 3,
         duration: 20,
-        size: 14
+        size: 20
       });
     }, 2000);
   }
