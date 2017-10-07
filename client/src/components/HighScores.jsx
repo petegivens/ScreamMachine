@@ -11,17 +11,16 @@ import HighScore from './HighScore.jsx'
 class HighScores extends React.Component {
   constructor(props) {
     super(props)
-
   }
 
   render() {
 
     const { theme } = this.props;
-    console.log('props: ', this.props)
+    const primary = theme.palette.primary[500];
     const accent = theme.palette.secondary[200];
     const styles = {
       card: {
-        backgroundColor: accent,
+        backgroundColor: primary,
         textAlign: 'center'
       }
     }

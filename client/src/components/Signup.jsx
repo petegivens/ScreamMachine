@@ -73,11 +73,11 @@ class Signup extends React.Component {
   }
 
   render() {
-    const { classes, isLoggedIn } = this.props;
+    const { classes, isLoggedIn, page } = this.props;
     if (!isLoggedIn) {
       return (
         <div className="signupButton">
-          <Button raised color='accent' onClick={this.handleOpen}>Sign Up</Button>
+          <Button raised color={page === 'Arcade' ? 'accent' : 'primary'} onClick={this.handleOpen}>Sign Up</Button>
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
             <DialogTitle>{'Sign Up'}</DialogTitle>
             <DialogContent>

@@ -121,26 +121,11 @@ class App extends React.Component {
       });
   }
 
-  //handles all events from the nav bar
-  //PG - may need to rewrite all These
+  // handles all events from the nav bar
   navClickHandler(eventKey) {
-    if (eventKey === 'logout') {
-      this.setState({
-        user: null,
-        isLoggedIn: false
-      });
-      //should logout somehow (MAGIC, obviously)
-    } else if (eventKey === 'login') {
-      //displays login modal
-      this.setState({showLogin: true});
-    } else if (eventKey === 'signup') {
-      //displays signup modal
-      this.setState({showSignup: true});
-    } else if (eventKey === 'scream'){
-      this.setState({ page: 'scream' })
-    }else if (this.state.user !== null) {
+    if (this.state.user !== null) {
       if (eventKey === 'Profile') {
-        //renders profile page instead of scream page
+        //renders profile page instead of Legacy page
         this.setState({page: 'Profile'});
       } else if (eventKey === 'StressForm')  {
         //goes to daily stress form
@@ -151,7 +136,7 @@ class App extends React.Component {
 
   showLegacy() {
     if (this.state.page === 'Arcade'){
-      this.setState({ page: 'scream' })
+      this.setState({ page: 'Legacy' })
     } else {
       this.setState({ page: 'Arcade' })
     }
@@ -183,7 +168,7 @@ class App extends React.Component {
 
   render() {
     var page;
-    if (this.state.page === 'scream') {
+    if (this.state.page === 'Legacy') {
       page = <Scream user={this.state.user}/>;
     } else if (this.state.page === 'Arcade') {
       page = <Arcade user={this.state.user} updateUserScore={this.updateUserScore.bind(this)}/>;
