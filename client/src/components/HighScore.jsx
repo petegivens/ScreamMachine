@@ -28,7 +28,10 @@ const style = {
   container: {
   width: '100%',
   textAlign: 'center'
-}
+  },
+  dialog: {
+    textAlign: 'center'
+  }
 }
 
 class HighScores extends React.Component {
@@ -93,7 +96,7 @@ class HighScores extends React.Component {
         <ListItem button onClick={this.handleClickOpen}>
             {username ?
             <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-              <DialogTitle>Check out {this.props.highScore.first_name}'s Github</DialogTitle>
+              <DialogTitle style={style.dialog}>Check out {this.props.highScore.first_name}'s Github</DialogTitle>
                 <ListItem >
                   <ListItemAvatar>
                     <Avatar size={60} src={this.state.userPic}></Avatar>
@@ -105,7 +108,7 @@ class HighScores extends React.Component {
               </Dialog>
             :
             <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-              <DialogTitle>Check out {this.props.highScore.first_name}'s Github!</DialogTitle>
+              <DialogTitle style={style.dialog}>Check out {this.props.highScore.first_name}'s Github!</DialogTitle>
                 <ListItem >
                   <ListItemAvatar>
                     <Avatar size={60} src={this.state.userPic}></Avatar>

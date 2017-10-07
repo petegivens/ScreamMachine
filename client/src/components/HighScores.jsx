@@ -26,14 +26,14 @@ class HighScores extends React.Component {
       },
       paper: {
         backgroundColor: accent,
-        marginTop: '25%'
+        //marginTop: '25%'
       }
     }
 
     return (
       <div>
         <Card style={styles.card}>
-          <CardHeader title="HIGH SCORES"/>
+          <CardHeader title="HIGH LEVELS"/>
           <CardContent>
             <Paper style={styles.paper}>
               {this.props.highScores.map((highScore, i) => (
