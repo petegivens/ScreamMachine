@@ -29,6 +29,7 @@ class HighStriker extends React.Component {
   startRecording() {
     //show the countdown container
     this.refs.countdown.style.opacity = 1;
+    this.refs.bell.className = '';
 
     //set the volume back to 0
     this.setState({
@@ -84,6 +85,7 @@ class HighStriker extends React.Component {
         volume: volume,
         confetti: true
       });
+      this.refs.bell.className = 'ring';
       //stop the timeout from startRecording
       clearTimeout(this.state.timeout);
       this.stopRecording();
@@ -176,7 +178,7 @@ class HighStriker extends React.Component {
       <div className="striker" style={style.striker}>
         <Recorder ref="recorder" sensitivity={sensitivity} status={this.state.status} volumeListener={this.volumeListener.bind(this)} />
         <div style={style.machine}>
-          <div style={style.bell}>
+          <div ref="bell" style={style.bell}>
             <Confetti className="confetti" active={this.state.confetti} config={confettiConfig} />
             <div style={style.volume}>{this.state.volume}</div>
           </div>
