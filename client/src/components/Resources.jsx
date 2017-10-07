@@ -34,7 +34,7 @@ var Resources = () => {
             Chill Out
           </Typography>
           <Typography type="body2" style={styles.body}>
-            Here Are Some Resources To Staying Calm
+            Here Are Some Resources For Staying Calm
           </Typography>
         </CardContent>
         <CardActions>
