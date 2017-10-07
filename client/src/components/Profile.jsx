@@ -15,12 +15,13 @@ const styles = {
     fontSize: 16
   },
   card: {
-    maxWidth: 450,
+    maxWidth: 300,
+    height: 125
   },
   cardTitle: {
     textAlign: 'center',
-    fontSize: 22,
-    textDecoration: 'underline',
+    fontSize: 20,
+    fontWeight: 'bold',
     paddingBottom: 5
   },
   cardBody: {
@@ -28,16 +29,25 @@ const styles = {
     fontSize: 14
   },
   highStress: {
+    textAlign: 'center',
     fontWeight: 'bold',
-    color: 'rgb(250, 72, 4)'
+    fontSize: 30,
+    color: 'rgb(250, 72, 4)',
+    paddingTop: 5
   },
   averageStress: {
+    textAlign: 'center',
     fontWeight: 'bold',
-    color: 'rgb(222, 227, 2)'
+    fontSize: 30,
+    color: 'rgb(222, 227, 2)',
+    paddingTop: 5
   },
   lowStress: {
+    textAlign: 'center',
     fontWeight: 'bold',
-    color: 'rgb(115, 187, 5)'
+    fontSize: 30,
+    color: 'rgb(115, 187, 5)',
+    paddingTop: 5
   }
 }
 
@@ -127,27 +137,41 @@ class Profile extends React.Component {
       return d.id;
     };
     // have to hard code top
-    const stressLevel = this.state.stressLevel >=8  ? styles.highStress : (this.state.stressLevel > 5 && this.state.stressLevel <8) ? styles.averageStress : styles.lowStress;
+    const stressLevel = this.state.stressLevel >=8  ? styles.highStress : (this.state.stressLevel > 5.5 && this.state.stressLevel <8) ? styles.averageStress : styles.lowStress;
 
     return (
       <Grid container spacing={24}>
       	<Grid item xs={12}><Typography type="title" style={styles.title}>Hi {this.props.user.username}!</Typography></Grid>
-      	<Grid item xs={12}><Typography type="body1" style={styles.body}>Your average stress level is <b style={stressLevel}>{this.state.stressLevel}</b></Typography></Grid>
-      	<Grid item xs={12}><Typography type="body1" style={styles.body}>We have analzyed your data and think your top stressors are hanging out with <b> {this.state.top.people} </b> and  going to <b>{this.state.top.places}</b> </Typography></Grid>
-        <Grid item xs={12} container justify={'center'}>
-          <Card style={styles.card}>
-            <CardContent>
-              <Typography type="headline" component="h2" style={styles.cardTitle}>
-                Your Highest Stress Factors
-              </Typography>
-              <Typography type="body1" style={styles.cardBody}>
-                {this.state.top.people}
-              </Typography>
-              <Typography type="body1" style={styles.cardBody}>
-                {this.state.top.places}
-              </Typography>
-            </CardContent>
-          </Card>
+        <Grid item xs={12}>
+          <Grid item container justify={'center'} spacing={16}>
+            <Grid item>
+              <Card style={styles.card} raised={true}>
+                <CardContent>
+                  <Typography type="headline" component="h2" style={styles.cardTitle}>
+                    Top Stress Factors
+                  </Typography>
+                  <Typography type="body1" style={styles.cardBody}>
+                    {this.state.top.people}
+                  </Typography>
+                  <Typography type="body1" style={styles.cardBody}>
+                    {this.state.top.places}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item>
+              <Card style={styles.card} raised={true}>
+                <CardContent>
+                  <Typography type="headline" component="h2" style={styles.cardTitle}>
+                    Stress Score
+                  </Typography>
+                  <Typography type="body1" style={stressLevel}>
+                    {this.state.stressLevel}
+                  </Typography>
+                </CardContent>
+              </Card>
+              </Grid>
+              </Grid>
         </Grid>
       	<Grid item xs={12} container justify={'center'} style={{paddingTop: 45}}>
       	    <LineChart showXGrid={false} showYGrid={false} title={'Scream Volumes'} data={this.state.screams} width={700} height={300} chartSeries={chartSeries1} x={x} />

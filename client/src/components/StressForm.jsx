@@ -14,6 +14,7 @@ import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography';
 import Select from 'material-ui/Select';
 import { MenuItem } from 'material-ui/Menu';
+import Grid from 'material-ui/Grid'
 import axios from 'axios';
 
 
@@ -138,36 +139,36 @@ class StressForm extends React.Component {
 		})
 
 		return (
-			<div>
-			<form onSubmit={this.submit} id='stressform'>
-				<Typography type='title' className="formtitle"> Who Did You Hangout With Today? </Typography>
-					{peopleCheckbox}
-				<Typography type='title' className="formtitle"> Where Were You Today? </Typography>
-					{placeCheckbox}
-				<Typography type='title' className="formtitle"> How Stressed Were You Today? </Typography>
+			<Grid container justify={'center'}>
+  			<form onSubmit={this.submit} id='stressform'>
+  				<Typography type='title' className="formtitle"> Who Did You Hangout With Today? </Typography>
+  					{peopleCheckbox}
+  				<Typography type='title' className="formtitle"> Where Were You Today? </Typography>
+  					{placeCheckbox}
+  				<Typography type='title' className="formtitle"> How Stressed Were You Today? </Typography>
 
-				<Select
-					native
-					value={this.state.stressLevel}
-					onChange={this.stressLevel}
-					>
-						<option value='0'>0</option>
-						<option value='1'>1</option>
-						<option value='2'>2</option>
-						<option value='3'>3</option>
-						<option value='4'>4</option>
-						<option value='5'>5</option>
-						<option value='6'>6</option>
-						<option value='7'>7</option>
-						<option value='8'>8</option>
-						<option value='9'>9</option>
-						<option value='10'>10</option>
-				</Select>
-				<div id="formsubmit">
-					<Button raised type='submit'> Submit </Button>
-				</div>
-			</form>
-				</div>
+  				<Select
+  					native
+  					value={this.state.stressLevel}
+  					onChange={this.stressLevel}
+  					>
+  						<option value='0'>0</option>
+  						<option value='1'>1</option>
+  						<option value='2'>2</option>
+  						<option value='3'>3</option>
+  						<option value='4'>4</option>
+  						<option value='5'>5</option>
+  						<option value='6'>6</option>
+  						<option value='7'>7</option>
+  						<option value='8'>8</option>
+  						<option value='9'>9</option>
+  						<option value='10'>10</option>
+  				</Select>
+  				<div id="formsubmit">
+  					<Button raised type='submit'> Submit </Button>
+  				</div>
+  			</form>
+			</Grid>
 		)}
 
 }
