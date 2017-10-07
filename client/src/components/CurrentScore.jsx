@@ -4,6 +4,8 @@ import Grid from 'material-ui/Grid';
 import Chip from 'material-ui/Chip';
 import { withTheme } from 'material-ui/styles';
 import { yellow } from 'material-ui/colors';
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
 
 class CurrentScore extends React.Component {
   constructor(props) {
@@ -48,11 +50,13 @@ class CurrentScore extends React.Component {
       scores: {
         backgroundColor: primary,
         height: 425
+      },
+      paper: {
+        backgroundColor:  yellow[500],
       }
     }
 
     return (
-      console.log('CURRENT SCORE PROPS: ', this.props),
       <div>
         <Card style={styles.card} >
           <Card style={styles.logo}>
@@ -64,15 +68,20 @@ class CurrentScore extends React.Component {
           </Card>
           {this.props.user ?
             <Card style={styles.scores}>
-              <CardHeader title="CURRENT LEVEL"/>
-                <Chip style={styles.chip} label={this.props.currentScore} />
-              <CardHeader title="HIGHEST LEVEL"/>
-                <Chip style={styles.chip} label={this.props.user.personalBest} />
+              <Paper style={styles.paper}>
+                <CardHeader title="CURRENT LEVEL"/>
+                  <Chip style={styles.chip} label={this.props.currentScore} />
+                <Divider />
+                <CardHeader title="HIGHEST LEVEL"/>
+                  <Chip style={styles.chip} label={this.props.user.personalBest} />
+              </Paper>
             </Card>
             :
             <Card style={styles.scores}>
-              <CardHeader title="Your Current Score!"/>
-              <Chip style={styles.chip} label={this.props.currentScore} />
+              <Paper style={styles.paper}>
+                <CardHeader title="Your Current Score!"/>
+                <Chip style={styles.chip} label={this.props.currentScore} />
+              </Paper>
             </Card>
           }
         </Card>
