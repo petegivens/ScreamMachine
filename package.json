@@ -34,7 +34,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.1",
     "express-session": "^1.15.6",
-    "floating.js": "^2.7.4",
+    "floating.js": "git+https://git@github.com/rosswaycaster/floating.js.git",
     "material-ui": "^1.0.0-beta.13",
     "material-ui-icons": "^1.0.0-beta.15",
     "morgan": "^1.9.0",
