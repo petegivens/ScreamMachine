@@ -54,12 +54,12 @@ class Scream extends React.Component {
   }
 
   saveScream() {
-    if (this.props.user !== null) {
+    if (this.props.user.username !== null) {
       var context = this;
       axios.post('/addScream', {
         params: {
           volume: context.state.screamLevel,
-          username: context.props.user,
+          username: context.props.user.username,
           lowFreq: context.state.freqArray[0]/context.state.micRounds,
           midFreq: context.state.freqArray[1]/context.state.micRounds,
           highFreq: context.state.freqArray[2]/context.state.micRounds

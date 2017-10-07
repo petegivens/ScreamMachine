@@ -130,6 +130,8 @@ class App extends React.Component {
       } else if (eventKey === 'StressForm')  {
         //goes to daily stress form
         this.setState({page: 'StressForm'});
+      } else if (eventKey === 'Legacy') {
+        this.setState({page: 'Legacy'})
       }
     }
   }
