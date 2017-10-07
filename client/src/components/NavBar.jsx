@@ -13,7 +13,7 @@ import Signup from './Signup.jsx';
 import NavProfile from './NavProfile.jsx';
 
 const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup, page, navHandler}) => {
-    const background = page === 'Arcade' ? 'primary' : 'default';
+    const background = page === 'Arcade' ? 'primary' : 'accent';
     return (
       <AppBar position="absolute" color={background}>
         <Toolbar>
@@ -23,13 +23,14 @@ const NavBar = ({ showLegacy, login, logout, user, isLoggedIn, signup, page, nav
           {((page === 'scream' || page === 'Profile' || page === 'StressForm') && isLoggedIn) &&
           <NavProfile navHandler={navHandler}/>
           }
-          <Signup signup={signup} isLoggedIn={isLoggedIn}/>
+          <Signup signup={signup} isLoggedIn={isLoggedIn} page={page}/>
           <Login
           user={user}
           login={login}
           logout={logout}
           isLoggedIn={isLoggedIn}
           className="login"
+          page={page}
           />
         </Toolbar>
       </AppBar>

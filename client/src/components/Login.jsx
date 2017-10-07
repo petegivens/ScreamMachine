@@ -18,7 +18,6 @@ const styles = {
   }
 }
 
-
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -63,11 +62,11 @@ class Login extends React.Component {
   }
 
   render() {
-    const { classes, user, isLoggedIn } = this.props;
+    const { classes, user, isLoggedIn, page } = this.props;
     if (!isLoggedIn) {
       return (
         <div className="loginButton">
-          <Button raised color='accent' onClick={this.handleOpen}>Login</Button>
+          <Button raised color={page === 'Arcade' ? 'accent' : 'primary'} onClick={this.handleOpen}>Login</Button>
           <Dialog open={this.state.open} onRequestClose={this.handleClose}>
             <DialogTitle>{'Login'}</DialogTitle>
             <DialogContent>
