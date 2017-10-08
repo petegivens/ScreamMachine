@@ -3,6 +3,7 @@ import Recorder from './Recorder.js';
 import Confetti from 'react-dom-confetti';
 import Button from 'material-ui/Button';
 import { withTheme } from 'material-ui/styles';
+import { yellow } from 'material-ui/colors';
 
 const confettiConfig = {
   angle: 180,
@@ -114,7 +115,7 @@ class HighStriker extends React.Component {
         position: 'relative',
         display: 'block',
         height: 550,
-        backgroundColor: '#ffe401',
+        backgroundColor: yellow[500],
         width: 100,
         margin: 'auto',
         borderRadius: 2
