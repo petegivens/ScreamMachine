@@ -7,6 +7,7 @@ import HighScores from './HighScores.jsx';
 import CurrentScore from './CurrentScore.jsx';
 import floating from 'floating.js';
 
+
 class Arcade extends React.Component {
   constructor(props) {
     super(props);
@@ -99,29 +100,20 @@ class Arcade extends React.Component {
   }
 
   render() {
-    return (
-      <div>
+    return <div>
         <Grid container spacing={24}>
-          <Grid item xs={12} sm={4} lg={3}>
-            <CurrentScore user={this.props.user} currentScore={this.state.currentScore}/>
+          <Grid item xs={12} md={5} lg={3}>
+            <CurrentScore user={this.props.user} currentScore={this.state.currentScore} />
           </Grid>
-          <Grid item xs={12} sm={4} lg={6}>
+          <Grid item xs={12} md={7} lg={6}>
             <HighStriker setOpenLevelEnd={this.setOpenLevelEnd} currentScore={this.state.currentScore} />
           </Grid>
-          <Grid item xs={12} sm={4} lg={3}>
-            <HighScores highScores={this.state.highScores}/>
+          <Grid item lg={3} hidden={{ mdDown: true }}>
+            <HighScores highScores={this.state.highScores} hidden={{ mdDown: true }} />
           </Grid>
         </Grid>
-        <LevelEnd
-          currentScore={this.state.currentScore}
-          startOver={this.startOverLevel}
-          nextLevel={this.nextLevel}
-          open={this.state.openLevelEnd}
-          payload={this.state.payload}
-          user={this.props.user}
-           />
-      </div>
-    );
+        <LevelEnd currentScore={this.state.currentScore} startOver={this.startOverLevel} nextLevel={this.nextLevel} open={this.state.openLevelEnd} payload={this.state.payload} user={this.props.user} />
+      </div>;
   }
 }
 
