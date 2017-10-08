@@ -25,89 +25,39 @@ class CurrentScore extends React.Component {
     const styles = {
       card: {
         backgroundColor: primary,
-        textAlign: 'center',
-        height: 625
-      },
-      chip: {
-        fontSize: '18px',
-        fontWeight: 'bold',
-        margin: 'auto',
         textAlign: 'center'
-      },
-      title: {
-        color: accentDarker,
-        lineHeight: '50px',
-        /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-      },
-      // carnival: {
-      //   fontFamily: 'carnevalee',
-      //   fontSize: '52px',
-      //   textAlign: 'center',
-      //   // backgroundColor: yellow[500]
-      //   // margin: 20
-      // },
-      logo: {
-        backgroundColor: primary,
-        backgroundImage: `url('../../models/logo.png')`,
-        height: 200,
-        fontFamily: 'carnevalee',
-        fontSize: '52px',
-        textAlign: 'center',
-      },
-      scores: {
-        backgroundColor: primary,
-        height: 425,
-        padding: 20
-      },
-      paper: {
-        backgroundColor:  yellow[500]
       },
       logoImage: {
         maxWidth: '100%'
+      },
+      marginTop: {
+        marginTop: 20,
+        color: primary
       }
     }
 
+    const personalBest = this.props.user ? (
+      <Card raised={true} style={styles.card}>
+        <CardHeader title="HIGHEST LEVEL"/>
+        <CardContent>
+          <Chip label={this.props.user.personalBest} />
+        </CardContent>
+      </Card>
+    ) : null;
+    
 
   return (
       <div>
-
-        <Card style={styles.logo}>
+        <Card>
           <img style={styles.logoImage} src="../../models/logo.png" />
         </Card>
-
-        { this.props.user &&
-          <Card style={styles.scores}>
-            <Paper style={styles.paper}>
-              <List>
-                <div>
-                  <ListItem >
-                    <CardHeader title="CURRENT LEVEL"/>
-                    <CardContent >
-                      <Chip style={styles.chip} label={this.props.currentScore} />
-                    </CardContent>
-                  </ListItem>
-                </div>
-              <Divider />
-                <div>
-                  <ListItem>
-                    <CardHeader title="HIGHEST LEVEL"/>
-                    <CardContent>
-                      <Chip style={styles.chip} label={this.props.user.personalBest} />
-                    </CardContent>
-                  </ListItem>
-                </div>
-              </List>
-            </Paper>
-          </Card>
-        }
-
-          <Card style={styles.scores}>
-            <Paper style={styles.paper}>
-              <CardHeader title="CURRENT LEVEL"/>
-              <Chip style={styles.chip} label={this.props.currentScore} />
-            </Paper>
-          </Card>
-
+        <Card raised={true} style={Object.assign({}, styles.card, styles.marginTop)}>
+          <CardHeader title="CURRENT LEVEL"/>
+          <CardContent >
+            <Chip label={this.props.currentScore} />
+          </CardContent>
+        </Card>
+        { personalBest }
       </div>
     )
   };
