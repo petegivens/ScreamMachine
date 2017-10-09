@@ -86,11 +86,9 @@ class HighScores extends React.Component {
     this.setState({userPic : url })
   }
 
-
-
-
   render() {
     var username = this.props.highScore.github_username
+
     return(
       <div>
         <ListItem button onClick={this.handleClickOpen}>

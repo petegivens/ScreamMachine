@@ -100,7 +100,7 @@ class Arcade extends React.Component {
 
   render() {
     return <div>
-        <Grid container spacing={24}>
+        <Grid container justify='center' spacing={24}>
           <Grid item xs={9} md={5} lg={3}>
             <CurrentScore user={this.props.user} currentScore={this.state.currentScore} />
           </Grid>
