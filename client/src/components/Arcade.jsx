@@ -7,7 +7,6 @@ import HighScores from './HighScores.jsx';
 import CurrentScore from './CurrentScore.jsx';
 import floating from 'floating.js';
 
-
 class Arcade extends React.Component {
   constructor(props) {
     super(props);
@@ -102,10 +101,10 @@ class Arcade extends React.Component {
   render() {
     return <div>
         <Grid container spacing={24}>
-          <Grid item xs={12} md={5} lg={3}>
+          <Grid item xs={9} md={5} lg={3}>
             <CurrentScore user={this.props.user} currentScore={this.state.currentScore} />
           </Grid>
-          <Grid item xs={12} md={7} lg={6}>
+          <Grid item xs={9} md={7} lg={6}>
             <HighStriker setOpenLevelEnd={this.setOpenLevelEnd} currentScore={this.state.currentScore} />
           </Grid>
           <Grid item lg={3} hidden={{ mdDown: true }}>
