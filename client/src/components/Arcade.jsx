@@ -4,7 +4,7 @@ import Grid from 'material-ui/Grid';
 import HighStriker from './HighStriker.jsx';
 import LevelEnd from './LevelEnd.jsx';
 import HighScores from './HighScores.jsx';
-import CurrentScore from './CurrentScore.jsx';
+import LeftColumn from './LeftColumn.jsx';
 import floating from 'floating.js';
 
 class Arcade extends React.Component {
@@ -90,19 +90,19 @@ class Arcade extends React.Component {
   }
 
   nextLevel() {
-    var nextLevel = this.state.currentScore + 1;
+    var nextLevel = this.state.curentScore + 1;
     this.setState({
       currentScore: nextLevel,
       openLevelEnd: false
     });
-    this.props.updateUserScore(this.state.currentScore);
+    this.props.updateUserScore(this.state.curentScore);
   }
 
   render() {
     return <div>
-        <Grid container justify='center' spacing={24}>
+        <Grid container justify='center'>
           <Grid item xs={9} md={5} lg={3}>
-            <CurrentScore user={this.props.user} currentScore={this.state.currentScore} />
+            <LeftColumn user={this.props.user} currentScore={this.state.currentScore} />
           </Grid>
           <Grid item xs={9} md={7} lg={6}>
             <HighStriker setOpenLevelEnd={this.setOpenLevelEnd} currentScore={this.state.currentScore} />

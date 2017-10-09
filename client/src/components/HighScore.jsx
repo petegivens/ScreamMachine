@@ -1,7 +1,12 @@
 import React from 'react';
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
-import List, { ListItem, ListItemText, ListItemAvatar } from 'material-ui/List';
+import List, {
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  ListItemSecondaryAction
+} from "material-ui/List";
 import axios from 'axios';
 import Divider from 'material-ui/Divider';
 import Dialog, {
@@ -11,28 +16,6 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 
-const style = {
-  chip: {
-    fontSize: '18px',
-    fontWeight: 'bold',
-    margin: '2px',
-    textAlign: 'center'
-  },
-  listItem: {
-    'float': 'left'
-  },
-  a: {
-    fontSize: '24px',
-    textAlign: 'center'
-  },
-  container: {
-  width: '100%',
-  textAlign: 'center'
-  },
-  dialog: {
-    textAlign: 'center'
-  }
-}
 
 class HighScores extends React.Component {
   constructor(props) {
@@ -40,24 +23,13 @@ class HighScores extends React.Component {
     this.state = {
       open: false
     }
-    this.randomPicGenerator = this.randomPicGenerator.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
-    this.handleClickOpen = this.handleClickOpen.bind(this)
-
+    this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
   }
 
   componentWillMount() {
-    let github_username = this.props.highScore.github_username || 'a;sldkjfa;lsdfja;';
-    axios.get('https://api.github.com/users/' + github_username + '?access_token=633040c37db3c215b031e9396fcba1db58927ea2')
-    .then( (user) => {
-      this.setState({ userPic: user.data.avatar_url } )
-    })
-    .catch( (err) => {
-      this.randomPicGenerator()
-    })
-  }
-
-
+    this.randomPicGenerator()
+  };
 
   handleClickOpen() {
     this.setState({ open: true });
@@ -66,7 +38,6 @@ class HighScores extends React.Component {
   handleRequestClose() {
     this.setState({ open: false });
   };
-
 
   randomPicGenerator() {
     var url = '';
@@ -87,45 +58,34 @@ class HighScores extends React.Component {
   }
 
   render() {
-    var username = this.props.highScore.github_username
-
-    return(
+    const { highScore } = this.props;
+    return (
       <div>
+        <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
+          <DialogTitle>
+            Whoa, what a great score!
+          </DialogTitle>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar size={60} src={this.state.userPic} />
+            </ListItemAvatar>
+            <ListItemText primary={`${highScore.first_name} reached level ${highScore.score} on (date)`} />
+          </ListItem>
+        </Dialog>
+
         <ListItem button onClick={this.handleClickOpen}>
-            {username ?
-            <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-              <DialogTitle style={style.dialog}>Check out {this.props.highScore.first_name}'s Github</DialogTitle>
-                <ListItem >
-                  <ListItemAvatar>
-                    <Avatar size={60} src={this.state.userPic}></Avatar>
-                  </ListItemAvatar>
-                  <div style={style.container}>
-                   <a style={style.a} href={`https://www.github.com/${username}`}>Click Here!</a>
-                  </div>
-                </ListItem>
-              </Dialog>
-            :
-            <Dialog open={this.state.open} onRequestClose={this.handleRequestClose}>
-              <DialogTitle style={style.dialog}>Check out {this.props.highScore.first_name}'s Github!</DialogTitle>
-                <ListItem >
-                  <ListItemAvatar>
-                    <Avatar size={60} src={this.state.userPic}></Avatar>
-                    </ListItemAvatar>
-                   <ListItemText primary={'It looks like this user doesn\'t have a github profile'} />
-                </ListItem>
-              </Dialog>
-            }
           <ListItemAvatar>
-            <Avatar  size={30} src={this.state.userPic} />
+            <Avatar size={30} src={this.state.userPic} />
           </ListItemAvatar>
-          <ListItemText style={style.listItem} primary={`${this.props.highScore.first_name || 'Steve'}: ${this.props.highScore.score}`} />
+          <ListItemText primary={`${this.props.highScore.first_name}`} />
+          <ListItemSecondaryAction>
+            <ListItemText primary={this.props.highScore.score} />
+          </ListItemSecondaryAction>
         </ListItem>
         <Divider />
       </div>
-    );
+    )
   };
 };
-
-                    // <ListItemText primary= {`github.com/${this.props.highScore.username}`} />
 
 export default HighScores;

@@ -10,7 +10,7 @@ import Typography from "material-ui/Typography";
 import Hidden from "material-ui/Hidden";
 import PersonalBest from "./PersonalBest.jsx";
 
-class CurrentScore extends React.Component {
+class LeftColumn extends React.Component {
   render() {
     const { theme } = this.props;
     const primary = theme.palette.primary[500];
@@ -19,7 +19,7 @@ class CurrentScore extends React.Component {
       card: {
         backgroundColor: primary,
         textAlign: "center",
-        marginTop: 40
+        marginTop: 20
       },
       logoImage: {
         maxWidth: "100%"
@@ -36,30 +36,30 @@ class CurrentScore extends React.Component {
 
     return (
       <div>
-        { logo }
-        <Card raised={true} style={styles.card}>
-          <Grid container justify={"space-between"}>
-            <Grid item>
-              <CardHeader title="CURRENT LEVEL" />
+          { logo }
+          <Card raised={true} style={styles.card}>
+            <Grid container justify={"space-between"}>
+              <Grid item>
+                <CardHeader title="CURRENT LEVEL" />
+              </Grid>
+              <Grid item>
+                <CardContent>
+                  <Chip
+                    label={this.props.currentScore}
+                    style={{
+                      margin: "auto"
+                    }}
+                  />
+                </CardContent>
+              </Grid>
             </Grid>
-            <Grid item>
-              <CardContent>
-                <Chip
-                  label={this.props.currentScore}
-                  style={{
-                    margin: "auto"
-                  }}
-                />
-              </CardContent>
-            </Grid>
-          </Grid>
-        </Card>
-        {this.props.user && (
-          <PersonalBest personalBest={this.props.user.personalBest} />
-        )}
+          </Card>
+          {this.props.user && (
+            <PersonalBest personalBest={this.props.user.personalBest} />
+          )}
       </div>
     );
   }
 }
 
-export default withTheme()(CurrentScore);
+export default withTheme()(LeftColumn);
